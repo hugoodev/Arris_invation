@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:each="productos : ${productos}" th:text="'Lipem´s.in Producto - ' + ${productos.nombre}"></title>
+    <!--Bootstrap Styles-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!--Page Styles-->
+    <link rel="stylesheet" href="../css/styleIndex.css">
+    <!--Bootstrap Icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <!--Slide Productos Recientes Styles-->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+</head>
+<body>
+<!--Inicio de Menu-->
+<nav class="navbar navbar-expand-lg navbar-light sticky-top color-menu">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+            <img th:src="@{../img/Logo Mauricio png.png}" alt="" width="60" class="d-inline-block align-text-center ">
+            <span class="badge">Lipem's.in</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse  justify-content-end" id="navbarNav">
+            <ul class="navbar-nav nav-tabs">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link" aria-current="page">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./nosotros.html" class="nav-link" aria-current="page">Nosotros</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Productos</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item active" href="../templates/hombre.html">Hombre</a></li>
+                        <li><a class="dropdown-item" href="../templates/mujer.html">Mujer</a></li>
+                        <li><a class="dropdown-item" href="../templates/nino.html">Niño</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="./pqr.html" class="nav-link">PQR</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./contacto.html" class="nav-link">Contacto</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="bi bi-person"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="../../interfaz_administrador/interfaz_administrador.html">Administrador</a></li>
+                        <li><a class="dropdown-item" href="../../interfaz_empleado/interfaz_empleado.html">Empleados</a></li>
+                        <li><a class="dropdown-item" href="../../interfaz_cliente/interfaz_cliente.html">Clientes</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn  position-relative">
+                        <i class="bi bi-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  9+
+                  <span class="visually-hidden">unread messages</span>
+                </span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <a href="./manual_coorporativo.html" class="nav-link"><i class="bi bi-patch-question"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container marketing">
+    <!--Title Page Content-->
+    <div class="p-3">
+        <h1 class="bd-title text-center" th:each="productos : ${productos}" th:text="${productos.nombre}"></h1>
+    </div>
+    <div th:each="productos : ${productos}" th:if="${productos.estado} != 'Activo' or ${productos.disponibles} == 0 or ${productos.disponibles} == null">
+        <div class="alert alert-danger">Este producto no se encuentra disponible en este momento
+        </div>
+    </div>
+    <!--division-->
+    <hr class="featurette-divider">
+    <!--content page-->
+    <div id="col-div" class="row justify-content-center">
+        <div class="col-change col-2 one border border-2 rounded-3 pad-img"><img width="100%" onclick="cambio(1)" src="../../img/imagenes_ventas_pagina/IMG_20210318_190051966_MP.png" alt=""></div>
+        <div class="col-change col-2 two border border-2 rounded-3 pad-img"><img width="100%" onclick="cambio(2)" src="../../img/imagenes_ventas_pagina/IMG_20210318_190250526.png" alt=""></div>
+        <div class="col-change col-2 three border border-2 rounded-3 pad-img"><img width="100%" onclick="cambio(3)" src="../../img/imagenes_ventas_pagina/IMG_20210318_190426229.png" alt=""></div>
+    </div>
+    <div class="row justify-content-center ">
+        <div class="col-md-6 align-self-start " >
+            <img width="100%" id="it" class="demo" th:each="productos : ${productos}" onclick="transicion();"  th:src="@{'/recursos/' + ${productos.imagen}}" alt="">
+        </div>
+        <div class="col-md-6 align-self-center text-center ">
+            <div  class="card" style="width: 100%;">
+                <svg id="zoom-img-card" class="bd-placeholder-img card-img-top repose" width="100%" height="420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title th:each="productos : ${productos}"  th:text="${productos.nombre}">Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em"></text></svg>
+
+                <div class="card-body">
+                    <i class="bi bi-patch-check" style="color: green;"></i><p class="card-text" th:each="productos : ${productos}" th:text="${productos.nombre}"></p>
+                    <i class="bi bi-patch-check" style="color: green;" th:each="productos : ${productos}" th:if="${productos.disponibles} != null and ${productos.disponibles} != 0 and ${productos.estado} == 'Activo'"></i><p class="card-text" th:each="productos : ${productos}" th:if="${productos.disponibles} != null and ${productos.disponibles} != 0 and ${productos.estado} == 'Activo'" th:text="'Stock: '+${productos.disponibles}"></p>
+                    <i class="bi bi-patch-check" style="color: green;" th:each="productos : ${productos}" th:if="${productos.estado} != 'Activo' or ${productos.disponibles} == 0 or ${productos.disponibles} == null"></i><p class="card-text" th:each="productos : ${productos}" th:if="${productos.estado} != 'Activo' or ${productos.disponibles} == 0 or ${productos.disponibles} == null" th:text="'No hay disponibilidad de productos'"></p>
+                    <i class="bi bi-patch-check" style="color: green;" th:each="productos : ${productos}" th:if="${productos.disponibles} != null and ${productos.disponibles} != 0 and ${productos.estado} == 'Activo'"></i><p class="card-text" th:each="productos : ${productos}" th:if="${productos.disponibles} != null and ${productos.disponibles} != 0 and ${productos.estado} == 'Activo'" th:text="'Precio: '+${productos.precio}"></p>
+                    <i class="bi bi-patch-check" style="color: green;" th:each="productos : ${productos}" th:if="${productos.disponibles} != null and ${productos.disponibles} != 0 and ${productos.estado} == 'Activo'"></i>
+                    <div class="card-text">
+                    <h5>Cantidad</h5>
+                    <ul class="flex-column">
+                        <select class="form-select" aria-label="Default select example" id="cantidad" name="cantidad" required>
+                            <option value="" selected>Abre para seleccionar la cantidad</option>
+                            <option th:each="disponibles : ${disponibles}" th:text="${disponibles}" th:value="${disponibles}"></option>
+                        </select>
+                    </ul>
+                </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="button" style="background-color: #fde703; color: black;" th:each="productos : ${productos}" th:if="${productos.disponibles} != null and ${productos.disponibles} != 0 and ${productos.estado} == 'Activo'">Añadir al carrito <i class="bi bi-cart3"></i></button>
+                        <button class="btn btn-primary" type="button" style="background-color: #fde703; color: black;" th:each="productos : ${productos}" th:if="${productos.estado} != 'Activo' or ${productos.disponibles} == 0 or ${productos.disponibles} == null" disabled>No disponible <i class="bi bi-cart3"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Footer inicio-->
+<div class="footer-color">
+    <div class="container">
+        <footer class="py-5">
+            <div class="row">
+                <div class="col-4">
+                    <h5>Ropa</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="./mujer.html" class="nav-link p-0 text-muted">Mujer</a></li>
+                        <li class="nav-item mb-2"><a href="./hombre.html" class="nav-link p-0 text-muted">Hombre</a></li>
+                        <li class="nav-item mb-2"><a href="./nino.html" class="nav-link p-0 text-muted">Niño</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-4">
+                    <h5>Nosotros</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="../templates/manual_coorporativo.html" class="nav-link p-0 text-muted">Manual Coorporativo</a></li>
+                        <li class="nav-item mb-2"><a href="../templates/nosotros.html  " class="nav-link p-0 text-muted">¿Quienes Somos?</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-4">
+                    <h5>Login</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="../../interfaz_administrador/interfaz_administrador.html" class="nav-link p-0 text-muted">Administrador</a></li>
+                        <li class="nav-item mb-2"><a href="../../interfaz_empleado/interfaz_empleado.html" class="nav-link p-0 text-muted">Empleados</a></li>
+                        <li class="nav-item mb-2"><a href="../../interfaz_cliente/interfaz_cliente.html" class="nav-link p-0 text-muted">Clientes</a></li>
+                    </ul>
+                </div>
+
+
+            </div>
+
+            <div class="d-flex justify-content-between py-4 my-4 border-top border-dark">
+                <a href="../index.html" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                    <img src="./logo/Logo Mauricio png.png" alt="" width="35">
+                    <span class="text-muted">© 2022 Lipem's.in</span>
+                </a>
+                <ul class="list-unstyled d-flex">
+                    <li class="ms-3"><a class="link-dark" href="#"><i class="bi bi-whatsapp"></i></a></li>
+                    <li class="ms-3"><a class="link-dark" href="#"><i class="bi bi-facebook"></i></a></li>
+                    <li class="ms-3"><a class="link-dark" href="#"><i class="bi bi-instagram"></i></a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!--Footer final-->
+</body>
+<!--Scripts-->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha384-JUMjoW8OzDJw4oFpWIB2Bu/c6768ObEthBMVSiIx4ruBIEdyNSUQAjJNFqT5pnJ6" crossorigin="anonymous"></script>
+<script th:src="@{js/zoomsl.js}"></script>
+<!--Initialize Zooms1-->
+<script>
+    function zoomChangeWidth(){
+      let anchoPantalla = innerWidth;
+    if(anchoPantalla > 1000){
+      let img = document.getElementById("zoom-img-card");
+      img.setAttribute('style', 'display: block !important;');
+      jQuery(function(){
+
+    // если отсутсвует zoomsl-3.0.min.js
+  if(!$.fn.imagezoomsl){
+
+    $('.msg').show();
+    return;
+  }
+     else $('.msg').hide();
+
+
+  // инициализация плагина
+  $('.demo').imagezoomsl({
+
+    descarea: ".repose",
+    zoomrange: [1, 12],
+    magnifiereffectanimate: "fadeIn",
+    magnifierborder: "none"
+  });
+});
+    }
+    else{
+      if(anchoPantalla < 1000){
+        let img = document.getElementById("zoom-img-card");
+        /* img.style.display = "none !important" */
+        img.setAttribute('style', 'display: none !important;');
+      }
+    }
+    }
+    zoomChangeWidth();
+
+    </script>
+<!--Change IMG-->
+<script >
+      cont=550;
+      document.getElementById("it").style.top = "450px";
+      function cambio(imagen){
+          direccion=new Array();
+          direccion[1]=src="../../img/imagenes_ventas_pagina/IMG_20210318_190051966_MP.png";
+          direccion[2]=src="../../img/imagenes_ventas_pagina/IMG_20210318_190250526.png";
+          direccion[3]=src="../../img/imagenes_ventas_pagina/IMG_20210318_190426229.png";
+          document.getElementById("it").src=direccion[imagen];
+      }
+
+      $('#col-div .one').addClass('border-info');
+      $('.col-change').click(function(){
+        $('.col-change').removeClass('border-info');
+        $(this).addClass('border-info');
+      })
+
+    </script>
+<!--cambio de col-->
+<script src="../../js/img-change.js"></script>
+</html>

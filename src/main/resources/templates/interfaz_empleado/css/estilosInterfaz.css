@@ -1,0 +1,167 @@
+body {
+    background: #f1f1f1;
+}
+
+#logo{
+	height: 50px;
+}
+
+.barra {
+    background: #f5A700;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    margin: 0;
+}
+.barra1 {
+    background: #f5A700;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    margin: 0;
+}
+.boton{
+	float: right;
+}
+
+
+.dropdown-menu {
+    margin: 17px;
+    background: #424242;
+    color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.568);
+}
+
+.menuperfil {
+    color: white;
+}
+
+.menuperfil:focus {
+    background: #23ae6b;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.568);
+}
+
+.cerrar:hover {
+    background-color: whitesmoke;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.568);
+}
+
+.user {
+    font-size: 35px;
+}
+
+
+.barra-lateral {
+    background: #222222;
+    color: #fff;
+    min-width: 250px;
+    min-height: 100%;
+    padding: 0;
+}
+
+.barra-lateral a {
+    color: #fff;
+}
+
+
+.barra-lateral .menu a {
+    display: block;
+    padding: 20px;
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
+
+.barra-lateral .menu a:hover {
+    background-color: #003C5D;
+    text-decoration: none;
+}
+
+.active {
+    background: #003C5D;
+}
+
+.barra-lateral .menu {
+    border-top: 0px #fff solid;
+}
+
+.barra-lateral .menu a i {
+    margin-right: 20px;
+}
+
+.main {
+    padding-top: 40px;
+}
+
+.main .columna {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+
+@media screen and (max-width:750px) {
+    .barra-lateral {
+        min-width: auto;
+    }
+    .barra-lateral .menu a span {
+        display: none;
+    }
+    .barra-lateral .menu a i {
+        margin: 0;
+    }
+    .barra {
+        min-width: auto;
+    }
+    .dropdown-menu {
+        margin: 20px -79px 0px;
+    }
+}
+
+@media screen and (max-width:575px) {
+    .barra-lateral {
+        min-height: auto;
+    }
+    .barra-lateral .menu a {
+        display: inline-block;
+        border-bottom: none;
+    }
+    .dropdown-menu {
+        margin: 20px -78px 0px;
+    }
+    .logocppe {
+        width: 100%;
+    }
+    body {
+        background: #D3D3D3;
+        font-size: 16px;
+        overflow: visible;
+    }
+}
+
+.formulariorecursos {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.568);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.menu {
+    border-top: 5px #fff solid;
+}
+
+@media screen and (max-width:575px) {
+    .barra-lateral {
+        height: auto;
+    }
+    .barra-lateral.menu a {
+        display: inline-block;
+        border-bottom: none;
+    }
+    .dropdown-menu {
+        margin: 20px -78 0px;
+    }
+    body {
+        font-size: 16px;
+        overflow: visible;
+    }
+}
+button.btn {
+    background-color: #f5A700;
+}

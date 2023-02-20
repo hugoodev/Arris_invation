@@ -1,0 +1,388 @@
+<div th:replace="interfaz_administrador/templates/header"></div>
+<body>
+<!-- Modal de detalle de venta -->
+<div class="modal fade" th:id="'exampleModal'+${pedido.idDetallePedido}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" th:each="pedido : ${pedido}">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" th:text="'Detalle de Venta #'+${pedido.idDetallePedido}"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <h5><strong>Nombre Cliente:</strong><p th:text="${pedido.pedido.cliente.nombre}"></p></h5>
+            <h5><strong>Nombre Vendedor:</strong><p th:text="${pedido.pedido.empleado.nombre}"></p></h5>
+            <h5><strong>Producto:</strong><p th:text="${pedido.producto.nombre}"></p></h5>
+            <h5><strong>Cantidad:</strong><p th:text="${pedido.cantidad}"></p></h5>
+            <h5><strong>Precio por unidad:</strong><p th:text="${pedido.precio}"></p></h5>
+            <h5><strong>Total:</strong><p th:text="'$'+${pedido.total}"></p></h5>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Fin Modal de detalle de venta-->
+<!-- Modal insertar venta-->
+<div class="modal fade" id="modalIngresarVenta" tabindex="-1" aria-labelledby="modalIngresarVenta" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalIngresarVenta">Ingresar Nueva Venta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <button type="submit" class="btn m-2" data-bs-target="#modalCrearPedido" data-bs-toggle="modal">Crear Nuevo Pedido</button><button type="submit" class="btn m-2" data-bs-target="#modalCrearVenta" data-bs-toggle="modal">Crear una Venta en un Pedido Ya Existente</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Fin de modal insertar venta-->
+
+<!-- Modal crear pedido-->
+<div class="modal fade" id="modalCrearPedido" tabindex="-1" aria-labelledby="modalCrearPedido" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCrearPedidos">Crear Nuevo Pedido</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <button type="submit" class="btn m-2" data-bs-target="#modalIngresarVenta" data-bs-toggle="modal">Volver al Menu</button>
+        <hr>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Cliente Nuevo
+              </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body">
+                <form th:action="@{/guardar_nuevo_usuario}" th:object="${usuario}" method="post">
+                  <div class="row">
+                    <div class="col-6">
+                      <h5>Cedula De Ciudadania</h5>
+                      <ul class="nav flex-column">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="addon-wrapping"><i class="bi bi-receipt"></i></span>
+                          <input type="number" class="form-control" placeholder="N° Cedula" aria-label="idUsuario" name="idUsuario" id="idUsuario" aria-describedby="basic-addon1" min="0" onkeypress="return check(event)"  required>
+                        </div>
+                      </ul>
+                    </div>
+                    <div class="col-6">
+                      <h5>Nombre</h5>
+                      <ul class="nav flex-column">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="addon-wrapping"><i class="bi bi-receipt"></i></span>
+                          <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre" name="nombre" id="nombre" aria-describedby="basic-addon1" maxlength="256"  required>
+                        </div>
+                      </ul>
+                    </div>
+                    <div class="col-6">
+                      <h5>Telefono</h5>
+                      <ul class="nav flex-column">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="addon-wrapping"><i class="bi bi-receipt"></i></span>
+                          <input type="number" class="form-control" placeholder="N° Telefono" aria-label="telefono" name="telefono" id="telefono" onkeypress="return check(event)"  aria-describedby="basic-addon1" min="0" required>
+                        </div>
+                      </ul>
+                    </div>
+                    <div class="col-6">
+                      <h5>Correo Electronico</h5>
+                      <ul class="nav flex-column">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="addon-wrapping"><i class="bi bi-receipt"></i></span>
+                          <input type="email" class="form-control" placeholder="ejemplo@gmail.com" aria-label="email" name="email" id="email" aria-describedby="basic-addon1" required>
+                        </div>
+                      </ul>
+                    </div>
+                    <div class="col-6">
+                      <h5>Dirección</h5>
+                      <ul class="nav flex-column">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="addon-wrapping"><i class="bi bi-receipt"></i></span>
+                          <input type="text" class="form-control" placeholder="Dirección" aria-label="direccion" name="direccion" id="direccion" aria-describedby="basic-addon1" maxlength="256"   required>
+                        </div>
+                      </ul>
+                    </div>
+                    <div class="col-6" hidden>
+                      <h5>Contraseña</h5>
+                      <ul class="nav flex-column">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="addon-wrapping"><i class="bi bi-receipt"></i></span>
+                          <input type="text" class="form-control" placeholder="password" aria-label="password" name="password" id="password" aria-describedby="basic-addon1" maxlength="256" >
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-secondary">Enviar</button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+              Cliente Existente
+            </button>
+          </h2>
+          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <form th:action="@{/guardar_nuevo_pedido_existente_empleado}" th:object="${pedido}" method="post">
+                <div class="row">
+                  <div class="col-6">
+                    <h5>Cliente</h5>
+                    <ul class="nav flex-column">
+                      <select class="form-select" aria-label="Default select example" id="cliente" name="cliente" required>
+                        <option value="" selected>Abre para seleccionar un cliente</option>
+                        <option   th:value="${cliente.idUsuario}" th:each="cliente : ${cliente}"  th:text="${cliente.nombre}" ></option>
+                      </select>
+                    </ul>
+                  </div>
+                  <div class="col-6">
+                    <h5>Empleado</h5>
+                    <ul class="nav flex-column">
+                      <select class="form-select" aria-label="Default select example" id="empleado" name="empleado" required>
+                        <option value="" selected>Abre para seleccionar un empleado</option>
+                        <option th:value="${empleado.idUsuario}" th:each="empleado : ${empleado}"  th:text="${empleado.nombre}">1</option>
+                      </select>
+                    </ul>
+                  </div>
+                  <input type="date" name="fecha" id="fecha" hidden>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-secondary">Enviar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+  </div>
+</div>
+</div>
+</div>
+<!--Fin de modal crear pedido-->
+
+<!-- Modal crear venta-->
+
+<div class="modal fade" id="modalCrearVenta" tabindex="-1" aria-labelledby="modalCrearVenta" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCrearPedidos">Crear Venta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <button type="submit" class="btn m-2" data-bs-target="#modalIngresarVenta" data-bs-toggle="modal">Volver al Menu</button>
+        <table  class="table table-striped table-hover">
+          <thead>
+          <tr>
+            <th scope="col">#ID Pedido</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Envio</th>
+            <th scope="col">Acciones</th>
+          </tr>
+          </thead>
+          <tbody>
+          <form th:action="@{/guardar_nueva_venta_empleado}" method="post">
+          <button class="btn m-2" type="submit">Realizar Venta</button>
+          <tr th:each="arrays : ${arrays}">
+            <td th:text="${arrays.pedido.idPedido}"><input type="text" name="pedido" th:value="${arrays.pedido.idPedido}" hidden></td>
+            <td th:text="${arrays.producto.nombre}"><input type="text" name="producto" th:value="${arrays.producto.nombre}" hidden></td>
+            <td th:text="${arrays.cantidad}"><input type="text" name="cantidad" th:value="${arrays.cantidad}" hidden></td>
+            <td th:text="${arrays.envio}"><input type="text" name="envio" th:value="${arrays.envio}" hidden></td>
+
+            <td><a th:href="@{/eliminar_venta_lista_empleado}+'?action=delete&id='+${arrays.idDetallePedido}" class="btn m-2 btn-warning" style="background-color:#dc3545; color:white;" title="eliminar"><i class="bi bi-x-square"></i></a>
+              <p th:if="${arrays} == null">no hay ventas agregadas</p>
+          </tr>
+          </form>
+          </tbody>
+        </table>
+        <center><th:block th:if="${#lists.isEmpty(arrays)}">No hay ventas agregadas aun...<i class="bi bi-cart-x"></i></th:block></center>
+        <h5 th:each="totalsum : ${totalsum}" th:text="'Total: ' + ${totalsum}">Total: </h5>
+        <hr>
+        <form th:action="@{/agregar_productos_empleado}" method="post">
+          <div class="row">
+            <div class="col-6">
+              <h5>ID PEDIDO</h5>
+              <ul class="nav flex-column">
+                <select class="form-select" aria-label="Default select example" id="pedido" name="pedido" required>
+                  <option value="" selected>Abre para seleccionar un cliente</option>
+                  <option   th:value="${mostrarPedidos.idPedido}" th:each="mostrarPedidos : ${mostrarPedidos}"  th:text="${mostrarPedidos.idPedido}" ></option>
+                </select>
+              </ul>
+            </div>
+            <div class="col-6">
+              <h5>Producto</h5>
+              <ul class="nav flex-column">
+                <select class="form-select" aria-label="Default select example" name="producto" id="producto" required>
+                  <option value="" selected>Abre para seleccionar el producto</option>
+                  <option th:id="'pr'+${producto.idProducto}" th:value="${producto.idProducto}" th:each="producto : ${producto}" th:text="${producto.nombre}"></option>
+                </select>
+              </ul>
+              <span class="badge bg-warning text-dark"><div>Valor unitario:</div><div th:each="producto : ${producto}" th:text="${producto.precio}" th:data-value="${producto.idProducto}" class="precio d-none" ></div></span>
+            </div>
+            <div class="col-6">
+              <h5>Cantidad</h5>
+              <ul class="nav flex-column">
+                <select class="form-select" aria-label="Default select example" id="cantidad" name="cantidad" required>
+                  <option value="" selected>Abre para seleccionar la cantidad</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </ul>
+            </div>
+            <div class="col-6">
+              <h5>Agregar Envio</h5>
+              <ul class="nav flex-column">
+                <select class="form-select" aria-label="Default select example" id="envio" name="envio" required>
+                  <option value="" selected>Abre para seleccionar envio</option>
+                  <option value="si">si</option>
+                  <option value="no">no</option>
+                </select>
+              </ul>
+            </div>
+            <div class="col-6"><input type="text" name="estado" value="Activo" hidden></div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <p><h5 id="mostrarTotal">Total: $$$$$$$$$</h5></p><button type="submit" class="btn btn-secondary">Agregar a Canasta</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--Fin de modal crear venta-->
+
+<!-- Modal editar venta-->
+<div class="modal fade" th:id="'a'+${pedido.idDetallePedido}" th:each="pedido : ${pedido}" tabindex="-1" aria-labelledby="modalEditarVenta" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarVenta" th:text="'Cambiar Estado de Venta: #'+${pedido.idDetallePedido}"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{/cambiar_estado_venta_empleado}"  method="post" >
+          <div class="row">
+            <div class="col-6">
+              <h5>Estado</h5>
+              <input type="number" id="" name="idDetallePedido" th:value="${pedido.idDetallePedido}" hidden>
+              <input type="text" id="" name="producto" th:value="${pedido.producto.idProducto}" hidden>
+              <input type="number" id="" name="precio" th:value="${pedido.precio}" hidden>
+              <input type="number" id="" name="cantidad" th:value="${pedido.cantidad}" hidden>
+              <input type="number" id="" name="pedido" th:value="${pedido.pedido.idPedido}" hidden>
+              <input type="number" id="" name="total" th:value="${pedido.total}" hidden>
+              <ul class="nav flex-column">
+                <select class="form-select" aria-label="Default select example" id="estado" name="estado">
+                  <option selected>Abre para seleccionar un estado de la venta</option>
+                  <option value="Activo">Activo</option>
+                  <option value="Error en la venta">Error en la venta</option>
+                </select>
+              </ul>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-secondary" >Enviar</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--Fin de modal editar venta-->
+<div class="container-fluid">
+  <div class="row justify-content-center align-content-center">
+    <div class="col-8 barra">
+      <img id="logo" th:src="@{/img/Logo Mauricio png.png}">
+    </div>
+    <div class="col-4 barra1">
+      <div class="dropdown">
+        <button class="btn  dropdown-toggle boton text-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-user-circle user"></i>
+        </button>
+        <ul class="dropdown-menu boton" aria-labelledby="dropdownMenuButton1">
+          <li sec:authorize="isAuthenticated()"><a class="dropdown-item menuperfil cerrar" th:href="@{/logout}"><i class="fas fa-sign-out-alt m-1"></i>Cerrar Sesión</a></li>
+          <li sec:authorize="isAuthenticated()"><a class="dropdown-item menuperfil cerrar" th:href="@{/registro/actualizar-datos-empleado}"><i class="fas fa-user-edit m-1"></i></i>Editar Mi Información</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="barra-lateral col-12 col-sm-auto">
+      <h4 class="text-center">Menú Empleado</h4>
+      <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
+        <a class="nav-link" th:href="@{/gestion_ventas_empleado}"><i class="fas fa-dollar-sign"></i></i><span>Consulta de Ventas</span></a>
+        <a class="nav-link" th:href="@{/solicitudes_pqrs_empleado}"><i class="far fa-smile"></i><span>Solicitudes PQRS</span></a>
+        <a class="nav-link" th:href="@{/inventario_compras_empleado}"><i class="fas fa-dolly-flatbed"></i><span>Consulta de Inventario</span></a>
+        <a class="nav-link" th:href="@{/verificacion_envios_empleado}"><i class="fas fa-shipping-fast"></i><span>Consulta de Envios</span></a>
+      </nav>
+    </div>
+    <main class="main col">
+      <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+           th:text="${mensaje}"
+           class="alert">
+      </div>
+      <h1>Gestion de Ventas - Empleado</h1>
+      <br>
+      <hr>
+      <button class="btn m-2" type="button" data-bs-toggle="modal" data-bs-target="#modalIngresarVenta" title="insertar"><i class="bi bi-arrow-bar-up"></i></button>Ingresar Nueva Venta
+      <table id="myTable" class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th scope="col">#ID Detalle Venta</th>
+          <th scope="col">#ID Venta</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pedidos : ${pedido}">
+          <th scope="row"><button type="button" class="btn" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal'+${pedidos.idDetallePedido}" title="Ver descripción de la venta" th:text="${pedidos.idDetallePedido}">
+
+          </button></th>
+          <td th:text="${pedidos.pedido.idPedido}"></td>
+          <td th:text="${pedidos.fecha}"></td>
+          <td ><span class='badge estado' th:text="${pedidos.estado}"></span></td>
+          <td><button class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#a'+${pedidos.idDetallePedido}" title="editar"><i class="bi bi-pen-fill"></i></button>
+        </tr>
+
+        </tbody>
+      </table>
+
+    </main>
+  </div>
+</div>
+</body>
+    <div th:replace="interfaz_administrador/templates/footer"></div>

@@ -1,0 +1,68 @@
+/*Color de menu*/
+.color-menu {
+    background-color: #F5A700;
+}
+/*Color de cuanto esta activo una opcion del menu*/
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    background-color: #FFC900;
+}
+/*Color menu desplegable opciones*/
+.navbar-nav .dropdown-menu{
+    background-color: #FFC900;
+}
+/*Color boton active menu desplegable*/
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #F5A700;
+}
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/*Tamaño de iconos referencias*/
+.row .col .card i{
+  font-size: 70px;
+
+}
+/*Division footer*/
+.b-example-divider {
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 0.5em 1.5em rgb(0 0 0 / 10%), inset 0 0.125em 0.5em rgb(0 0 0 / 15%);
+}
+/*Color footer*/
+.footer-color {
+    background-color: #F5A700;
+}
+/*Tamaño logos contacto*/
+.contacto-logos {
+    font-size: 200%;
+}

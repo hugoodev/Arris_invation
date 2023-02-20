@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Verificación de Envios - Administrador</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" th:href="@{./css/estilosInterfaz.css}">
+</head>
+<body>
+  <!-- Modal de detalle de venta -->
+  <div class="modal fade" th:id="'envio'+${envio.idEnvio}" th:each="envio : ${envio}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detalle de Venta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <h5><strong>Nombre Producto:</strong><p th:text=${envio.venta.producto}></p></h5>
+              <h5><strong>Nombre Cliente:</strong><p th:text=${envio.venta.pedido.cliente.nombre}></p></h5>
+              <h5><strong>Dirección Cliente:</strong><p th:text=${envio.venta.pedido.cliente.direccion}></p></h5>
+              <h5><strong>Telefono Cliente:</strong><p th:text=${envio.venta.pedido.cliente.telefono}></p></h5>
+              <h5><strong>Email Cliente:</strong><p th:text=${envio.venta.pedido.cliente.email}></p></h5>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Fin Modal de detalle de venta-->
+  <!-- Modal editar venta-->
+  <div class="modal fade" th:id="'modalEditarEnvio'+${envio.idEnvio}" th:if="${envio.estado == 'En proceso'}" th:each="envio : ${envio}" tabindex="-1" aria-labelledby="modalEditarEnvio" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEditarEnvio">Editar de Envio</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form th:action="@{/editar_envio_admin}" method="post">
+        <div class="modal-body">
+              <div class="row">
+                <div class="col-6">
+                  <h5>Empresa de Envio</h5>
+                  <ul class="nav flex-column">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="addon-wrapping"><i class="bi bi-receipt"></i></span>
+                      <input type="text" class="form-control" placeholder="Empresa Nombre" aria-label="empresa" name="empresa" aria-describedby="basic-addon1">
+                    </div>
+                  </ul>
+                </div>
+                <div class="col-6">
+                  <h5>Estado</h5>
+                  <ul class="nav flex-column">
+                    <select class="form-select" aria-label="Default select example" name="estado">
+                      <option selected>Abre para seleccionar el estado</option>
+                      <option value="Entregado">Entregado</option>
+                      <option value="Error de entrega">Error de entrega</option>
+                    </select>
+                  </ul>
+                </div>
+                <input type="number" name="idEnvio" th:value="${envio.idEnvio}" hidden>
+                <input type="number" name="venta" th:value="${envio.venta.idVenta}" hidden>
+              </div>
+        </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" onclick="return confirm_change()">Envio</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--Fin de modal editar venta-->
+    <div class="container-fluid">
+        <div class="row justify-content-center align-content-center">
+            <div class="col-8 barra">
+                <img id="logo" th:src="@{/img/Logo Mauricio png.png}">
+            </div>
+            <div class="col-4 barra1">
+              <div class="dropdown">
+                <button class="btn  dropdown-toggle boton text-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-user-circle user"></i>
+                </button>
+                <ul class="dropdown-menu boton" aria-labelledby="dropdownMenuButton1">
+                  <li sec:authorize="isAuthenticated()"><a class="dropdown-item menuperfil cerrar" th:href="@{/logout}"><i class="fas fa-sign-out-alt m-1"></i>Cerrar Sesión</a></li>
+                  <li sec:authorize="isAuthenticated()"><a class="dropdown-item menuperfil cerrar" th:href="@{/registro/actualizar-datos-admin}"><i class="fas fa-user-edit m-1"></i></i>Editar Mi Información</a></li>
+                </ul>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+          <div class="barra-lateral col-12 col-sm-auto">
+            <h4 class="text-center">Menú Admin</h4>
+            <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
+              <a class="nav-link" th:href="@{/gestion_ventas_admin}"><i class="fas fa-dollar-sign"></i></i><span>Gestion de Ventas</span></a>
+              <a class="nav-link" th:href="@{/solicitudes_pqrs_admin}"><i class="far fa-smile"></i><span>Solicitudes PQRS</span></a>
+              <a class="nav-link" th:href="@{/administrador_compras_admin}"><i class="fas fa-dolly-flatbed"></i><span>Administración de Inventario</span></a>
+              <a class="nav-link" th:href="@{/verificacion_envios_admin}"><i class="fas fa-shipping-fast"></i><span>Verificación de Envios</span></a>
+              <a class="nav-link" th:href="@{/registro/editar_usuarios_admin}"><i class="fas fa-users"></i><span>Editar Usuarios</span></a>
+            </nav>
+          </div>
+            <main class="main col">
+              <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+                   th:text="${mensaje}"
+                   class="alert">
+              </div>
+              <h1>Verificación de Envios - Administrador</h1><br>
+             <hr>
+              <table id="myTable" class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#ID Envio</th>
+                    <th scope="col">#ID Venta</th>
+                    <th scope="col">Fecha Ingresada</th>
+                    <th scope="col">Fecha Entregada</th>
+                    <th scope="col">Empresa de Envio</th>
+                    <th scope="col">Estado</th>
+
+                    <th scope="col">Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="envio : ${envio}">
+                    <th scope="row" th:text="${envio.idEnvio}">1</th>
+                    <th scope="row"><button type="button" class="btn" data-bs-toggle="modal" th:attr="data-bs-target='#envio'+${envio.idEnvio}" title="Ver descripción de la venta" th:text="${envio.venta.pedido.idPedido}">
+                    </button></th>
+                    <td th:text="${envio.fechaIngresada}"></td>
+                    <td th:text="${envio.fechaEntrega}"></td>
+                    <td th:text="${envio.empresa}"></td>
+                    <td><span class="badge estado" th:text="${envio.estado}"></span></td>
+                    <td><button class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#modalEditarEnvio'+${envio.idEnvio}" th:if="${envio.estado == 'En proceso'}" title="editar"><i class="bi bi-pen-fill"></i></button></td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </main>
+        </div>
+    </div>
+  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+  <script type="text/javascript" class="init">
+
+
+$(document).ready(function () {
+	$('#myTable').DataTable({
+	    dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+	});
+});
+
+
+	</script>
+  <script>
+    function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, j, visible;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    visible = false;
+    /* Obtenemos todas las celdas de la fila, no sólo la primera */
+    td = tr[i].getElementsByTagName("td");
+    for (j = 0; j < td.length; j++) {
+      if (td[j] && td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+        visible = true;
+      }
+    }
+    if (visible === true) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
+    }
+  }
+}
+
+var estado = document.getElementsByClassName('estado');
+  function estados(){
+  for(i=0;i<estado.length;i++){
+  if(estado[i].textContent == "Entregado"){
+     estado[i].classList.add('bg-success');
+  }
+  else{
+    estado[i].classList.add('bg-danger');
+  }
+}
+}
+estados();
+
+function confirm_change() {
+  return confirm('Recuerda que si cambias el estado del producto no podras volverlo a editar, ¿Estas de acuerdo?');
+}
+
+  </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/646c794df3.js"></script>
+</body>
+</html>
