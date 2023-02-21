@@ -65,7 +65,7 @@ public class UsuarioServiceImp implements UsuarioService {
     public Usuario actualizarUsuario(Usuario usuario,String nombreRol) {
 
         Rol rol = rolRepository.findByName(nombreRol);
-        usuario.agregarRol(rol);
+        usuario.actualizarRol(rol);
         return usuarioRepository.save(usuario);
     }
 

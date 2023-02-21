@@ -72,6 +72,14 @@ public class Usuario implements Serializable {
         this.roles.add(rol);
     }
 
+    public void actualizarRol(Rol rol){
+
+        if(rol != null){
+            this.roles.removeAll(roles);
+            this.roles.add(rol);
+        }
+    }
+
 
 
 
