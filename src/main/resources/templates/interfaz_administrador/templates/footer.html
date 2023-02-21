@@ -140,7 +140,7 @@ var precio = document.getElementsByClassName('precio');
 var cantidad = document.getElementById('cantidad');
 var mostrarTotal = document.getElementById('mostrarTotal');
 var iva = document.getElementById('iva');
-var mostrarTotal = document.getElementById('mostrarSubtotal');
+var mostrarSubTotal = document.getElementById('mostrarSubtotal');
 
 console.log(precio.length)
 
@@ -164,7 +164,10 @@ else {
 }
 var contenido = document.querySelector('.activada');
 console.log(Number(contenido.textContent)*Number(cantidad.value))
-mostrarTotal.innerHTML = "Total: $" + Number(contenido.textContent)*Number(cantidad.value);
+mostrarSubTotal.innerHTML = "SubTotal: $" + Number(contenido.textContent)*Number(cantidad.value);
+iva.innerHTML = "IVA: $"+((Number(contenido.textContent)*Number(cantidad.value))*0.19);
+var subIva = ((Number(contenido.textContent)*Number(cantidad.value))*0.19);
+mostrarTotal.innerHTML = "Total: $" + (Number(contenido.textContent)*Number(cantidad.value)+subIva);
   });
 
   cantidad.addEventListener('change',
@@ -173,8 +176,11 @@ mostrarTotal.innerHTML = "Total: $" + Number(contenido.textContent)*Number(canti
     console.log(cantidadOption.value + ':##### ' + cantidadOption.text);
     var contenido = document.querySelector('.activada');
     console.log(Number(contenido.textContent)*Number(cantidad.value))
-    mostrarTotal.innerHTML = "Total: $" + Number(contenido.textContent)*Number(cantidad.value);
     var total = Number(contenido.textContent)*Number(cantidad.value);
+    mostrarSubTotal.innerHTML = "SubTotal: $" + Number(contenido.textContent)*Number(cantidad.value);
+    iva.innerHTML = "IVA: $"+((Number(contenido.textContent)*Number(cantidad.value))*0.19);
+    var subIva = ((Number(contenido.textContent)*Number(cantidad.value))*0.19);
+    mostrarTotal.innerHTML = "Total: $" + (Number(contenido.textContent)*Number(cantidad.value)+subIva);
   });
 
 
