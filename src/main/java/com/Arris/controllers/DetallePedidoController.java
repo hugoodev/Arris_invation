@@ -73,13 +73,11 @@ public class DetallePedidoController {
         List<Usuario> empleado = usuarioService.listarE();
         List<Pedido> pedido = pedidoService.getAll();
         List<Producto> producto = productoService.getAll();
-        List<Venta> venta = ventaService.getAll();
         if (usuario.isEmpty()) {
             usuario = auth.getName();
         } else {
-            if (usuario.equals(auth.getName())) {
-                System.out.println("esta bien");
-            } else {
+            if (!usuario.equals(auth.getName())) {
+                usuario = auth.getName();
                 detallePedidos.removeAll(detallePedidos);
             }
         }
@@ -89,7 +87,6 @@ public class DetallePedidoController {
         model.addAttribute("empleado", empleado);
         model.addAttribute("mostrarPedidos", pedido);
         model.addAttribute("producto", producto);
-        model.addAttribute("venta", venta);
         model.addAttribute("totalsum", totalsum);
         model.addAttribute("arrays", detallePedidos);
         return "interfaz_administrador/templates/gestion_ventas";
@@ -127,13 +124,11 @@ public class DetallePedidoController {
         List<Pedido> pedido = pedidoService.getAll();
         List<Producto> producto = productoService.getAll();
         List<Envio> envio = envioService.getAll();
-        List<Venta> venta = ventaService.getAll();
         model.addAttribute("pedido", detallePedido);
         model.addAttribute("rolUsuario", rolUsuario);
         model.addAttribute("mostrarPedidos", pedido);
         model.addAttribute("producto", producto);
         model.addAttribute("envio", envio);
-        model.addAttribute("venta", venta);
         return "interfaz_cliente/templates/compras";
     }
 
@@ -150,21 +145,23 @@ public class DetallePedidoController {
                     .addFlashAttribute("mensaje", "Se A Guardado Satisfactioriamente La Nueva Venta"  + ", Nombre Del Cliente: " + detallePedidos.get(i).getPedido().getCliente().getNombre() + ", Nombre Del Producto: " + detallePedidos.get(i).getProducto().getNombre() + ", Cantidad: " + detallePedidos.get(i).getCantidad() +  ", Estado: " + detallePedidos.get(i).getEstado() +  " ✔")
                     .addFlashAttribute("clase", "success");
             emailBody.setEmail("mrloquendojodido@gmail.com");
-            emailBody.setSubject("has registrado un nuevo pedido!! #"+detallePedidos.get(i).getPedido().getIdPedido());
+            emailBody.setSubject("has registrado un nuevo pedido!! #"+detallePedidos.get(i).getIdDetallePedido());
             emailBody.setContent(
                     "<h1>Hola Admin <strong>" + auth.getName() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
                             "<h1>Cliente: <strong>" + detallePedidos.get(i).getPedido().getCliente().getNombre() + "</strong></h1><br/>" +
                             "<h1>El pedido que registraste tiene los siguientes productos: </h1><strong><h2>" + detallePedidos.get(i).getProducto().getNombre() + "</strong></h2><br/>"+
+                            "<h1>Cantidad: </h1><strong><h2>" + detallePedidos.get(i).getCantidad() + "</strong></h2><br/>"+
                             "<h1>El total del pedido es: </h1><strong><h2>$" + detallePedidos.get(i).getCantidad() * detallePedidos.get(i).getProducto().getPrecio() +"</strong></h2>"+
                             "<h1> Envio:</h1> <strong><h2>" + detallePedidos.get(i).getEnvio() + "</h2></strong>"
             );
             emailPort.sendEmail(emailBody);
 
             emailBody.setEmail("hugo.garcia29@misena.edu.co");
-            emailBody.setSubject("Se a registrado un nuevo pedido!! #"+detallePedidos.get(i).getPedido().getIdPedido());
+            emailBody.setSubject("Se a registrado un nuevo pedido!! #"+detallePedidos.get(i).getIdDetallePedido());
             emailBody.setContent(
                     "<h1>Hola <strong>" + detallePedidos.get(i).getPedido().getCliente().getNombre() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
                             "<h1>El pedido tiene los siguientes productos: </h1><strong><h2>" + detallePedidos.get(i).getProducto().getNombre() + "</strong></h2><br/>"+
+                            "<h1>Cantidad: </h1><strong><h2>" + detallePedidos.get(i).getCantidad() + "</strong></h2><br/>"+
                             "<h1>El total del pedido es: </h1><strong><h2>$" + detallePedidos.get(i).getCantidad() * detallePedidos.get(i).getProducto().getPrecio() +"</strong></h2>"+
                             "<h1> Envio:</h1> <strong><h2>" + detallePedidos.get(i).getEnvio() + "</h2></strong>"
             );
@@ -246,21 +243,23 @@ public class DetallePedidoController {
                         .addFlashAttribute("mensaje", "Se A Guardado Satisfactioriamente La Nueva Venta"  + ", Nombre Del Cliente: " + detallePedidos.get(i).getPedido().getCliente().getNombre() + ", Nombre Del Producto: " + detallePedidos.get(i).getProducto().getNombre() + ", Cantidad: " + detallePedidos.get(i).getCantidad() +  ", Estado: " + detallePedidos.get(i).getEstado() +  " ✔")
                         .addFlashAttribute("clase", "success");
                 emailBody.setEmail("mrloquendojodido@gmail.com");
-                emailBody.setSubject("has registrado un nuevo pedido!! #"+detallePedidos.get(i).getPedido().getIdPedido());
+                emailBody.setSubject("has registrado un nuevo pedido!! #"+detallePedidos.get(i).getIdDetallePedido());
                 emailBody.setContent(
                         "<h1>Hola Admin <strong>" + auth.getName() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
                                 "<h1>Cliente: <strong>" + detallePedidos.get(i).getPedido().getCliente().getNombre() + "</strong></h1><br/>" +
                                 "<h1>El pedido que registraste tiene los siguientes productos: </h1><strong><h2>" + detallePedidos.get(i).getProducto().getNombre() + "</strong></h2><br/>"+
+                                "<h1>Cantidad: </h1><strong><h2>" + detallePedidos.get(i).getCantidad() + "</strong></h2><br/>"+
                                 "<h1>El total del pedido es: </h1><strong><h2>$" + detallePedidos.get(i).getCantidad() * detallePedidos.get(i).getProducto().getPrecio() +"</strong></h2>"+
                                 "<h1> Envio:</h1> <strong><h2>" + detallePedidos.get(i).getEnvio() + "</h2></strong>"
                 );
                 emailPort.sendEmail(emailBody);
 
                 emailBody.setEmail("hugo.garcia29@misena.edu.co");
-                emailBody.setSubject("Se a registrado un nuevo pedido!! #"+detallePedidos.get(i).getPedido().getIdPedido());
+                emailBody.setSubject("Se a registrado un nuevo pedido!! #"+detallePedidos.get(i).getIdDetallePedido());
                 emailBody.setContent(
                         "<h1>Hola <strong>" + detallePedidos.get(i).getPedido().getCliente().getNombre() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
                                 "<h1>El pedido tiene los siguientes productos: </h1><strong><h2>" + detallePedidos.get(i).getProducto().getNombre() + "</strong></h2><br/>"+
+                                "<h1>Cantidad: </h1><strong><h2>" + detallePedidos.get(i).getCantidad() + "</strong></h2><br/>"+
                                 "<h1>El total del pedido es: </h1><strong><h2>$" + detallePedidos.get(i).getCantidad() * detallePedidos.get(i).getProducto().getPrecio() +"</strong></h2>"+
                                 "<h1> Envio:</h1> <strong><h2>" + detallePedidos.get(i).getEnvio() + "</h2></strong>"
                 );
