@@ -23,14 +23,14 @@ public class Envio {
     @Getter @Setter @Column(name = "fecha_de_ingreso")
     private String fechaIngresada;
     @Getter @Setter @ManyToOne @JoinColumn(name = "id_venta")
-    private Venta venta;
+    private DetallePedido venta;
     @Getter @Setter @Column(name = "empresa")
     private String empresa;
 
     public Envio() {
     }
 
-    public Envio(String fechaEntrega, String estado, Venta venta, String empresa, String fechaIngresada) {
+    public Envio(String fechaEntrega, String estado, DetallePedido venta, String empresa, String fechaIngresada) {
         this.fechaEntrega = fechaEntrega;
         this.estado = estado;
         this.venta = venta;

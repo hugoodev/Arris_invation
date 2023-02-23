@@ -15,7 +15,8 @@
             <h5><strong>Nombre Vendedor:</strong><p th:text="${pedido.pedido.empleado.nombre}"></p></h5>
             <h5><strong>Producto:</strong><p th:text="${pedido.producto.nombre}"></p></h5>
             <h5><strong>Cantidad:</strong><p th:text="${pedido.cantidad}"></p></h5>
-            <h5><strong>Precio por unidad:</strong><p th:text="${pedido.precio}"></p></h5>
+            <h5><strong>Precio por unidad:</strong><p th:text="'$'+${pedido.precio}"></p></h5>
+            <h5><strong>IVA:</strong><p th:text="'$'+${pedido.total} * 0.19"></p></h5>
             <h5><strong>Total:</strong><p th:text="'$'+${pedido.total}"></p></h5>
           </div>
         </div>
@@ -224,7 +225,7 @@
                     <ul class="nav flex-column">
                       <select class="form-select" aria-label="Default select example" id="pedido" name="pedido" required>
                         <option value="" selected>Abre para seleccionar un cliente</option>
-                        <option   th:value="${mostrarPedidos.idPedido}" th:each="mostrarPedidos : ${mostrarPedidos}"  th:text="${mostrarPedidos.idPedido}" ></option>
+                        <option   th:value="${mostrarPedidos.idPedido}" th:each="mostrarPedidos : ${mostrarPedidos}"  th:text="${mostrarPedidos.idPedido} + ' - ' + ${mostrarPedidos.cliente.nombre}" ></option>
                       </select>
                     </ul>
                   </div>

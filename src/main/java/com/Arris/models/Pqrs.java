@@ -27,7 +27,7 @@ public class Pqrs {
     @Getter @Setter @Column(name = "fecha_respuesta")
     private String fechaRespuesta;
     @Getter @Setter @ManyToOne @JoinColumn(name = "id_venta")
-    private Venta venta;
+    private DetallePedido venta;
     @Getter @Setter @Column(name = "respuesta")
     private String respuesta;
     @Getter @Setter @Column(name = "encargado_res")
@@ -36,7 +36,7 @@ public class Pqrs {
     public Pqrs() {
     }
 
-    public Pqrs(String tipoPqrs, String descripcionPqrs, String estadoPqrs, String fechaIngresada, String fechaRespuesta, Venta venta, String respuesta, String encargadoRes) {
+    public Pqrs(String tipoPqrs, String descripcionPqrs, String estadoPqrs, String fechaIngresada, String fechaRespuesta, DetallePedido venta, String respuesta, String encargadoRes) {
         this.tipoPqrs = tipoPqrs;
         this.descripcionPqrs = descripcionPqrs;
         this.estadoPqrs = estadoPqrs;
