@@ -65,7 +65,6 @@ public class DetallePedidoController {
         return "/web/index";
     }
 
-    String usuario = "";
     @GetMapping("/gestion_ventas_admin")
     public String listarAdmin(Model model, Principal principal, Authentication auth){
         List<DetallePedido> detallePedido = detallePedidoService.getAll();
@@ -74,16 +73,6 @@ public class DetallePedidoController {
         List<Pedido> pedido = pedidoService.getAll();
         List<Producto> producto = productoService.getAll();
         List<Venta> venta = ventaService.getAll();
-        if (usuario.isEmpty()) {
-            usuario = auth.getName();
-        } else {
-            if (usuario.equals(auth.getName())) {
-                System.out.println("esta bien");
-            } else {
-                detallePedidos.removeAll(detallePedidos);
-            }
-        }
-        System.out.println("%%%%%%%%%"+usuario);
         model.addAttribute("pedido", detallePedido);
         model.addAttribute("cliente", cliente);
         model.addAttribute("empleado", empleado);
@@ -96,20 +85,12 @@ public class DetallePedidoController {
     }
 
     @GetMapping("/gestion_ventas_empleado")
-    public String listarEmpleado(Model model, Authentication auth){
+    public String listarEmpleado(Model model){
         List<DetallePedido> detallePedido = detallePedidoService.getAll();
         List<Usuario> cliente = usuarioService.listarC();
         List<Usuario> empleado = usuarioService.listarE();
         List<Pedido> pedido = pedidoService.getAll();
         List<Producto> producto = productoService.getAll();
-        if (usuario.isEmpty()) {
-            usuario = auth.getName();
-        } else {
-            if (!usuario.equals(auth.getName())) {
-                usuario = auth.getName();
-                detallePedidos.removeAll(detallePedidos);
-            }
-        }
         model.addAttribute("pedido", detallePedido);
         model.addAttribute("cliente", cliente);
         model.addAttribute("empleado", empleado);
@@ -198,16 +179,14 @@ public class DetallePedidoController {
             }
             int sum = 0;
             for (DetallePedido dp: detallePedidos) {
-                int iva = (int) (dp.getCantidad()*dp.getProducto().getPrecio() * 0.19);
-                sum = (int) (sum + (dp.getCantidad()*dp.getProducto().getPrecio()) + iva);
+                sum = (int) (sum + (dp.getCantidad()*dp.getProducto().getPrecio()));
             }
             totalsum = sum;
             model.addAttribute("totalsum", totalsum);
             estado = false;
             redirectAttrs
                     .addFlashAttribute("mensaje", "El producto se elimino de la canasta con exito")
-                    .addFlashAttribute("clase", "danger")
-                    .addFlashAttribute("class", "show");
+                    .addFlashAttribute("clase", "danger");
         }
         return mav;
     }
@@ -225,16 +204,14 @@ public class DetallePedidoController {
             }
             int sum = 0;
             for (DetallePedido dp: detallePedidos) {
-                int iva = (int) (dp.getCantidad()*dp.getProducto().getPrecio() * 0.19);
-                sum = (int) (sum + (dp.getCantidad()*dp.getProducto().getPrecio()) + iva);
+                sum = (int) (sum + (dp.getCantidad()*dp.getProducto().getPrecio()));
             }
             totalsum = sum;
             model.addAttribute("totalsum", totalsum);
             estado = false;
             redirectAttrs
                     .addFlashAttribute("mensaje", "El producto se elimino de la canasta con exito")
-                    .addFlashAttribute("clase", "danger")
-                    .addFlashAttribute("class", "show");
+                    .addFlashAttribute("clase", "danger");
         }
         return mav;
     }
@@ -380,8 +357,7 @@ public class DetallePedidoController {
                 }
                 int sum = 0;
                 for (DetallePedido dp: detallePedidos) {
-                    int iva = (int) (dp.getCantidad()*dp.getProducto().getPrecio() * 0.19);
-                    sum = (int) (sum + (dp.getCantidad()*dp.getProducto().getPrecio()) + iva);
+                    sum = (int) (sum + (dp.getCantidad()*dp.getProducto().getPrecio()));
                 }
                 totalsum = sum;
                 model.addAttribute("totalsum", totalsum);
@@ -485,8 +461,7 @@ public class DetallePedidoController {
                 }
                 int sum = 0;
                 for (DetallePedido dp: detallePedidos) {
-                    int iva = (int) (dp.getCantidad()*dp.getProducto().getPrecio() * 0.19);
-                    sum = (int) (sum + (dp.getCantidad()*dp.getProducto().getPrecio()) + iva);
+                    sum = (int) (sum + (dp.getCantidad()*dp.getProducto().getPrecio()));
                 }
                 totalsum = sum;
                 model.addAttribute("totalsum", totalsum);

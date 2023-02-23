@@ -72,58 +72,32 @@ public class EnvioController {
             }
         }
         LocalDateTime datetime = LocalDateTime.now();
-        if (envio.getEstado().equals("Entregado")) {
-            redirectAttrs
-                    .addFlashAttribute("mensaje", "Se a editado satisfactoriamente el envio, Numero De Envio: #" + envio.getIdEnvio() +", Estado: " + envio.getEstado() + ", Empresa Envio: " + envio.getEmpresa() + " ✔")
-                    .addFlashAttribute("clase", "success");
-            emailBody.setEmail("mrloquendojodido@gmail.com");
-            emailBody.setSubject("has entregado el pedido!! #"+ envio.getIdEnvio());
-            emailBody.setContent(
-                    "<h1>Hola Admin <strong>" + auth.getName() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
-                            "<h1>Cliente: <strong>" + envio.getVenta().getPedido().getCliente().getNombre() + "</strong></h1><br/>" +
-                            "<h1>El pedido que termino su proceso de envio, tiene los siguientes productos: </h1><strong><h2>" + envio.getVenta().getProducto() + "</strong></h2><br/>"+
-                            "<h1>Fecha de ingreso: </h1><strong><h2>" + fechaIngresada +"</strong></h2>"+
-                            "<h1>Fecha de entrega:</h1> <strong><h2>" + datetime + "</h2></strong>"
-            );
-            emailPort.sendEmail(emailBody);
+        redirectAttrs
+                .addFlashAttribute("mensaje", "Se a editado satisfactoriamente el envio, Numero De Envio: #" + envio.getIdEnvio() +", Estado: " + envio.getEstado() + ", Empresa Envio: " + envio.getEmpresa() + " ✔")
+                .addFlashAttribute("clase", "success");
+        emailBody.setEmail("mrloquendojodido@gmail.com");
+        emailBody.setSubject("has entregado el pedido!! #"+ envio.getIdEnvio());
+        emailBody.setContent(
+                "<h1>Hola Admin <strong>" + auth.getName() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
+                        "<h1>Cliente: <strong>" + envio.getVenta().getPedido().getCliente().getNombre() + "</strong></h1><br/>" +
+                        "<h1>El pedido que termino su proceso de envio, tiene los siguientes productos: </h1><strong><h2>" + envio.getVenta().getProducto() + "</strong></h2><br/>"+
+                        "<h1>Fecha de ingreso: </h1><strong><h2>" + fechaIngresada +"</strong></h2>"+
+                        "<h1>Fecha de entrega:</h1> <strong><h2>" + datetime + "</h2></strong>"
+        );
+        emailPort.sendEmail(emailBody);
 
-            emailBody.setEmail("hugo.garcia29@misena.edu.co");
-            emailBody.setSubject("Tu producto se entrego correctamente!! #"+envio.getIdEnvio());
-            emailBody.setContent(
-                    "<h1>Hola <strong>" + envio.getVenta().getPedido().getCliente().getNombre() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
-                            "<h1>Productos entregados: </h1><strong><h2>" + envio.getVenta().getProducto() + "</strong></h2><br/>"+
-                            "<h1>Fecha de ingreso: </h1><strong><h2>" + fechaIngresada +"</strong></h2>"+
-                            "<h1>Fecha de entrega:</h1> <strong><h2>" + datetime + "</h2></strong>"
-            );
-            envioService.save(envio);
-            emailPort.sendEmail(emailBody);
-        } else if (envio.getEstado().equals("Error de entrega")) {
-            redirectAttrs
-                    .addFlashAttribute("mensaje", "Se a editado satisfactoriamente el envio, Numero De Envio: #" + envio.getIdEnvio() +", Estado: " + envio.getEstado() + ", Empresa Envio: " + envio.getEmpresa() + " ✔")
-                    .addFlashAttribute("clase", "success");
-            emailBody.setEmail("mrloquendojodido@gmail.com");
-            emailBody.setSubject("Hubo un error con un envio!! #"+ envio.getIdEnvio());
-            emailBody.setContent(
-                    "<h1>Hola Admin <strong>" + auth.getName() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
-                            "<h1>Cliente: <strong>" + envio.getVenta().getPedido().getCliente().getNombre() + "</strong></h1><br/>" +
-                            "<h1>El pedido tuvo un error de entrega y no pudo seguir el proceso, tiene los siguientes productos: </h1><strong><h2>" + envio.getVenta().getProducto() + "</strong></h2><br/>"+
-                            "<h1>Fecha de ingreso: </h1><strong><h2>" + fechaIngresada +"</strong></h2>"+
-                            "<h1>Fecha de entrega que se esperaba:</h1> <strong><h2>" + datetime + "</h2></strong>"
-            );
-            emailPort.sendEmail(emailBody);
+        emailBody.setEmail("hugo.garcia29@misena.edu.co");
+        emailBody.setSubject("Tu producto se entrego correctamente!! #"+envio.getIdEnvio());
+        emailBody.setContent(
+                "<h1>Hola <strong>" + envio.getVenta().getPedido().getCliente().getNombre() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
+                        "<h1>Productos entregados: </h1><strong><h2>" + envio.getVenta().getProducto() + "</strong></h2><br/>"+
+                        "<h1>Fecha de ingreso: </h1><strong><h2>" + fechaIngresada +"</strong></h2>"+
+                        "<h1>Fecha de entrega:</h1> <strong><h2>" + datetime + "</h2></strong>"
+        );
+        envioService.save(envio);
 
-            emailBody.setEmail("hugo.garcia29@misena.edu.co");
-            emailBody.setSubject("Tu producto no se pudo entregar correctamente!! #"+envio.getIdEnvio());
-            emailBody.setContent(
-                    "<h1>Hola <strong>" + envio.getVenta().getPedido().getCliente().getNombre() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
-                            "<h1>Productos no entregados: </h1><strong><h2>" + envio.getVenta().getProducto() + "</strong></h2><br/>"+
-                            "<h1>Fecha de ingreso: </h1><strong><h2>" + fechaIngresada +"</strong></h2>"+
-                            "<h1>Fecha de entrega que se esperaba:</h1> <strong><h2>" + datetime + "</h2></strong>"
-            );
-            envioService.save(envio);
-            emailPort.sendEmail(emailBody);
-        }
 
+        emailPort.sendEmail(emailBody);
         return "redirect:/verificacion_envios_admin";
     }
 
