@@ -25,11 +25,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col">
-            <h5><strong>Nombre Producto:</strong><p th:text=${envio.venta.producto.nombre}></p></h5>
-            <h5><strong>Cantidad:</strong><p th:text="${envio.venta.cantidad}"></p></h5>
-            <h5><strong>Valor por unidad:</strong><p th:text="${envio.venta.producto.precio}"></p></h5>
-            <h5><strong>IVA:</strong><p th:text="${envio.venta.total} * 0.19"></p></h5>
-            <h5><strong>Total:</strong><p th:text="${envio.venta.total}"></p></h5>
+            <h5><strong>Nombre Producto:</strong><p th:text=${envio.venta.producto}></p></h5>
             <h5><strong>Mi Nombre:</strong><p th:text=${envio.venta.pedido.cliente.nombre}></p></h5>
             <h5><strong>Mi Dirección:</strong><p th:text=${envio.venta.pedido.cliente.direccion}></p></h5>
             <h5><strong>Mi Telefono:</strong><p th:text=${envio.venta.pedido.cliente.telefono}></p></h5>
@@ -95,7 +91,7 @@
         <tbody>
         <tr th:each="envio : ${envio}" th:if="${envio.venta.pedido.cliente.email} == ${#authentication.name}">
           <th scope="row" th:text="${envio.idEnvio}">1</th>
-          <th scope="row"><button type="button" class="btn" data-bs-toggle="modal" th:attr="data-bs-target='#envio'+${envio.idEnvio}" title="Ver descripción de la venta" th:text="${envio.venta.idDetallePedido}">
+          <th scope="row"><button type="button" class="btn" data-bs-toggle="modal" th:attr="data-bs-target='#envio'+${envio.idEnvio}" title="Ver descripción de la venta" th:text="${envio.venta.pedido.idPedido}">
           </button></th>
           <td th:text="${envio.fechaIngresada}"></td>
           <td th:text="${envio.fechaEntrega}"></td>

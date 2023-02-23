@@ -57,8 +57,10 @@ public class PqrsController {
     public String listarPQRSCliente(Model model){
         List<DetallePedido> detallePedido = detallePedidoService.getAll();
         List<Pqrs> pqrs =pqrsService.getAll();
+        List<Venta> venta =ventaService.getAll();
         List<Envio> envio = envioService.getAll();
         model.addAttribute("envio",envio);
+        model.addAttribute("venta", venta);
         model.addAttribute("pedido", detallePedido);
         model.addAttribute("listarPqrs",pqrs);
         return "interfaz_cliente/templates/pqrs";

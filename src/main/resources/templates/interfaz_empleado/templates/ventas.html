@@ -15,8 +15,7 @@
             <h5><strong>Nombre Vendedor:</strong><p th:text="${pedido.pedido.empleado.nombre}"></p></h5>
             <h5><strong>Producto:</strong><p th:text="${pedido.producto.nombre}"></p></h5>
             <h5><strong>Cantidad:</strong><p th:text="${pedido.cantidad}"></p></h5>
-            <h5><strong>Precio por unidad:</strong><p th:text="${'$'+pedido.precio}"></p></h5>
-            <h5><strong>Total:</strong><p th:text="'$'+${pedido.total}*0.19"></p></h5>
+            <h5><strong>Precio por unidad:</strong><p th:text="${pedido.precio}"></p></h5>
             <h5><strong>Total:</strong><p th:text="'$'+${pedido.total}"></p></h5>
           </div>
         </div>
