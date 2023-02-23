@@ -217,9 +217,7 @@
           </tbody>
         </table>
         <center><th:block th:if="${#lists.isEmpty(arrays)}">No hay ventas agregadas aun...<i class="bi bi-cart-x"></i></th:block></center>
-        <ul class="list-group">
-          <li class="list-group-item"  th:each="totalsum : ${totalsum}" th:text="'Total: ' + ${totalsum}"></li>
-        </ul>
+        <h5 th:each="totalsum : ${totalsum}" th:text="'Total: ' + ${totalsum}">Total: </h5>
         <hr>
         <form th:action="@{/agregar_productos_empleado}" method="post">
           <div class="row">
@@ -274,12 +272,7 @@
           </div>
       </div>
       <div class="modal-footer">
-        <ul class="list-group list-group-horizontal">
-          <li class="list-group-item"><h5 id="mostrarSubtotal">Subtotal: $$$$$$$$$</h5></li>
-          <li class="list-group-item"><h5 id="iva">IVA: $$$$$$</h5></li>
-          <li class="list-group-item"><h5 id="mostrarTotal">Total: $$$$$$$$$</h5></li>
-        </ul>
-        <button type="submit" class="btn btn-secondary">Agregar a Canasta</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <p><h5 id="mostrarTotal">Total: $$$$$$$$$</h5></p><button type="submit" class="btn btn-secondary">Agregar a Canasta</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </form>
       </div>
 
