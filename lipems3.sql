@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-02-2023 a las 19:35:10
+-- Tiempo de generación: 24-02-2023 a las 05:08:47
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -692,8 +692,25 @@ CREATE TABLE `pqrs` (
 --
 
 INSERT INTO `pqrs` (`id_pqrs`, `tipo_pqrs`, `descripcion_pqrs`, `estado_pqrs`, `fecha_ingresada`, `fecha_respuesta`, `id_venta`, `respuesta`, `encargado_res`, `calificacion`) VALUES
-(1, 'Queja', 'no me resolvieron el problema jovenes', 'respondido', '2023-02-23 11:57:39', '2023-02-23 12:28:29', 8167, 'ya se resolvió', 'f@f.com', NULL),
-(2, 'Queja', 'sdf', 'respondido', '2023-02-23 12:01:08', '2023-02-23 13:01:37', 8097, 'fds', 'j@j.com', NULL);
+(1, 'Queja', 'no me resolvieron el problema jovenes', 'respondido', '2023-02-23 11:57:39', '2023-02-23 17:18:57', 8167, 'ya se resolvió', 'f@f.com', 7013),
+(2, 'Queja', 'sdf', 'respondido', '2023-02-23 12:01:08', '2023-02-23 18:55:06', 8097, 'fds', 'j@j.com', 7010),
+(3, 'Reclamo', 'sss', 'respondido', '2023-02-23 18:56:20', '2023-02-23 19:02:01', 8123, 'sss', 'f@f.com', 7014),
+(4, 'Queja', 'aaa', 'respondido', '2023-02-23 19:03:24', '2023-02-23 19:05:42', 8098, 'aaa', 'f@f.com', 7011),
+(5, 'Pregunta', 'qqq', 'respondido', '2023-02-23 19:15:49', '2023-02-23 19:27:34', 8123, 'qqq', 'f@f.com', 7014),
+(6, 'Sugerencia', 'rrr', 'respondido', '2023-02-23 19:28:35', '2023-02-23 19:30:07', 8097, 'rrr', 'f@f.com', 7010),
+(8, 'Reclamo', 'adsfsd', 'respondido', '2023-02-23 19:39:19', '2023-02-23 19:45:10', 8118, 'asdfsd', 'f@f.com', 7014),
+(9, 'Queja', 'sdaf', 'respondido', '2023-02-23 19:39:26', '2023-02-23 19:46:22', 8098, 'sdaf', 'f@f.com', 7011),
+(10, 'Pregunta', 'tttt', 'respondido', '2023-02-23 19:45:25', '2023-02-23 19:48:56', 8123, 'tttt', 'f@f.com', 7013),
+(11, 'Queja', 'sss', 'respondido', '2023-02-23 19:47:23', '2023-02-23 20:30:01', 8097, 'qqq', 'f@f.com', 7010),
+(13, 'Reclamo', 'cccxxccx', 'respondido', '2023-02-23 20:13:11', '2023-02-23 20:36:52', 8167, 'ya se resolvió', 'f@f.com', 7012),
+(14, 'Sugerencia', 'sss', 'respondido', '2023-02-23 20:37:18', '2023-02-23 20:37:41', 8097, 'fds', 'f@f.com', 7012),
+(25, 'Pregunta', 'dsfs', 'respondido', '2023-02-23 21:19:31', '2023-02-23 21:20:48', 8097, 'ya se resolvió', 'f@f.com', 7014),
+(26, 'Queja', 'sdaf', 'respondido', '2023-02-23 21:21:05', '2023-02-23 21:21:34', 8097, 'sadf', 'f@f.com', 7013),
+(29, 'Queja', 'sdaf', 'respondido', '2023-02-23 21:27:16', '2023-02-23 21:27:44', 8117, 'jhh', 'f@f.com', 7012),
+(30, 'Sugerencia', 'holaa', 'respondido', '2023-02-23 21:32:06', '2023-02-23 21:32:18', 8123, 'hola', 'f@f.com', 7014),
+(31, 'Queja', 'sadf', 'respondido', '2023-02-23 21:38:20', '2023-02-23 21:38:42', 8097, 'aaa', 'f@f.com', NULL),
+(32, 'Queja', 'sdaf', 'respondido', '2023-02-23 21:38:25', '2023-02-23 21:38:47', 8104, 'aaa', 'f@f.com', NULL),
+(33, 'Pregunta', 'sdf', 'respondido', '2023-02-23 22:12:02', '2023-02-23 22:12:33', 8097, 'g', 'f@f.com', 7010);
 
 --
 -- Disparadores `pqrs`
@@ -709,11 +726,17 @@ DELIMITER $$
 CREATE TRIGGER `respuesta_pqrs_AFTER_INSERT` BEFORE UPDATE ON `pqrs` FOR EACH ROW begin
  IF new.respuesta = '' THEN	
     SET new.estado_pqrs = "pendiente";
+ ELSE
+ IF old.respuesta != "pendiente" THEN
+    SET new.estado_pqrs = "respondido";
+    SET new.fecha_respuesta = old.fecha_respuesta;
+    SET new.fecha_ingresada = old.fecha_ingresada;
     ELSE
     SET new.estado_pqrs = "respondido";
-    SET new.fecha_respuesta = NOW();
+    SET new.fecha_respuesta = now();
     SET new.fecha_ingresada = old.fecha_ingresada;
     END IF;
+  END IF;
 END
 $$
 DELIMITER ;
@@ -739,7 +762,7 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `nombre`, `categoria`, `precio`, `estado`, `disponibles`, `imagen`) VALUES
-(9010, 'camisa hombre', 'hombre', 40000, 'Activo', 0, NULL),
+(9010, 'camisa hombre', 'hombre', 40000, 'Activo', 0, ''),
 (9011, 'pantalon niño', 'niño', 25000, 'Activo', 0, NULL),
 (9012, 'short mujer', 'mujer', 30000, 'Descontinuado', 0, NULL),
 (9013, 'chaqueta unisex', 'unisex', 85000, 'Agotado', 0, NULL),
@@ -1116,7 +1139,7 @@ ALTER TABLE `pedido`
 -- AUTO_INCREMENT de la tabla `pqrs`
 --
 ALTER TABLE `pqrs`
-  MODIFY `id_pqrs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pqrs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
