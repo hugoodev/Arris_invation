@@ -296,7 +296,7 @@
   <!--Fin de modal insertar producto-->
    <!-- Modal editar producto-->
    <div class="modal fade" th:id="'modalEditarProducto'+${productos.idProducto}" th:each="productos : ${productos}" tabindex="-1" aria-labelledby="modalEditarProducto" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <form th:action="@{/cambiar_estado_producto}" method="post">
         <div class="modal-header">
@@ -304,14 +304,18 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          
-              <div class="row">
-                  <h5 th:text="'Nombre del Producto: '+${productos.nombre}"></h5>
-                  <h5 th:if="${productos.disponibles > 0}" th:text="'Disponibles: '+${productos.disponibles}"></h5>
-                  <h5 th:if="${productos.disponibles < 1}" th:text="'Disponibles: No Hay Disponibilidad de Productos'"></h5>
-                <h5>imagen</h5>
-                <img class="img-thumbnail rounded" th:src="@{'/recursos/' + ${productos.imagen}}" th:alt="${productos.imagen}" style="max-width=25%;">
-                <div class="col-6">
+
+          <div class="card mb-3">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img th:src="@{'/recursos/' + ${productos.imagen}}" th:alt="${productos.imagen}" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title" th:text="${productos.nombre}"></h5>
+                  <p class="card-text" th:if="${productos.disponibles > 0}" th:text="'Disponibles: '+${productos.disponibles}" ></p>
+                  <p class="card-text" th:if="${productos.disponibles < 1}" th:text="'Disponibles: No Hay Disponibilidad de Productos'" ></p>
+                  <p class="card-text"><small class="text-muted" th:text="'Precio: $'+${productos.precio}"></small></p>
                   <h5><strong>Estado</strong></h5>
                   <ul class="nav flex-column">
                     <select class="form-select" name="estado" aria-label="Default select example" required>
@@ -323,6 +327,11 @@
                     </select>
                   </ul>
                 </div>
+              </div>
+            </div>
+          </div>
+          
+              <div class="row">
                 <input type="text" th:value="${productos.idProducto}" name="idProducto" hidden>
                 <input type="text" th:value="${productos.categoria}" name="categoria"  hidden>
                 <input type="text" th:value="${productos.precio}" name="precio" hidden>

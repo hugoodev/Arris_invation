@@ -104,6 +104,50 @@
         </div>
     </div>
     <!--Fin de modal respuesta-->
+    <!-- Modal ver calificar pqrs-->
+    <div class="modal fade" th:if="${listarPqrs.calificacion} == null"  th:id="'ab'+${listarPqrs.idPqrs}" th:each="listarPqrs : ${listarPqrs}" tabindex="-1" aria-labelledby="modalCrearVenta" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCrearPedidos" th:text="'Calificación #'+${listarPqrs.idPqrs}"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col">
+                                <form th:action="@{/calificar_pqrs_cliente}" method="post">
+                                    <input type="hidden" name="idPqrs" th:value="${listarPqrs.idPqrs}">
+                                    <input type="hidden" name="tipoPqrs" th:value="${listarPqrs.tipoPqrs}">
+                                    <input type="hidden" name="descripcionPqrs" th:value="${listarPqrs.descripcionPqrs}">
+                                    <input type="hidden" name="estadoPqrs" th:value="${listarPqrs.estadoPqrs}">
+                                    <input type="hidden" name="venta" th:value="${listarPqrs.venta.idDetallePedido}">
+                                    <input type="hidden" name="respuesta" th:value="${listarPqrs.respuesta}">
+                                    <input type="hidden" name="encargadoRes" th:value="${listarPqrs.encargadoRes}">
+                                    <h5 style="text-align:center;">¡Tu calificación nos ayuda a mejorar!</h5>
+                                    <center>
+                                    <fieldset class="rating">
+                                        <input type="radio" th:id="'star5'+${listarPqrs.idPqrs}" name="calificacion" value="7014" /><label class = "full" th:for="'star5'+${listarPqrs.idPqrs}" title="¡Excelente Servicio!"></label>
+                                        <input type="radio" th:id="'star4'+${listarPqrs.idPqrs}" name="calificacion" value="7013" /><label class = "full" th:for="'star4'+${listarPqrs.idPqrs}" title="Buen Servicio"></label>
+                                        <input type="radio" th:id="'star3'+${listarPqrs.idPqrs}" name="calificacion" value="7012" /><label class = "full" th:for="'star3'+${listarPqrs.idPqrs}" title="Sobresaliente Servicio"></label>
+                                        <input type="radio" th:id="'star2'+${listarPqrs.idPqrs}" name="calificacion" value="7011" /><label class = "full" th:for="'star2'+${listarPqrs.idPqrs}" title="Regular Servicio"></label>
+                                        <input type="radio" th:id="'star1'+${listarPqrs.idPqrs}" name="calificacion" value="7010" /><label class = "full" th:for="'star1'+${listarPqrs.idPqrs}" title="Mal Servicio"></label>
+                                    </fieldset>
+                                    </center>
+                            </div>
+                        </div>
+                        <hr>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Envio</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!--Fin de modal calificar pqrs-->
 
     <div class="container-fluid">
         <div class="row">
@@ -128,6 +172,7 @@
                 <thead>
                   <tr>
                     <th scope="col">#ID</th>
+                      <th scope="col">#ID venta</th>
                     <th scope="col">Mensaje</th>
                     <th scope="col">Fecha Ingresada</th>
                       <th scope="col">Fecha respondida</th>
@@ -138,11 +183,15 @@
                 <tbody>
                   <tr th:each="listarPqrs : ${listarPqrs}" th:object="${listarPqrs}" th:if="${listarPqrs.venta.pedido.cliente.email} == ${#authentication.name}" >
                     <td scope="row" th:text="${listarPqrs.idPqrs}"></td>
+                      <td scope="row" th:text="${listarPqrs.venta.idDetallePedido}"></td>
                     <td th:text="${listarPqrs.descripcionPqrs}"></td>
                     <td th:text="${listarPqrs.fechaIngresada}"></td>
                       <td th:text="${listarPqrs.fechaRespuesta}"></td>
                       <td><span class="badge estado" th:text="${listarPqrs.estadoPqrs}"></span></td>
-                      <td> <button th:object="${listarPqrs}" th:if="${listarPqrs.estadoPqrs} == respondido" class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#res'+${listarPqrs.idPqrs}" title="verRespuesta"><i class="bi bi-eye"></i></button></td>
+                      <td>
+                          <button th:object="${listarPqrs}" th:if="${listarPqrs.estadoPqrs} == respondido" class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#res'+${listarPqrs.idPqrs}" title="verRespuesta"><i class="bi bi-eye"></i></button>
+                      <button class="btn m-2" type="submit" data-bs-toggle="modal" th:if="${listarPqrs.estadoPqrs} == respondido and ${listarPqrs.calificacion} == null" th:attr="data-bs-target='#ab'+${listarPqrs.idPqrs}" title="Calificar Respuesta"><i class="bi bi-star-fill"></i></button>
+                      </td>
                   </tr>
                 </tbody>
               </table>
@@ -207,7 +256,7 @@ $(document).ready(function () {
 var estado = document.getElementsByClassName('estado');
   function estados(){
   for(i=0;i<estado.length;i++){
-  if(estado[i].textContent == "Entregado"){
+  if(estado[i].textContent == "respondido"){
      estado[i].classList.add('bg-success');
   }
   else{

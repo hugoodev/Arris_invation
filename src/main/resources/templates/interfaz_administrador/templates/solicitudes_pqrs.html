@@ -49,7 +49,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalCrearPedidos">Crear Venta</h5>
+                <h5 class="modal-title" id="modalCrearPedidos" th:text="'Calificación #'+${listarPqrs.idPqrs}"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -97,6 +97,32 @@
     </div>
 </div>
 <!--Fin de modal responder pqrs-->
+<!-- Modal ver calificacion pqrs-->
+<div class="modal fade" th:if="${listarPqrs.calificacion} != null"  th:id="'ab'+${listarPqrs.idPqrs}" th:each="listarPqrs : ${listarPqrs}" tabindex="-1" aria-labelledby="modalCrearVenta" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCrearPedidos" th:text="'Calificación #'+${listarPqrs.idPqrs}"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <button type="submit" class="btn m-2" data-bs-target="#modalIngresarVenta" data-bs-toggle="modal">Volver al Menu</button>
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Calificación: </h5>
+                            <strong th:text="${listarPqrs.calificacion.descripcion}"></strong>
+                        </div>
+                    </div>
+                    <hr>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Fin de modal ver calificacion pqrs-->
 
     <div class="container-fluid">
         <div class="row justify-content-center align-content-center">
@@ -160,7 +186,9 @@
                       <td><span class='badge estado' th:text="${listarPqrs.estadoPqrs}"></span></td>
                       <td th:text="${listarPqrs.fechaIngresada}"></td>
                       <td th:text="${listarPqrs.fechaRespuesta}"></td>
-                    <td><button class="btn m-2" type="submit" data-bs-toggle="modal" th:if="${listarPqrs.estadoPqrs} != respondido" th:attr="data-bs-target='#a'+${listarPqrs.idPqrs}" title="Responder"><i class="bi bi-send"></i></button></td>
+                    <td th:if="${listarPqrs.estadoPqrs} != respondido" th:attr="data-bs-target='#a'+${listarPqrs.idPqrs}"><button class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#a'+${listarPqrs.idPqrs}" title="Responder"><i class="bi bi-send"></i></button></td>
+                      <td th:if="${listarPqrs.estadoPqrs} == respondido and ${listarPqrs.calificacion} != null"><button class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#ab'+${listarPqrs.idPqrs}" title="Ver Calificación"><i class="bi bi-star-fill"></i></button></td>
+                      <td th:if="${listarPqrs.estadoPqrs} == respondido and ${listarPqrs.calificacion} == null"  title="No han enviado alguna calificación sobre la PQRS"><button disabled class="btn m-2" type="submit" data-bs-toggle="modal"><i class="bi bi-star-fill"></i></button></td>
                       <td><span class='badge bg-success'  th:text="${listarPqrs.respuesta}"></span></td>
                       <td th:text="${listarPqrs.encargadoRes}"></td>
                   </tr>

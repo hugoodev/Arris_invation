@@ -32,11 +32,13 @@ public class Pqrs {
     private String respuesta;
     @Getter @Setter @Column(name = "encargado_res")
     private String encargadoRes;
+    @Getter @Setter @ManyToOne@JoinColumn(name = "calificacion")
+    private Calificacion calificacion;
 
     public Pqrs() {
     }
 
-    public Pqrs(String tipoPqrs, String descripcionPqrs, String estadoPqrs, String fechaIngresada, String fechaRespuesta, DetallePedido venta, String respuesta, String encargadoRes) {
+    public Pqrs(String tipoPqrs, String descripcionPqrs, String estadoPqrs, String fechaIngresada, String fechaRespuesta, DetallePedido venta, String respuesta, String encargadoRes, Calificacion calificacion) {
         this.tipoPqrs = tipoPqrs;
         this.descripcionPqrs = descripcionPqrs;
         this.estadoPqrs = estadoPqrs;
@@ -45,5 +47,6 @@ public class Pqrs {
         this.venta = venta;
         this.respuesta = respuesta;
         this.encargadoRes = encargadoRes;
+        this.calificacion = calificacion;
     }
 }

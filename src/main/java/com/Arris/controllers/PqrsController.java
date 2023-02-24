@@ -1,13 +1,7 @@
 package com.Arris.controllers;
 
-import com.Arris.models.DetallePedido;
-import com.Arris.models.Envio;
-import com.Arris.models.Pqrs;
-import com.Arris.models.Venta;
-import com.Arris.service.DetallePedidoService;
-import com.Arris.service.EnvioService;
-import com.Arris.service.PqrsService;
-import com.Arris.service.VentaService;
+import com.Arris.models.*;
+import com.Arris.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -34,6 +28,9 @@ public class PqrsController {
     @Autowired
     private EnvioService envioService;
 
+    @Autowired
+    CalificacionService calificacionService;
+
     @GetMapping("/allx")
     public ArrayList<Pqrs> getAllPqrs(){
         return pqrsService.getAll();
@@ -58,9 +55,11 @@ public class PqrsController {
         List<DetallePedido> detallePedido = detallePedidoService.getAll();
         List<Pqrs> pqrs =pqrsService.getAll();
         List<Envio> envio = envioService.getAll();
+        List<Calificacion> calificacion = calificacionService.getAllCalificaciones();
         model.addAttribute("envio",envio);
         model.addAttribute("pedido", detallePedido);
         model.addAttribute("listarPqrs",pqrs);
+        model.addAttribute("calificacion", calificacion);
         return "interfaz_cliente/templates/pqrs";
     }
 
@@ -98,6 +97,15 @@ public class PqrsController {
                 .addFlashAttribute("mensaje", "Se a ingresado un nuevo PQRS #" + pqrs.getIdPqrs() + " ✔")
                 .addFlashAttribute("clase", "success");
         System.out.println("ingresado nuevo pqrs con exito");
+        return "redirect:/solicitudes_pqrs_cliente";
+    }
+
+    @PostMapping("/calificar_pqrs_cliente")
+    public String calificarPqrsCliente(Pqrs pqrs, RedirectAttributes redirectAttrs){
+        pqrsService.save(pqrs);
+        redirectAttrs
+                .addFlashAttribute("mensaje", "Se a calificado la PQRS #" + pqrs.getIdPqrs() + " ✔ <br> ¡Gracias por calificar! <br> tu opinión es muy importante para nosotros")
+                .addFlashAttribute("clase", "success");
         return "redirect:/solicitudes_pqrs_cliente";
     }
 
