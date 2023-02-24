@@ -104,7 +104,7 @@ public class PqrsController {
     public String calificarPqrsCliente(Pqrs pqrs, RedirectAttributes redirectAttrs){
         pqrsService.save(pqrs);
         redirectAttrs
-                .addFlashAttribute("mensaje", "Se a calificado la PQRS #" + pqrs.getIdPqrs() + " ✔ <br> ¡Gracias por calificar! <br> tu opinión es muy importante para nosotros")
+                .addFlashAttribute("mensaje", "Se a calificado la PQRS #" + pqrs.getIdPqrs() + " ✔ ¡Gracias por calificar! tu opinión es muy importante para nosotros")
                 .addFlashAttribute("clase", "success");
         return "redirect:/solicitudes_pqrs_cliente";
     }

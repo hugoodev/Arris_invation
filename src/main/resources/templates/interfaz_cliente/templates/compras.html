@@ -15,6 +15,48 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.5.0/css/select.dataTables.min.css">
   <link rel="stylesheet" type="text/css" th:href="@{./css/estilosInterfaz.css}">
 </head>
+<!-- Modal calificar venta-->
+<div class="modal fade" th:if="${pedidos.calificacion} == null and ${pedidos.pedido.cliente.email} == ${#authentication.name}"  th:id="'ab'+${pedidos.idDetallePedido}" th:each="pedidos : ${pedido}" tabindex="-1" aria-labelledby="modalCrearVenta" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCrearPedidos" th:text="'Calificación #'+${pedidos.idDetallePedido}"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col" style="text-align:center;">
+                        <form th:action="@{/calificar_venta_cliente}" method="post">
+                        <input type="number" name="idDetallePedido" th:value="${pedidos.idDetallePedido}" hidden>
+                        <input type="number" name="cantidad" th:value="${pedidos.cantidad}" hidden>
+                        <input type="number" name="precio" th:value="${pedidos.precio}" hidden>
+                        <input type="number" name="total" th:value="${pedidos.total}" hidden>
+                        <input type="number" name="producto" th:value="${pedidos.producto.idProducto}" hidden>
+                        <input type="number" name="pedido" th:value="${pedidos.pedido.idPedido}" hidden>
+                        <input type="text" name="estado" th:value="${pedidos.estado}" hidden>
+                        <input type="text" name="envio" th:value="${pedidos.envio}" hidden>
+                        <h5 style="text-align:center;">¡Tu calificación nos ayuda a mejorar!</h5>
+                        <center>
+                            <fieldset class="rating">
+                                <input type="radio" th:id="'star5'+${pedidos.idDetallePedido}" name="calificacion" value="7014"  /><label class = "full" th:for="'star5'+${pedidos.idDetallePedido}" title="¡Excelente Servicio!"></label>
+                                <input type="radio" th:id="'star4'+${pedidos.idDetallePedido}" name="calificacion" value="7013"  /><label class = "full" th:for="'star4'+${pedidos.idDetallePedido}" title="Buen Servicio"></label>
+                                <input type="radio" th:id="'star3'+${pedidos.idDetallePedido}" name="calificacion" value="7012"  /><label class = "full" th:for="'star3'+${pedidos.idDetallePedido}" title="Sobresaliente Servicio"></label>
+                                <input type="radio" th:id="'star2'+${pedidos.idDetallePedido}" name="calificacion" value="7011"  /><label class = "full" th:for="'star2'+${pedidos.idDetallePedido}" title="Regular Servicio"></label>
+                                <input type="radio" th:id="'star1'+${pedidos.idDetallePedido}" name="calificacion" value="7010"  /><label class = "full" th:for="'star1'+${pedidos.idDetallePedido}" title="Mal Servicio"></label>
+                            </fieldset>
+                        </center>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Envio</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--Fin de modal calificar venta-->
 <body>
     <div class="container-fluid">
         <div class="row justify-content-center align-content-center">
@@ -49,6 +91,10 @@
               </nav>
             </div>
             <main class="main col">
+                <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+                     th:text="${mensaje}"
+                     class="alert">
+                </div>
               <h1>Mis Compras - Cliente </h1>
               <br>
                 <hr>
@@ -62,6 +108,7 @@
                     <th scope="col">Total</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Estado</th>
+                      <th scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -73,6 +120,14 @@
                     <td th:text="'$ '+${pedido.total}"></td>
                     <td th:text="${pedido.fecha}"></td>
                     <td><span class='badge estado' th:text="${pedido.estado}"></span></td>
+                      <td style="text-align:center;">
+                          <button th:if="${pedido.calificacion} == null and ${pedido.estado} == 'Activo'"  class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#ab'+${pedido.idDetallePedido}" title="Calificar la venta"><i class="bi bi-star-fill"></i></button>
+                          <span title="El estado de la venta es diferente a activo, no se puede calificar">
+                              <button th:if="${pedido.calificacion} == null and ${pedido.estado} != 'Activo'" class="btn m-2" type="submit" disabled><i class="bi bi-star-fill"></i></button>
+                          </span>
+                          <span th:if="${pedido.calificacion} != null" title="Ya calificaste esta venta" style="color:green;"><i class="bi bi-check-circle"></i></span>
+
+                      </td>
                   </tr>
                 </tbody>
               </table>

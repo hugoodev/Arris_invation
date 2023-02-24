@@ -539,6 +539,14 @@ public class DetallePedidoController {
         System.out.println("estado actualizado con exito");
         return "redirect:/gestion_ventas_empleado";
     }
+    @PostMapping("/calificar_venta_cliente")
+    public String calificarPedidoCliente(DetallePedido detallePedido, RedirectAttributes redirectAttrs){
+        detallePedidoService.save(detallePedido);
+        redirectAttrs
+                .addFlashAttribute("mensaje", "Se a calificado la Venta #" + detallePedido.getIdDetallePedido() + " ✔ ¡Gracias por calificar! tu opinión es muy importante para nosotros")
+                .addFlashAttribute("clase", "success");
+        return "redirect:/compras_cliente";
+    }
 
     @PostMapping("/savea")
     public DetallePedido saveDetallePedido(@RequestBody DetallePedido detallePedido){

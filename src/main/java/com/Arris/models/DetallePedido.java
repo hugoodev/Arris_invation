@@ -30,11 +30,13 @@ public class DetallePedido {
     private String envio;
     @Getter @Setter @Column(name = "fecha")
     private String fecha;
+    @Getter @Setter @ManyToOne@JoinColumn(name = "calificacion")
+    private Calificacion calificacion;
 
     public DetallePedido() {
     }
 
-    public DetallePedido(long idDetallePedido, int cantidad, double precio, double total, Producto producto, Pedido pedido, String estado, String envio, String fecha) {
+    public DetallePedido(long idDetallePedido, int cantidad, double precio, double total, Producto producto, Pedido pedido, String estado, String envio, String fecha, Calificacion calificacion) {
         this.idDetallePedido = idDetallePedido;
         this.cantidad = cantidad;
         this.precio = precio;
@@ -44,5 +46,6 @@ public class DetallePedido {
         this.estado = estado;
         this.envio = envio;
         this.fecha = fecha;
+        this.calificacion = calificacion;
     }
 }

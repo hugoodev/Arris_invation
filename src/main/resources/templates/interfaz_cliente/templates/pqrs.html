@@ -191,6 +191,7 @@
                       <td>
                           <button th:object="${listarPqrs}" th:if="${listarPqrs.estadoPqrs} == respondido" class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#res'+${listarPqrs.idPqrs}" title="verRespuesta"><i class="bi bi-eye"></i></button>
                       <button class="btn m-2" type="submit" data-bs-toggle="modal" th:if="${listarPqrs.estadoPqrs} == respondido and ${listarPqrs.calificacion} == null" th:attr="data-bs-target='#ab'+${listarPqrs.idPqrs}" title="Calificar Respuesta"><i class="bi bi-star-fill"></i></button>
+                          <span th:if="${listarPqrs.calificacion} != null" title="Ya calificaste esta Pqrs" style="color:green;"><i class="bi bi-check-circle"></i></span>
                       </td>
                   </tr>
                 </tbody>

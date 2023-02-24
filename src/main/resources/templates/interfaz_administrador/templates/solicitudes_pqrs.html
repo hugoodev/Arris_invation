@@ -106,11 +106,44 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <button type="submit" class="btn m-2" data-bs-target="#modalIngresarVenta" data-bs-toggle="modal">Volver al Menu</button>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col" style="text-align:center;">
                             <h5>Calificación: </h5>
-                            <strong th:text="${listarPqrs.calificacion.descripcion}"></strong>
+                            <center>
+                                <fieldset class="rating">
+                                    <input type="radio" th:id="'star5'+${listarPqrs.idPqrs}" name="calificacion" value="7014" disabled /><label class = "full" th:for="'star5'+${listarPqrs.idPqrs}" title="¡Excelente Servicio!"></label>
+                                    <input type="radio" th:id="'star4'+${listarPqrs.idPqrs}" name="calificacion" value="7013" disabled /><label class = "full" th:for="'star4'+${listarPqrs.idPqrs}" title="Buen Servicio"></label>
+                                    <input type="radio" th:id="'star3'+${listarPqrs.idPqrs}" name="calificacion" value="7012" disabled /><label class = "full" th:for="'star3'+${listarPqrs.idPqrs}" title="Sobresaliente Servicio"></label>
+                                    <input type="radio" th:id="'star2'+${listarPqrs.idPqrs}" name="calificacion" value="7011" disabled /><label class = "full" th:for="'star2'+${listarPqrs.idPqrs}" title="Regular Servicio"></label>
+                                    <input type="radio" th:id="'star1'+${listarPqrs.idPqrs}" name="calificacion" value="7010" disabled /><label class = "full" th:for="'star1'+${listarPqrs.idPqrs}" title="Mal Servicio"></label>
+                                </fieldset>
+                            </center>
+                            <strong th:text="${listarPqrs.calificacion.descripcion}" th:id="'textoCalificacion'+${listarPqrs.idPqrs}"></strong>
+                            <script th:inline="javascript">
+                                    function estrellas[[${listarPqrs.idPqrs}]](){
+                                    var textoCalificacion[[${listarPqrs.idPqrs}]] = document.getElementById("textoCalificacion[[${listarPqrs.idPqrs}]]");
+                                        if(textoCalificacion[[${listarPqrs.idPqrs}]].textContent == "mal servicio"){
+                                            var star1[[${listarPqrs.idPqrs}]] = document.getElementById([['star1'+${listarPqrs.idPqrs}]]);
+                                            star1[[${listarPqrs.idPqrs}]].checked = true;
+                                        }
+                                        if(textoCalificacion[[${listarPqrs.idPqrs}]].textContent == "regular servicio"){
+                                            var star2[[${listarPqrs.idPqrs}]] = document.getElementById([['star2'+${listarPqrs.idPqrs}]]);
+                                            star2[[${listarPqrs.idPqrs}]].checked = true;
+                                        }
+                                        if(textoCalificacion[[${listarPqrs.idPqrs}]].textContent == "sobresaliente servicio"){
+                                            var star3[[${listarPqrs.idPqrs}]] = document.getElementById([['star3'+${listarPqrs.idPqrs}]]);
+                                            star3[[${listarPqrs.idPqrs}]].checked = true;
+                                        }
+                                        if(textoCalificacion[[${listarPqrs.idPqrs}]].textContent == "buen servicio"){
+                                            var star4[[${listarPqrs.idPqrs}]] = document.getElementById([['star4'+${listarPqrs.idPqrs}]]);
+                                            star4[[${listarPqrs.idPqrs}]].checked = true;
+                                        }
+                                        if(textoCalificacion[[${listarPqrs.idPqrs}]].textContent == "excelente servicio"){
+                                            var star5[[${listarPqrs.idPqrs}]] = document.getElementById([['star5'+${listarPqrs.idPqrs}]]);
+                                            star5[[${listarPqrs.idPqrs}]].checked = true;
+                                        }
+                                    }
+                                </script>
                         </div>
                     </div>
                     <hr>
@@ -187,7 +220,7 @@
                       <td th:text="${listarPqrs.fechaIngresada}"></td>
                       <td th:text="${listarPqrs.fechaRespuesta}"></td>
                     <td th:if="${listarPqrs.estadoPqrs} != respondido" th:attr="data-bs-target='#a'+${listarPqrs.idPqrs}"><button class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#a'+${listarPqrs.idPqrs}" title="Responder"><i class="bi bi-send"></i></button></td>
-                      <td th:if="${listarPqrs.estadoPqrs} == respondido and ${listarPqrs.calificacion} != null"><button class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#ab'+${listarPqrs.idPqrs}" title="Ver Calificación"><i class="bi bi-star-fill"></i></button></td>
+                      <td th:if="${listarPqrs.estadoPqrs} == respondido and ${listarPqrs.calificacion} != null"><button th:onclick="estrellas[[${listarPqrs.idPqrs}]]()"  class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#ab'+${listarPqrs.idPqrs}" title="Ver Calificación"><i class="bi bi-star-fill"></i></button></td>
                       <td th:if="${listarPqrs.estadoPqrs} == respondido and ${listarPqrs.calificacion} == null"  title="No han enviado alguna calificación sobre la PQRS"><button disabled class="btn m-2" type="submit" data-bs-toggle="modal"><i class="bi bi-star-fill"></i></button></td>
                       <td><span class='badge bg-success'  th:text="${listarPqrs.respuesta}"></span></td>
                       <td th:text="${listarPqrs.encargadoRes}"></td>

@@ -326,6 +326,65 @@
   </div>
 </div>
 <!--Fin de modal editar venta-->
+<!-- Modal ver calificacion venta-->
+<div class="modal fade" th:if="${pedidos.calificacion} != null"  th:id="'ab'+${pedidos.idDetallePedido}" th:each="pedidos : ${pedido}" tabindex="-1" aria-labelledby="modalCrearVenta" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCrearPedidos" th:text="'Calificación #'+${pedidos.idDetallePedido}"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col" style="text-align:center;">
+            <h5>Calificación: </h5>
+            <center>
+              <fieldset class="rating">
+                <input type="radio" th:id="'star5'+${pedidos.idDetallePedido}" name="calificacion" value="7014" disabled /><label class = "full" th:for="'star5'+${pedidos.idDetallePedido}" title="¡Excelente Servicio!"></label>
+                <input type="radio" th:id="'star4'+${pedidos.idDetallePedido}" name="calificacion" value="7013" disabled /><label class = "full" th:for="'star4'+${pedidos.idDetallePedido}" title="Buen Servicio"></label>
+                <input type="radio" th:id="'star3'+${pedidos.idDetallePedido}" name="calificacion" value="7012" disabled /><label class = "full" th:for="'star3'+${pedidos.idDetallePedido}" title="Sobresaliente Servicio"></label>
+                <input type="radio" th:id="'star2'+${pedidos.idDetallePedido}" name="calificacion" value="7011" disabled /><label class = "full" th:for="'star2'+${pedidos.idDetallePedido}" title="Regular Servicio"></label>
+                <input type="radio" th:id="'star1'+${pedidos.idDetallePedido}" name="calificacion" value="7010" disabled /><label class = "full" th:for="'star1'+${pedidos.idDetallePedido}" title="Mal Servicio"></label>
+              </fieldset>
+            </center>
+            <strong th:text="${pedidos.calificacion.descripcion}" th:id="'textoCalificacion'+${pedidos.idDetallePedido}"></strong>
+            <script th:inline="javascript">
+                                    function estrellas[[${pedidos.idDetallePedido}]](){
+                                    var textoCalificacion[[${pedidos.idDetallePedido}]] = document.getElementById("textoCalificacion[[${pedidos.idDetallePedido}]]");
+                                        if(textoCalificacion[[${pedidos.idDetallePedido}]].textContent == "mal servicio"){
+                                            var star1[[${pedidos.idDetallePedido}]] = document.getElementById([['star1'+${pedidos.idDetallePedido}]]);
+                                            star1[[${pedidos.idDetallePedido}]].checked = true;
+                                        }
+                                        if(textoCalificacion[[${pedidos.idDetallePedido}]].textContent == "regular servicio"){
+                                            var star2[[${pedidos.idDetallePedido}]] = document.getElementById([['star2'+${pedidos.idDetallePedido}]]);
+                                            star2[[${pedidos.idDetallePedido}]].checked = true;
+                                        }
+                                        if(textoCalificacion[[${pedidos.idDetallePedido}]].textContent == "sobresaliente servicio"){
+                                            var star3[[${pedidos.idDetallePedido}]] = document.getElementById([['star3'+${pedidos.idDetallePedido}]]);
+                                            star3[[${pedidos.idDetallePedido}]].checked = true;
+                                        }
+                                        if(textoCalificacion[[${pedidos.idDetallePedido}]].textContent == "buen servicio"){
+                                            var star4[[${pedidos.idDetallePedido}]] = document.getElementById([['star4'+${pedidos.idDetallePedido}]]);
+                                            star4[[${pedidos.idDetallePedido}]].checked = true;
+                                        }
+                                        if(textoCalificacion[[${pedidos.idDetallePedido}]].textContent == "excelente servicio"){
+                                            var star5[[${pedidos.idDetallePedido}]] = document.getElementById([['star5'+${pedidos.idDetallePedido}]]);
+                                            star5[[${pedidos.idDetallePedido}]].checked = true;
+                                        }
+                                    }
+                                </script>
+          </div>
+        </div>
+        <hr>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--Fin de modal ver calificacion venta-->
 <div class="container-fluid">
   <div class="row justify-content-center align-content-center">
     <div class="col-8 barra">
@@ -384,6 +443,10 @@
           <td th:text="${pedidos.fecha}"></td>
           <td ><span class='badge estado' th:text="${pedidos.estado}"></span></td>
           <td><button class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#a'+${pedidos.idDetallePedido}" title="editar"><i class="bi bi-pen-fill"></i></button>
+            <button th:if="${pedidos.calificacion} != null" th:onclick="estrellas[[${pedidos.idDetallePedido}]]()"  class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#ab'+${pedidos.idDetallePedido}" title="Ver Calificación"><i class="bi bi-star-fill"></i></button>
+            <span title="No han enviado alguna calificación sobre la venta">
+                        <button th:if="${pedidos.calificacion} == null"  title="No han enviado alguna calificación sobre la venta" class="btn m-2" type="submit" disabled><i class="bi bi-star-fill"></i></button>
+                      </span>
         </tr>
 
         </tbody>
