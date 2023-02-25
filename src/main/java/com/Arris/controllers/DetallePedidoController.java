@@ -522,7 +522,8 @@ public class DetallePedidoController {
     }
 
     @PostMapping("/cambiar_estado_venta_admin")
-    public String CambiarEstadoAdmin(DetallePedido detallePedido, RedirectAttributes redirectAttrs){
+    public String CambiarEstadoAdmin(DetallePedido detallePedido, RedirectAttributes redirectAttrs, Authentication auth){
+        detallePedido.setEncargado(auth.getName());
         detallePedidoService.save(detallePedido);
         redirectAttrs
                 .addFlashAttribute("mensaje", "El Estado De La Venta #" + detallePedido.getIdDetallePedido() +" A Sido Editada Satisfactoriamente Por: " + detallePedido.getEstado() + " ✔")
@@ -531,7 +532,8 @@ public class DetallePedidoController {
         return "redirect:/gestion_ventas_admin";
     }
     @PostMapping("/cambiar_estado_venta_empleado")
-    public String CambiarEstadoEmpleado(DetallePedido detallePedido, RedirectAttributes redirectAttrs){
+    public String CambiarEstadoEmpleado(DetallePedido detallePedido, RedirectAttributes redirectAttrs, Authentication auth){
+        detallePedido.setEncargado(auth.getName());
         detallePedidoService.save(detallePedido);
         redirectAttrs
                 .addFlashAttribute("mensaje", "El Estado De La Venta #" + detallePedido.getIdDetallePedido() +" A Sido Editada Satisfactoriamente Por: " + detallePedido.getEstado() + " ✔")

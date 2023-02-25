@@ -288,7 +288,7 @@
       <!--Fin de modal crear venta-->
 
      <!-- Modal editar venta-->
-     <div class="modal fade" th:id="'a'+${pedido.idDetallePedido}" th:each="pedido : ${pedido}" tabindex="-1" aria-labelledby="modalEditarVenta" aria-hidden="true">
+     <div class="modal fade" th:if="${pedido.estado} == 'Activo'" th:id="'a'+${pedido.idDetallePedido}" th:each="pedido : ${pedido}" tabindex="-1" aria-labelledby="modalEditarVenta" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -308,9 +308,8 @@
                     <input type="number" id="" name="pedido" th:value="${pedido.pedido.idPedido}" hidden>
                     <input type="number" id="" name="total" th:value="${pedido.total}" hidden>
                     <ul class="nav flex-column">
-                      <select class="form-select" aria-label="Default select example" id="estado" name="estado">
-                        <option selected>Abre para seleccionar un estado de la venta</option>
-                        <option value="Activo">Activo</option>
+                      <select class="form-select" aria-label="Default select example" id="estado" name="estado" required>
+                        <option value="" selected>Abre para seleccionar un estado de la venta</option>
                         <option value="Error en la venta">Error en la venta</option>
                       </select>
                     </ul>
@@ -318,7 +317,7 @@
                 </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-secondary" >Enviar</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" onclick="return confirm_change()" class="btn btn-secondary" >Enviar</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
           </form>
         </div>
@@ -432,6 +431,7 @@
                     <th scope="col">Fecha</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
+                    <th scope="col">Responsable cambio de estado</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -442,12 +442,13 @@
                     <td th:text="${pedidos.pedido.idPedido}"></td>
                     <td th:text="${pedidos.fecha}"></td>
                     <td ><span class='badge estado' th:text="${pedidos.estado}"></span></td>
-                    <td><button class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#a'+${pedidos.idDetallePedido}" title="editar"><i class="bi bi-pen-fill"></i></button>
+                    <td><button class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#a'+${pedidos.idDetallePedido}" th:if="${pedidos.estado} == 'Activo'" title="editar"><i class="bi bi-pen-fill"></i></button>
                     <button th:if="${pedidos.calificacion} != null" th:onclick="estrellas[[${pedidos.idDetallePedido}]]()"  class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#ab'+${pedidos.idDetallePedido}" title="Ver Calificación"><i class="bi bi-star-fill"></i></button>
                       <span title="No han enviado alguna calificación sobre la venta">
                         <button th:if="${pedidos.calificacion} == null"  title="No han enviado alguna calificación sobre la venta" class="btn m-2" type="submit" disabled><i class="bi bi-star-fill"></i></button>
                       </span>
                     </td>
+                    <td th:text="${pedidos.encargado}"></td>
                   </tr>
                 </tbody>
               </table>

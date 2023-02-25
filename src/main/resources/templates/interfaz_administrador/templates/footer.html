@@ -222,6 +222,9 @@ var Capturar = function(){
             console.log (lstNumero[i].value);
             }
         }
+        function confirm_change() {
+  return confirm('Recuerda que si cambias el estado de la venta no podras volverlo a editar, ¿Estas de acuerdo?');
+}
     </script>
 <script th:if="${class != null}">
 $(document).ready(function() {

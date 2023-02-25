@@ -423,6 +423,7 @@
                     <th scope="col">Producto</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Fecha</th>
+                    <th scope="col">Responsable cambio de estado</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -433,6 +434,7 @@
                     <td th:text="${detallePedidos.producto.nombre}"></td>
                     <td th:text="${detallePedidos.cantidad}"></td>
                     <td th:text="${detallePedidos.fecha}"></td>
+                    <td th:text="${detallePedidos.encargado}"></td>
                   </tr>
                 </tbody>
               </table>

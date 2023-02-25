@@ -31,6 +31,9 @@ public class PqrsController {
     @Autowired
     CalificacionService calificacionService;
 
+    @Autowired
+    private MailServiceImp emailPort;
+
     @GetMapping("/allx")
     public ArrayList<Pqrs> getAllPqrs(){
         return pqrsService.getAll();
@@ -69,7 +72,26 @@ public class PqrsController {
     }
 
     @PostMapping("/responder_mensaje_admin")
-    public String responderMensaje(Pqrs pqrs, RedirectAttributes redirectAttrs, Authentication auth){
+    public String responderMensaje(Pqrs pqrs, RedirectAttributes redirectAttrs, Authentication auth, MailRequest emailBody){
+        emailBody.setEmail("mrloquendojodido@gmail.com");
+        emailBody.setSubject("has respondido una PQRS!! #"+pqrs.getIdPqrs());
+        emailBody.setContent(
+                "<h1>Hola Admin <strong>" + auth.getName() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
+                        "<h1>Numero de PQRS: <strong>" + pqrs.getIdPqrs() + "</strong></h1><br/>" +
+                        "<h1>Cliente: <strong>" + pqrs.getVenta().getPedido().getCliente().getNombre() + "</strong></h1><br/>" +
+                        "<h1>Se a respondido satisfactoriamente, verifica en el sistema si el cliente ya califico tu respuesta </h1>"
+        );
+        emailPort.sendEmail(emailBody);
+        emailBody.setEmail("hugo.garcia29@misena.edu.co");
+        emailBody.setSubject("se ha respondido tu PQRS!! #"+pqrs.getIdPqrs());
+        emailBody.setContent(
+                "<h1>Hola <strong>" + pqrs.getVenta().getPedido().getCliente().getNombre() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
+                        "<h1>Numero de PQRS: <strong>" + pqrs.getIdPqrs() + "</strong></h1><br/>" +
+                        "<h1>Se a respondido satisfactoriamente, verifica en el sistema si la respuesta que recibiste era la esperada, no olvides en calificar, esto nos ayuda a mejorar </h1>"
+        );
+
+        emailPort.sendEmail(emailBody);
+
         pqrs.setEncargadoRes(auth.getName());
         pqrsService.save(pqrs);
         redirectAttrs
@@ -80,9 +102,38 @@ public class PqrsController {
     }
 
     @PostMapping("/responder_mensaje_empleado")
-    public String responderMensajeEmpleado(Pqrs pqrs, RedirectAttributes redirectAttrs, Authentication auth){
+    public String responderMensajeEmpleado(Pqrs pqrs, RedirectAttributes redirectAttrs, Authentication auth, MailRequest emailBody){
+        emailBody.setEmail("hugo.garcia29@misena.edu.co");
+        emailBody.setSubject("has respondido una PQRS!! #"+pqrs.getIdPqrs());
+        emailBody.setContent(
+                "<h1>Hola <strong>" + auth.getName() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
+                        "<h1>Numero de PQRS: <strong>" + pqrs.getIdPqrs() + "</strong></h1><br/>" +
+                        "<h1>Cliente: <strong>" + pqrs.getVenta().getPedido().getCliente().getNombre() + "</strong></h1><br/>" +
+                        "<h1>Se a respondido satisfactoriamente, verifica en el sistema si el cliente ya califico tu respuesta </h1>"
+        );
+        emailPort.sendEmail(emailBody);
+
+        emailBody.setEmail("hugo.garcia29@misena.edu.co");
+        emailBody.setSubject("se ha respondido tu PQRS!! #"+pqrs.getIdPqrs());
+        emailBody.setContent(
+                "<h1>Hola <strong>" + pqrs.getVenta().getPedido().getCliente().getNombre() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
+                        "<h1>Numero de PQRS: <strong>" + pqrs.getIdPqrs() + "</strong></h1><br/>" +
+                        "<h1>Se a respondido satisfactoriamente, verifica en el sistema si la respuesta que recibiste era la esperada, no olvides en calificar, esto nos ayuda a mejorar </h1>"
+        );
+
+        emailPort.sendEmail(emailBody);
         pqrs.setEncargadoRes(auth.getName());
         pqrsService.save(pqrs);
+        emailBody.setEmail("mrloquendojodido@gmail.com");
+        emailBody.setSubject("han respondido una PQRS!! #"+pqrs.getIdPqrs());
+        emailBody.setContent(
+                "<h1>Hola Admin, esperamos que te encuentres bien </h1><br/>" +
+                        "<h1>Numero de PQRS: <strong>" + pqrs.getIdPqrs() + "</strong></h1><br/>" +
+                        "<h1>Cliente: <strong>" + pqrs.getVenta().getPedido().getCliente().getNombre() + "</strong></h1><br/>" +
+                        "<h1>Empleado que respondio: <strong>" + auth.getName() + "</strong></h1><br/>" +
+                        "<h1>Se a respondido satisfactoriamente, verifica en el sistema si el cliente ya califico la respuesta </h1>"
+        );
+        emailPort.sendEmail(emailBody);
         redirectAttrs
                 .addFlashAttribute("mensaje", "Se respondio el mensaje de la PQRS #" + pqrs.getIdPqrs() + ", del cliente: " + pqrs.getVenta().getPedido().getCliente().getNombre() +" A Sido Satisfactoriamente Respondida " + " ✔")
                 .addFlashAttribute("clase", "success");
@@ -91,8 +142,35 @@ public class PqrsController {
     }
 
     @PostMapping("/ingresar_nuevo_pqrs_cliente")
-    public String ingresarPQRSCliente(Pqrs pqrs, RedirectAttributes redirectAttrs){
+    public String ingresarPQRSCliente(Pqrs pqrs, RedirectAttributes redirectAttrs, MailRequest emailBody){
         pqrsService.save(pqrs);
+        emailBody.setEmail("hugo.garcia29@misena.edu.co");
+        emailBody.setSubject("has ingresado una PQRS!! #"+pqrs.getIdPqrs());
+        emailBody.setContent(
+                "<h1>Hola <strong>" + pqrs.getVenta().getPedido().getCliente().getNombre() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
+                        "<h1>Numero de PQRS: <strong>" + pqrs.getIdPqrs() + "</strong></h1><br/>" +
+                        "<h1>has ingresado satisfactoriamente la nueva PQRS, verifica en el sistema si ya te respondieron y califica la respuesta </h1>"
+        );
+        emailPort.sendEmail(emailBody);
+
+        emailBody.setEmail("hugo.garcia29@misena.edu.co");
+        emailBody.setSubject("un cliente a ingresado una PQRS!! #"+pqrs.getIdPqrs());
+        emailBody.setContent(
+                "<h1>Hola <strong>" + pqrs.getVenta().getPedido().getCliente().getNombre() + "</strong>, esperamos que te encuentres bien </h1><br/>" +
+                        "<h1>Numero de PQRS: <strong>" + pqrs.getIdPqrs() + "</strong></h1><br/>" +
+                        "<h1>Se a ingresado una nueva PQRS satisfactoriamente, revisa la PQRS del cliente y respondela lo mas pronto posible </h1>"
+        );
+
+        emailPort.sendEmail(emailBody);
+        emailBody.setEmail("mrloquendojodido@gmail.com");
+        emailBody.setSubject("un cliente a ingresado una PQRS!! #"+pqrs.getIdPqrs());
+        emailBody.setContent(
+                "<h1>Hola Admin, esperamos que te encuentres bien </h1><br/>" +
+                        "<h1>Numero de PQRS: <strong>" + pqrs.getIdPqrs() + "</strong></h1><br/>" +
+                        "<h1>Se a ingresado una nueva PQRS satisfactoriamente, revisa la PQRS del cliente y respondela lo mas pronto posible </h1>"
+        );
+
+        emailPort.sendEmail(emailBody);
         redirectAttrs
                 .addFlashAttribute("mensaje", "Se a ingresado un nuevo PQRS #" + pqrs.getIdPqrs() + " ✔")
                 .addFlashAttribute("clase", "success");

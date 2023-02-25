@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-02-2023 a las 05:08:47
+-- Tiempo de generación: 25-02-2023 a las 17:19:27
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -276,144 +276,146 @@ CREATE TABLE `detalle_de_pedido` (
   `estado` varchar(45) NOT NULL,
   `envio` varchar(45) DEFAULT NULL,
   `fecha` datetime DEFAULT NULL,
-  `calificacion` int(11) DEFAULT NULL
+  `calificacion` int(11) DEFAULT NULL,
+  `encargado` varchar(55) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `detalle_de_pedido`
 --
 
-INSERT INTO `detalle_de_pedido` (`id_detalle_pedido`, `cantidad`, `precio`, `total`, `id_producto`, `id_pedido`, `estado`, `envio`, `fecha`, `calificacion`) VALUES
-(8010, 4, 40000, 160000, 9010, 4010, 'Error en la venta', NULL, NULL, NULL),
-(8011, 6, 25000, 150000, 9011, 4010, 'Activo', '', NULL, NULL),
-(8012, 2, 30000, 60000, 9012, 4011, 'Activo', '', NULL, NULL),
-(8013, 7, 85000, 595000, 9013, 4011, 'Error en la venta', '', NULL, NULL),
-(8014, 3, 20000, 60000, 9014, 4012, 'Activo', '', NULL, NULL),
-(8015, 4, 32000, 128000, 9015, 4013, 'Activo', '', NULL, NULL),
-(8016, 1, 18000, 18000, 9016, 4014, 'Activo', '', NULL, NULL),
-(8017, 2, 28000, 56000, 9017, 4015, 'Activo', '', NULL, NULL),
-(8024, 3, 32000, 96000, 9015, 4012, 'Activo', '', NULL, NULL),
-(8025, 2, 30000, 60000, 9012, 4011, 'Activo', '', NULL, NULL),
-(8026, 10, 40000, 400000, 9010, 4014, 'Activo', '', NULL, NULL),
-(8027, 3, 40000, 120000, 9010, 4019, 'Error en la venta', '', NULL, NULL),
-(8028, 6, 32000, 192000, 9015, 4024, 'Error en la venta', '', NULL, NULL),
-(8029, 10, 25000, 250000, 9011, 4011, 'Activo', '', NULL, NULL),
-(8030, 2, 25000, 50000, 9011, 4024, 'Activo', '', NULL, NULL),
-(8031, 5, 30000, 150000, 9012, 4017, 'Activo', '', NULL, NULL),
-(8032, 2, 18000, 36000, 9016, 4013, 'Activo', '', NULL, NULL),
-(8033, 9, 40000, 360000, 9010, 4010, 'Activo', '', NULL, NULL),
-(8034, 8, 25000, 200000, 9011, 4011, 'Activo', '', NULL, NULL),
-(8035, 7, 25000, 175000, 9011, 4010, 'Activo', '', NULL, NULL),
-(8036, 7, 40000, 280000, 9010, 4026, 'Activo', '', NULL, NULL),
-(8037, 3, 30000, 90000, 9012, 4026, 'Activo', '', NULL, NULL),
-(8038, 3, 18000, 54000, 9016, 4028, 'Activo', '', NULL, NULL),
-(8039, 10, 85000, 850000, 9013, 4028, 'Error en la venta', '', NULL, NULL),
-(8040, 1, 40000, 40000, 9018, 4011, 'Activo', '', NULL, NULL),
-(8048, 4, 20000, 80000, 9014, 4013, 'Activo', '', NULL, NULL),
-(8054, 4, 20000, 80000, 9014, 4011, 'Activo', '', NULL, NULL),
-(8074, 1, 20000, 20000, 9014, 4011, 'Activo', '', NULL, NULL),
-(8076, 1, 20000, 20000, 9014, 4011, 'Activo', '', NULL, NULL),
-(8077, 2, 18000, 36000, 9016, 4012, 'Activo', '', NULL, NULL),
-(8078, 3, 40000, 120000, 9010, 4012, 'Activo', '', NULL, NULL),
-(8079, 3, 85000, 255000, 9013, 4015, 'Activo', '', NULL, NULL),
-(8080, 1, 40000, 40000, 9018, 4028, 'Activo', '', NULL, NULL),
-(8081, 2, 40000, 80000, 9018, 4010, 'Activo', '', NULL, NULL),
-(8082, 2, 40000, 80000, 9018, 4010, 'Activo', '', NULL, NULL),
-(8086, 2, 40000, 80000, 9018, 4013, 'Activo', '', NULL, NULL),
-(8090, 4, 40000, 160000, 9018, 4014, 'Activo', '', NULL, NULL),
-(8091, 2, 40000, 80000, 9018, 4014, 'Activo', '', NULL, NULL),
-(8092, 2, 40000, 80000, 9018, 4014, 'Activo', '', NULL, NULL),
-(8093, 2, 40000, 80000, 9018, 4014, 'Activo', '', NULL, NULL),
-(8094, 2, 40000, 80000, 9018, 4013, 'Activo', '', NULL, NULL),
-(8095, 2, 40000, 80000, 9018, 4012, 'Activo', '', NULL, NULL),
-(8096, 1, 40000, 40000, 9010, 4012, 'Activo', '', NULL, NULL),
-(8097, 2, 40000, 80000, 9010, 4033, 'Activo', '', NULL, NULL),
-(8098, 1, 40000, 40000, 9010, 4033, 'Error en la venta', '', NULL, NULL),
-(8099, 1, 40000, 40000, 9010, 4034, 'Activo', '', NULL, NULL),
-(8100, 1, 40000, 40000, 9010, 4034, 'Activo', '', NULL, NULL),
-(8101, 1, 40000, 40000, 9010, 4034, 'Activo', '', NULL, NULL),
-(8103, 1, 40000, 40000, 9010, 4034, 'Activo', 'si', NULL, NULL),
-(8104, 1, 40000, 40000, 9010, 4033, 'Activo', 'no', NULL, NULL),
-(8105, 1, 40000, 40000, 9010, 4034, 'Activo', 'si', NULL, NULL),
-(8106, 1, 40000, 40000, 9010, 4035, 'Activo', 'si', NULL, NULL),
-(8107, 1, 40000, 40000, 9010, 4015, 'Activo', 'no', NULL, NULL),
-(8108, 1, 40000, 40000, 9010, 4011, 'Activo', 'no', NULL, NULL),
-(8109, 1, 40000, 40000, 9010, 4014, 'Activo', 'si', NULL, NULL),
-(8110, 1, 40000, 40000, 9010, 4016, 'Activo', 'si', NULL, NULL),
-(8111, 1, 40000, 40000, 9010, 4010, 'Activo', 'no', NULL, NULL),
-(8112, 1, 40000, 40000, 9010, 4025, 'Activo', 'no', NULL, NULL),
-(8113, 1, 40000, 40000, 9010, 4018, 'Activo', 'no', NULL, NULL),
-(8114, 1, 40000, 40000, 9010, 4017, 'Activo', 'no', NULL, NULL),
-(8115, 1, 25000, 25000, 9011, 4035, 'Error en la venta', 'si', NULL, NULL),
-(8116, 1, 25000, 25000, 9011, 4034, 'Activo', 'no', NULL, NULL),
-(8117, 1, 40000, 40000, 9010, 4033, 'Activo', 'si', NULL, NULL),
-(8118, 2, 40000, 80000, 9010, 4032, 'Activo', 'si', NULL, NULL),
-(8119, 1, 40000, 40000, 9010, 4031, 'Activo', 'si', NULL, NULL),
-(8120, 1, 40000, 40000, 9010, 4030, 'Activo', 'no', NULL, NULL),
-(8121, 1, 40000, 40000, 9010, 4016, 'Activo', 'si', NULL, NULL),
-(8122, 2, 20000, 40000, 9014, 4020, 'Activo', 'si', NULL, NULL),
-(8123, 2, 20000, 40000, 9014, 4036, 'Activo', 'no', NULL, NULL),
-(8124, 1, 40000, 40000, 9010, 4011, 'Activo', 'no', NULL, NULL),
-(8125, 1, 40000, 40000, 9010, 4014, 'Activo', 'no', NULL, NULL),
-(8126, 1, 40000, 40000, 9010, 4014, 'Activo,Activo', 'no,si', NULL, NULL),
-(8127, 1, 40000, 40000, 9010, 4010, 'Activo', 'no', NULL, NULL),
-(8128, 1, 40000, 40000, 9010, 4011, 'Activo', 'si,no', NULL, NULL),
-(8129, 1, 40000, 40000, 9010, 4024, 'Activo,Activo', 'no,no', NULL, NULL),
-(8130, 1, 40000, 40000, 9010, 4010, 'Activo,Activo', 'si,no', NULL, NULL),
-(8131, 1, 40000, 40000, 9010, 4010, 'Activo', 'si', NULL, NULL),
-(8132, 1, 40000, 40000, 9010, 4010, 'Activo', 'no', NULL, NULL),
-(8133, 1, 40000, 40000, 9010, 4011, 'Activo', 'si', NULL, NULL),
-(8134, 1, 40000, 40000, 9010, 4017, 'Activo', 'si', NULL, NULL),
-(8135, 1, 40000, 40000, 9010, 4018, 'Activo', NULL, NULL, NULL),
-(8136, 1, 40000, 40000, 9010, 4010, 'Activo', NULL, NULL, NULL),
-(8137, 1, 40000, 40000, 9010, 4013, 'Activo', 'si', NULL, NULL),
-(8138, 1, 40000, 40000, 9010, 4018, 'Activo', NULL, NULL, NULL),
-(8139, 1, 40000, 40000, 9010, 4020, 'Activo', 'no', NULL, NULL),
-(8140, 1, 40000, 40000, 9010, 4010, 'Activo', 'no', NULL, NULL),
-(8141, 1, 40000, 40000, 9010, 4010, 'Activo', 'si', NULL, NULL),
-(8142, 1, 40000, 40000, 9010, 4024, 'Activo', 'si', '2023-01-09 21:22:17', NULL),
-(8143, 1, 0, 0, 9010, 4031, 'Activo', 'no', NULL, NULL),
-(8144, 2, 0, 0, 9010, 4032, 'Activo', 'si', NULL, NULL),
-(8145, 1, 0, 0, 9010, 4033, 'Activo', 'no', NULL, NULL),
-(8146, 2, 0, 0, 9010, 4034, 'Activo', 'si', NULL, NULL),
-(8147, 1, 0, 0, 9010, 4035, 'Activo', 'no', NULL, NULL),
-(8148, 2, 0, 0, 9010, 4036, 'Activo', 'si', NULL, NULL),
-(8149, 1, 0, 0, 9010, 4030, 'Activo', 'si', NULL, NULL),
-(8150, 2, 40000, 80000, 9010, 4031, 'Activo', 'no', '2023-01-09 21:33:02', NULL),
-(8151, 1, 40000, 40000, 9010, 4032, 'Activo', 'si', '2023-01-09 21:33:02', NULL),
-(8152, 2, 40000, 80000, 9010, 4032, 'Activo', 'no', '2023-01-09 21:33:02', NULL),
-(8153, 1, 40000, 40000, 9010, 4033, 'Activo', 'si', '2023-01-09 21:33:02', NULL),
-(8154, 2, 40000, 80000, 9010, 4034, 'Activo', 'no', '2023-01-09 21:33:03', NULL),
-(8155, 1, 40000, 40000, 9010, 4036, 'Activo', 'si', '2023-01-11 10:30:24', NULL),
-(8156, 1, 40000, 40000, 9010, 4035, 'Activo', 'no', '2023-01-11 10:30:30', NULL),
-(8157, 1, 40000, 40000, 9010, 4010, 'Activo', 'si', '2023-01-11 11:51:08', NULL),
-(8158, 1, 40000, 40000, 9010, 4011, 'Activo', 'si', '2023-01-11 11:51:13', NULL),
-(8159, 1, 40000, 40000, 9010, 4014, 'Activo', 'si', '2023-01-11 11:52:08', NULL),
-(8160, 2, 40000, 80000, 9010, 4036, 'Activo', 'no', '2023-01-11 11:55:30', NULL),
-(8161, 3, 40000, 120000, 9010, 4010, 'Activo', 'si', '2023-01-19 10:35:49', NULL),
-(8162, 2, 40000, 80000, 9010, 4010, 'Activo', 'si', '2023-01-19 10:35:54', NULL),
-(8163, 2, 25000, 50000, 9011, 4010, 'Activo', 'si', '2023-01-19 10:35:58', NULL),
-(8164, 1, 40000, 40000, 9010, 4010, 'Activo', 'si', '2023-01-22 19:56:02', NULL),
-(8165, 2, 40000, 80000, 9010, 4010, 'Activo', 'si', '2023-01-22 19:59:29', NULL),
-(8166, 1, 40000, 40000, 9010, 4010, 'Activo', 'si', '2023-01-22 20:07:08', NULL),
-(8167, 1, 40000, 40000, 9010, 4036, 'Activo', 'si', '2023-01-22 20:10:33', NULL),
-(8168, 1, 40000, 47600, 9010, 4010, 'Activo', 'si', '2023-02-16 10:49:52', NULL),
-(8169, 1, 25000, 29750, 9011, 4021, 'Activo', 'si', '2023-02-16 11:12:27', NULL),
-(8170, 1, 40000, 47600, 9010, 4034, 'Activo', 'si', '2023-02-16 11:14:18', NULL),
-(8171, 1, 77000, 91630, 9058, 4024, 'Activo', 'si', '2023-02-17 07:17:48', NULL),
-(8172, 1, 40000, 47600, 9010, 4027, 'Activo', 'si', '2023-02-17 07:31:00', NULL),
-(8173, 1, 40000, 47600, 9010, 4021, 'Activo', 'si', '2023-02-17 08:26:10', NULL),
-(8174, 1, 25000, 29750, 9011, 4013, 'Activo', 'si', '2023-02-17 09:28:38', NULL),
-(8175, 1, 40000, 47600, 9010, 4016, 'Activo', 'si', '2023-02-17 09:35:31', NULL),
-(8176, 1, 25000, 29750, 9011, 4011, 'Activo', 'si', '2023-02-17 09:41:53', NULL),
-(8177, 1, 25000, 29750, 9011, 4015, 'Activo', 'si', '2023-02-17 09:54:32', NULL),
-(8178, 1, 25000, 29750, 9011, 4023, 'Activo', 'si', '2023-02-17 09:56:57', NULL),
-(8179, 1, 25000, 29750, 9011, 4010, 'Activo', 'si', '2023-02-20 07:00:56', NULL),
-(8180, 1, 25000, 29750, 9011, 4020, 'Error en la venta', 'si', NULL, NULL),
-(8181, 1, 77000, 91630, 9058, 4012, 'Activo', 'si', '2023-02-20 18:26:21', NULL),
-(8182, 1, 25000, 29750, 9011, 4035, 'Activo', 'si', '2023-02-23 12:34:07', NULL),
-(8183, 1, 95000, 113050, 9057, 4035, 'Activo', 'si', '2023-02-23 12:45:37', NULL),
-(8184, 1, 77000, 91630, 9058, 4035, 'Activo', 'si', '2023-02-23 13:19:26', NULL);
+INSERT INTO `detalle_de_pedido` (`id_detalle_pedido`, `cantidad`, `precio`, `total`, `id_producto`, `id_pedido`, `estado`, `envio`, `fecha`, `calificacion`, `encargado`) VALUES
+(8010, 4, 40000, 160000, 9010, 4010, 'Error en la venta', NULL, NULL, NULL, NULL),
+(8011, 6, 25000, 150000, 9011, 4010, 'Error en la venta', '', NULL, NULL, 'f@f.com'),
+(8012, 2, 30000, 60000, 9012, 4011, 'Error en la venta', '', NULL, NULL, 'f@f.com'),
+(8013, 7, 85000, 595000, 9013, 4011, 'Error en la venta', '', NULL, NULL, NULL),
+(8014, 3, 20000, 60000, 9014, 4012, 'Error en la venta', '', NULL, NULL, 'f@f.com'),
+(8015, 4, 32000, 128000, 9015, 4013, 'Error en la venta', NULL, NULL, NULL, 'j@j.com'),
+(8016, 1, 18000, 18000, 9016, 4014, 'Activo', '', NULL, NULL, NULL),
+(8017, 2, 28000, 56000, 9017, 4015, 'Activo', '', NULL, NULL, NULL),
+(8024, 3, 32000, 96000, 9015, 4012, 'Activo', '', NULL, NULL, NULL),
+(8025, 2, 30000, 60000, 9012, 4011, 'Error en la venta', '', NULL, NULL, 'f@f.com'),
+(8026, 10, 40000, 400000, 9010, 4014, 'Activo', '', NULL, NULL, NULL),
+(8027, 3, 40000, 120000, 9010, 4019, 'Error en la venta', '', NULL, NULL, NULL),
+(8028, 6, 32000, 192000, 9015, 4024, 'Error en la venta', '', NULL, NULL, NULL),
+(8029, 10, 25000, 250000, 9011, 4011, 'Activo', '', NULL, NULL, NULL),
+(8030, 2, 25000, 50000, 9011, 4024, 'Activo', '', NULL, NULL, NULL),
+(8031, 5, 30000, 150000, 9012, 4017, 'Activo', '', NULL, NULL, NULL),
+(8032, 2, 18000, 36000, 9016, 4013, 'Activo', '', NULL, NULL, NULL),
+(8033, 9, 40000, 360000, 9010, 4010, 'Activo', '', NULL, NULL, NULL),
+(8034, 8, 25000, 200000, 9011, 4011, 'Activo', '', NULL, NULL, NULL),
+(8035, 7, 25000, 175000, 9011, 4010, 'Activo', '', NULL, NULL, NULL),
+(8036, 7, 40000, 280000, 9010, 4026, 'Activo', '', NULL, NULL, NULL),
+(8037, 3, 30000, 90000, 9012, 4026, 'Activo', '', NULL, NULL, NULL),
+(8038, 3, 18000, 54000, 9016, 4028, 'Error en la venta', NULL, NULL, NULL, 'j@j.com'),
+(8039, 10, 85000, 850000, 9013, 4028, 'Error en la venta', NULL, NULL, NULL, 'j@j.com'),
+(8040, 1, 40000, 40000, 9018, 4011, 'Activo', '', NULL, NULL, NULL),
+(8048, 4, 20000, 80000, 9014, 4013, 'Activo', '', NULL, NULL, NULL),
+(8054, 4, 20000, 80000, 9014, 4011, 'Activo', '', NULL, NULL, NULL),
+(8074, 1, 20000, 20000, 9014, 4011, 'Activo', '', NULL, NULL, NULL),
+(8076, 1, 20000, 20000, 9014, 4011, 'Activo', '', NULL, NULL, NULL),
+(8077, 2, 18000, 36000, 9016, 4012, 'Activo', '', NULL, NULL, NULL),
+(8078, 3, 40000, 120000, 9010, 4012, 'Activo', '', NULL, NULL, NULL),
+(8079, 3, 85000, 255000, 9013, 4015, 'Activo', '', NULL, NULL, NULL),
+(8080, 1, 40000, 40000, 9018, 4028, 'Activo', '', NULL, NULL, NULL),
+(8081, 2, 40000, 80000, 9018, 4010, 'Activo', '', NULL, NULL, NULL),
+(8082, 2, 40000, 80000, 9018, 4010, 'Error en la venta', NULL, NULL, NULL, 'j@j.com'),
+(8086, 2, 40000, 80000, 9018, 4013, 'Activo', '', NULL, NULL, NULL),
+(8090, 4, 40000, 160000, 9018, 4014, 'Activo', '', NULL, NULL, NULL),
+(8091, 2, 40000, 80000, 9018, 4014, 'Activo', '', NULL, NULL, NULL),
+(8092, 2, 40000, 80000, 9018, 4014, 'Activo', '', NULL, NULL, NULL),
+(8093, 2, 40000, 80000, 9018, 4014, 'Activo', '', NULL, NULL, NULL),
+(8094, 2, 40000, 80000, 9018, 4013, 'Activo', '', NULL, NULL, NULL),
+(8095, 2, 40000, 80000, 9018, 4012, 'Activo', '', NULL, NULL, NULL),
+(8096, 1, 40000, 40000, 9010, 4012, 'Activo', '', NULL, NULL, NULL),
+(8097, 2, 40000, 80000, 9010, 4033, 'Activo', '', NULL, 7011, NULL),
+(8098, 1, 40000, 40000, 9010, 4033, 'Error en la venta', '', NULL, NULL, NULL),
+(8099, 1, 40000, 40000, 9010, 4034, 'Activo', '', NULL, NULL, NULL),
+(8100, 1, 40000, 40000, 9010, 4034, 'Activo', '', NULL, NULL, NULL),
+(8101, 1, 40000, 40000, 9010, 4034, 'Activo', '', NULL, NULL, NULL),
+(8103, 1, 40000, 40000, 9010, 4034, 'Activo', 'si', NULL, NULL, NULL),
+(8104, 1, 40000, 40000, 9010, 4033, 'Activo', 'no', NULL, NULL, NULL),
+(8105, 1, 40000, 40000, 9010, 4034, 'Activo', 'si', NULL, NULL, NULL),
+(8106, 1, 40000, 40000, 9010, 4035, 'Activo', 'si', NULL, NULL, NULL),
+(8107, 1, 40000, 40000, 9010, 4015, 'Activo', 'no', NULL, NULL, NULL),
+(8108, 1, 40000, 40000, 9010, 4011, 'Activo', 'no', NULL, NULL, NULL),
+(8109, 1, 40000, 40000, 9010, 4014, 'Error en la venta', NULL, NULL, NULL, 'j@j.com'),
+(8110, 1, 40000, 40000, 9010, 4016, 'Activo', 'si', NULL, NULL, NULL),
+(8111, 1, 40000, 40000, 9010, 4010, 'Activo', 'no', NULL, NULL, NULL),
+(8112, 1, 40000, 40000, 9010, 4025, 'Activo', 'no', NULL, NULL, NULL),
+(8113, 1, 40000, 40000, 9010, 4018, 'Activo', 'no', NULL, NULL, NULL),
+(8114, 1, 40000, 40000, 9010, 4017, 'Activo', 'no', NULL, NULL, NULL),
+(8115, 1, 25000, 25000, 9011, 4035, 'Error en la venta', 'si', NULL, NULL, NULL),
+(8116, 1, 25000, 25000, 9011, 4034, 'Activo', 'no', NULL, NULL, NULL),
+(8117, 1, 40000, 40000, 9010, 4033, 'Activo', 'si', NULL, NULL, NULL),
+(8118, 2, 40000, 80000, 9010, 4032, 'Activo', 'si', NULL, NULL, NULL),
+(8119, 1, 40000, 40000, 9010, 4031, 'Activo', 'si', NULL, NULL, NULL),
+(8120, 1, 40000, 40000, 9010, 4030, 'Activo', 'no', NULL, NULL, NULL),
+(8121, 1, 40000, 40000, 9010, 4016, 'Activo', 'si', NULL, NULL, NULL),
+(8122, 2, 20000, 40000, 9014, 4020, 'Activo', 'si', NULL, NULL, NULL),
+(8123, 2, 20000, 40000, 9014, 4036, 'Activo', 'no', NULL, NULL, NULL),
+(8124, 1, 40000, 40000, 9010, 4011, 'Activo', 'no', NULL, NULL, NULL),
+(8125, 1, 40000, 40000, 9010, 4014, 'Activo', 'no', NULL, NULL, NULL),
+(8126, 1, 40000, 40000, 9010, 4014, 'Activo,Activo', 'no,si', NULL, NULL, NULL),
+(8127, 1, 40000, 40000, 9010, 4010, 'Activo', 'no', NULL, NULL, NULL),
+(8128, 1, 40000, 40000, 9010, 4011, 'Activo', 'si,no', NULL, NULL, NULL),
+(8129, 1, 40000, 40000, 9010, 4024, 'Activo,Activo', 'no,no', NULL, NULL, NULL),
+(8130, 1, 40000, 40000, 9010, 4010, 'Activo,Activo', 'si,no', NULL, NULL, NULL),
+(8131, 1, 40000, 40000, 9010, 4010, 'Activo', 'si', NULL, NULL, NULL),
+(8132, 1, 40000, 40000, 9010, 4010, 'Activo', 'no', NULL, NULL, NULL),
+(8133, 1, 40000, 40000, 9010, 4011, 'Activo', 'si', NULL, NULL, NULL),
+(8134, 1, 40000, 40000, 9010, 4017, 'Activo', 'si', NULL, NULL, NULL),
+(8135, 1, 40000, 40000, 9010, 4018, 'Activo', NULL, NULL, NULL, NULL),
+(8136, 1, 40000, 40000, 9010, 4010, 'Activo', NULL, NULL, NULL, NULL),
+(8137, 1, 40000, 40000, 9010, 4013, 'Activo', 'si', NULL, NULL, NULL),
+(8138, 1, 40000, 40000, 9010, 4018, 'Activo', NULL, NULL, NULL, NULL),
+(8139, 1, 40000, 40000, 9010, 4020, 'Activo', 'no', NULL, NULL, NULL),
+(8140, 1, 40000, 40000, 9010, 4010, 'Activo', 'no', NULL, NULL, NULL),
+(8141, 1, 40000, 40000, 9010, 4010, 'Activo', 'si', NULL, NULL, NULL),
+(8142, 1, 40000, 40000, 9010, 4024, 'Activo', 'si', '2023-01-09 21:22:17', NULL, NULL),
+(8143, 1, 0, 0, 9010, 4031, 'Activo', 'no', NULL, NULL, NULL),
+(8144, 2, 0, 0, 9010, 4032, 'Activo', 'si', NULL, NULL, NULL),
+(8145, 1, 0, 0, 9010, 4033, 'Activo', 'no', NULL, NULL, NULL),
+(8146, 2, 0, 0, 9010, 4034, 'Activo', 'si', NULL, NULL, NULL),
+(8147, 1, 0, 0, 9010, 4035, 'Activo', 'no', NULL, NULL, NULL),
+(8148, 2, 0, 0, 9010, 4036, 'Activo', 'si', NULL, NULL, NULL),
+(8149, 1, 0, 0, 9010, 4030, 'Activo', 'si', NULL, NULL, NULL),
+(8150, 2, 40000, 80000, 9010, 4031, 'Activo', 'no', '2023-01-09 21:33:02', NULL, NULL),
+(8151, 1, 40000, 40000, 9010, 4032, 'Activo', 'si', '2023-01-09 21:33:02', NULL, NULL),
+(8152, 2, 40000, 80000, 9010, 4032, 'Activo', 'no', '2023-01-09 21:33:02', NULL, NULL),
+(8153, 1, 40000, 40000, 9010, 4033, 'Activo', 'si', '2023-01-09 21:33:02', NULL, NULL),
+(8154, 2, 40000, 80000, 9010, 4034, 'Activo', 'no', '2023-01-09 21:33:03', NULL, NULL),
+(8155, 1, 40000, 40000, 9010, 4036, 'Activo', 'si', '2023-01-11 10:30:24', 7010, NULL),
+(8156, 1, 40000, 40000, 9010, 4035, 'Activo', 'no', '2023-01-11 10:30:30', NULL, NULL),
+(8157, 1, 40000, 40000, 9010, 4010, 'Activo', 'si', '2023-01-11 11:51:08', NULL, NULL),
+(8158, 1, 40000, 40000, 9010, 4011, 'Activo', 'si', '2023-01-11 11:51:13', NULL, NULL),
+(8159, 1, 40000, 40000, 9010, 4014, 'Activo', 'si', '2023-01-11 11:52:08', NULL, NULL),
+(8160, 2, 40000, 80000, 9010, 4036, 'Activo', 'no', '2023-01-11 11:55:30', 7011, NULL),
+(8161, 3, 40000, 120000, 9010, 4010, 'Activo', 'si', '2023-01-19 10:35:49', NULL, NULL),
+(8162, 2, 40000, 80000, 9010, 4010, 'Activo', 'si', '2023-01-19 10:35:54', NULL, NULL),
+(8163, 2, 25000, 50000, 9011, 4010, 'Activo', 'si', '2023-01-19 10:35:58', NULL, NULL),
+(8164, 1, 40000, 40000, 9010, 4010, 'Activo', 'si', '2023-01-22 19:56:02', NULL, NULL),
+(8165, 2, 40000, 80000, 9010, 4010, 'Activo', 'si', '2023-01-22 19:59:29', NULL, NULL),
+(8166, 1, 40000, 40000, 9010, 4010, 'Activo', 'si', '2023-01-22 20:07:08', NULL, NULL),
+(8167, 1, 40000, 40000, 9010, 4036, 'Activo', 'si', NULL, 7013, NULL),
+(8168, 1, 40000, 47600, 9010, 4010, 'Activo', 'si', '2023-02-16 10:49:52', NULL, NULL),
+(8169, 1, 25000, 29750, 9011, 4021, 'Activo', 'si', '2023-02-16 11:12:27', NULL, NULL),
+(8170, 1, 40000, 47600, 9010, 4034, 'Activo', 'si', '2023-02-16 11:14:18', NULL, NULL),
+(8171, 1, 77000, 91630, 9058, 4024, 'Activo', 'si', '2023-02-17 07:17:48', NULL, NULL),
+(8172, 1, 40000, 47600, 9010, 4027, 'Activo', 'si', '2023-02-17 07:31:00', NULL, NULL),
+(8173, 1, 40000, 47600, 9010, 4021, 'Activo', 'si', '2023-02-17 08:26:10', NULL, NULL),
+(8174, 1, 25000, 29750, 9011, 4013, 'Activo', 'si', '2023-02-17 09:28:38', NULL, NULL),
+(8175, 1, 40000, 47600, 9010, 4016, 'Activo', 'si', '2023-02-17 09:35:31', NULL, NULL),
+(8176, 1, 25000, 29750, 9011, 4011, 'Activo', 'si', '2023-02-17 09:41:53', NULL, NULL),
+(8177, 1, 25000, 29750, 9011, 4015, 'Activo', 'si', '2023-02-17 09:54:32', NULL, NULL),
+(8178, 1, 25000, 29750, 9011, 4023, 'Activo', 'si', '2023-02-17 09:56:57', NULL, NULL),
+(8179, 1, 25000, 29750, 9011, 4010, 'Activo', 'si', '2023-02-20 07:00:56', NULL, NULL),
+(8180, 1, 25000, 29750, 9011, 4020, 'Error en la venta', 'si', NULL, NULL, NULL),
+(8181, 1, 77000, 91630, 9058, 4012, 'Activo', 'si', '2023-02-20 18:26:21', NULL, NULL),
+(8182, 1, 25000, 29750, 9011, 4035, 'Activo', 'si', '2023-02-23 12:34:07', NULL, NULL),
+(8183, 1, 95000, 113050, 9057, 4035, 'Activo', 'si', '2023-02-23 12:45:37', NULL, NULL),
+(8184, 1, 77000, 91630, 9058, 4035, 'Activo', 'si', '2023-02-23 13:19:26', NULL, NULL),
+(8185, 1, 95000, 113050, 9057, 4031, 'Error en la venta', 'si', '2023-02-24 16:16:31', NULL, NULL);
 
 --
 -- Disparadores `detalle_de_pedido`
@@ -422,6 +424,10 @@ DELIMITER $$
 CREATE TRIGGER `agregar_envio` AFTER INSERT ON `detalle_de_pedido` FOR EACH ROW IF new.envio = "si" THEN
 INSERT INTO envios (envios.id_venta, envios.estado) VALUES (new.id_detalle_pedido, "En proceso");
 END IF
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `cambio_estado_cantidad` AFTER UPDATE ON `detalle_de_pedido` FOR EACH ROW UPDATE producto SET producto.disponibles = producto.disponibles + new.cantidad WHERE producto.id_producto = new.id_producto
 $$
 DELIMITER ;
 DELIMITER $$
@@ -444,6 +450,10 @@ CREATE TRIGGER `error_disponibilidad_producto` BEFORE INSERT ON `detalle_de_pedi
 
  END IF;
  END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `insertar_fecha_actualizar` BEFORE UPDATE ON `detalle_de_pedido` FOR EACH ROW SET new.fecha = old.fecha
 $$
 DELIMITER ;
 DELIMITER $$
@@ -533,7 +543,8 @@ INSERT INTO `envios` (`id_envio`, `fecha_de_ingreso`, `fecha_de_entrega`, `estad
 (6061, '2023-02-23 10:59:01', '0000-00-00 00:00:00', 'Entregado', 8010, 'cooperativa'),
 (6062, '2023-02-23 10:59:01', '0000-00-00 00:00:00', 'En proceso', 8010, ''),
 (6064, '2023-02-23 12:45:37', '2023-02-23 12:51:13', 'Entregado', 8183, 'cooperativa'),
-(6065, '2023-02-23 13:19:26', '2023-02-23 13:20:31', 'Entregado', 8184, 'servientrega');
+(6065, '2023-02-23 13:19:26', '2023-02-23 13:20:31', 'Entregado', 8184, 'servientrega'),
+(6066, '2023-02-24 16:16:31', NULL, 'En proceso', 8185, NULL);
 
 --
 -- Disparadores `envios`
@@ -692,7 +703,6 @@ CREATE TABLE `pqrs` (
 --
 
 INSERT INTO `pqrs` (`id_pqrs`, `tipo_pqrs`, `descripcion_pqrs`, `estado_pqrs`, `fecha_ingresada`, `fecha_respuesta`, `id_venta`, `respuesta`, `encargado_res`, `calificacion`) VALUES
-(1, 'Queja', 'no me resolvieron el problema jovenes', 'respondido', '2023-02-23 11:57:39', '2023-02-23 17:18:57', 8167, 'ya se resolvió', 'f@f.com', 7013),
 (2, 'Queja', 'sdf', 'respondido', '2023-02-23 12:01:08', '2023-02-23 18:55:06', 8097, 'fds', 'j@j.com', 7010),
 (3, 'Reclamo', 'sss', 'respondido', '2023-02-23 18:56:20', '2023-02-23 19:02:01', 8123, 'sss', 'f@f.com', 7014),
 (4, 'Queja', 'aaa', 'respondido', '2023-02-23 19:03:24', '2023-02-23 19:05:42', 8098, 'aaa', 'f@f.com', 7011),
@@ -710,7 +720,11 @@ INSERT INTO `pqrs` (`id_pqrs`, `tipo_pqrs`, `descripcion_pqrs`, `estado_pqrs`, `
 (30, 'Sugerencia', 'holaa', 'respondido', '2023-02-23 21:32:06', '2023-02-23 21:32:18', 8123, 'hola', 'f@f.com', 7014),
 (31, 'Queja', 'sadf', 'respondido', '2023-02-23 21:38:20', '2023-02-23 21:38:42', 8097, 'aaa', 'f@f.com', NULL),
 (32, 'Queja', 'sdaf', 'respondido', '2023-02-23 21:38:25', '2023-02-23 21:38:47', 8104, 'aaa', 'f@f.com', NULL),
-(33, 'Pregunta', 'sdf', 'respondido', '2023-02-23 22:12:02', '2023-02-23 22:12:33', 8097, 'g', 'f@f.com', 7010);
+(33, 'Pregunta', 'sdf', 'respondido', '2023-02-23 22:12:02', '2023-02-23 22:12:33', 8097, 'g', 'f@f.com', 7010),
+(34, 'Queja', 'sdaf', 'respondido', '2023-02-24 16:50:09', '2023-02-24 16:50:44', 8098, 'www', 'j@j.com', 7014),
+(35, 'Pregunta', 'sadf', 'respondido', '2023-02-25 08:42:23', '2023-02-25 08:45:52', 8097, 'dddddddd', 'f@f.com', NULL),
+(36, 'Reclamo', 'dsdsd', 'respondido', '2023-02-25 08:44:28', '2023-02-25 08:46:46', 8119, 'qqqqqq', 'j@j.com', NULL),
+(37, 'Pregunta', 'wwww', 'respondido', '2023-02-25 10:43:46', '2023-02-25 10:48:27', 8185, 'si señor', 'fiorella@gmail.com', NULL);
 
 --
 -- Disparadores `pqrs`
@@ -762,15 +776,15 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `nombre`, `categoria`, `precio`, `estado`, `disponibles`, `imagen`) VALUES
-(9010, 'camisa hombre', 'hombre', 40000, 'Activo', 0, ''),
-(9011, 'pantalon niño', 'niño', 25000, 'Activo', 0, NULL),
-(9012, 'short mujer', 'mujer', 30000, 'Descontinuado', 0, NULL),
-(9013, 'chaqueta unisex', 'unisex', 85000, 'Agotado', 0, NULL),
-(9014, 'blusa blanca', 'mujer', 20000, 'Activo', 0, NULL),
-(9015, 'camiseta de cuadros', 'hombre', 32000, 'Activo', 0, NULL),
-(9016, 'buso pequeño', 'niño', 18000, 'Activo', 0, NULL),
+(9010, 'camisa hombre', 'hombre', 40000, 'Activo', 1, ''),
+(9011, 'pantalon niño', 'niño', 25000, 'Activo', 6, NULL),
+(9012, 'short mujer', 'mujer', 30000, 'Descontinuado', 4, NULL),
+(9013, 'chaqueta unisex', 'unisex', 85000, 'Agotado', 20, NULL),
+(9014, 'blusa blanca', 'mujer', 20000, 'Activo', 3, NULL),
+(9015, 'camiseta de cuadros', 'hombre', 32000, 'Activo', 4, NULL),
+(9016, 'buso pequeño', 'niño', 18000, 'Activo', 3, NULL),
 (9017, 'jogger rojo', 'unisex', 28000, 'Activo', 0, NULL),
-(9018, 'falda', 'mujer', 40000, 'Activo', 0, NULL),
+(9018, 'falda', 'mujer', 40000, 'Activo', 2, NULL),
 (9019, 'blusa manga corta', 'mujer', 65000, 'Activo', 0, NULL),
 (9022, 'dril en tela', 'hombre', 66000, 'Activo', 0, NULL),
 (9023, 'levis', 'unisex', 33000, 'Activo', NULL, NULL),
@@ -807,7 +821,7 @@ INSERT INTO `producto` (`id_producto`, `nombre`, `categoria`, `precio`, `estado`
 (9054, 'Gorro Niño', 'niño', 33900, 'Activo', 0, 'gorro_niño.jpeg'),
 (9055, 'Saco Hombre', 'hombre', 82000, 'Activo', 0, 'saco-hombre.jpg'),
 (9056, 'Jean Unisex', 'unisex', 110000, 'Activo', 0, 'jean_unisex.jpg'),
-(9057, 'Ruana Blanca', 'mujer', 95000, 'Activo', 4, 'Ruana-blanca-2.jpg'),
+(9057, 'Ruana Blanca', 'mujer', 95000, 'Activo', 3, 'Ruana-blanca-2.jpg'),
 (9058, 'Ruana Capota Cafe', 'unisex', 77000, 'Activo', 0, 'ruana-capota-cafe-3.jpg');
 
 --
@@ -891,7 +905,6 @@ CREATE TABLE `roles_usuarios` (
 
 INSERT INTO `roles_usuarios` (`id_rol_usuario`, `id_rol`, `id_usuario`) VALUES
 (2010, 1011, 1000939256),
-(2011, 1012, 1006518913),
 (2012, 1010, 5416541968),
 (2013, 1010, 8784646411),
 (2014, 1010, 76307332),
@@ -922,7 +935,8 @@ INSERT INTO `roles_usuarios` (`id_rol_usuario`, `id_rol`, `id_usuario`) VALUES
 (2057, 1010, 8784646413),
 (2058, 1010, 8784646414),
 (2070, 1010, 777),
-(2072, 1010, 323232);
+(2072, 1010, 323232),
+(2074, 1012, 1006518913);
 
 -- --------------------------------------------------------
 
@@ -962,7 +976,7 @@ INSERT INTO `usuarios` (`id_usuario`, `nombre`, `telefono`, `email`, `direccion`
 (76307332, 'ABELLA HERRERA WILLIAM EFRAIN', 3455500, 'abella@gmail.com', 'Carrera 21 # 17 -63\r\n', 'herrera123'),
 (1000625803, 'TYAKEMICHE FRANCISCO', 2312156165, 'FCISNER@HORMAIL.COM', 'DIAGONAL 14', '1000625803'),
 (1000939256, 'hugo armando garcia\r\n', 2147483647, 'hugo@gmail.com\r\n', 'Cll 136a # 102a - 42\r\n', '$2a$10$W/23QQMz9WDugq6M5iuA1O3quXjtvcyrnOzRVnTQji5Um.wqfV9Uq'),
-(1006518913, 'fiorella sanchez rocha\r\n', 3156604832, 'fiorella@gmail.com\r\n', 'Calle 10 # 5-51\r\n', 'fio123'),
+(1006518913, 'fiorella sanchez rocha', 3156604832, 'fiorella@gmail.com', 'Calle 10 # 5-51', '$2a$10$l.BumQXMv3iZcVDuBy9Uou9IkmPDsh0FV81gi8rTo1N3wwx7OOpJC'),
 (1069742621, 'lorena', 32136512, 'lorena@gmail.com', 'callesubia123', '1069742621'),
 (5416541968, 'francisco cisneros\r\n', 3842166687, 'francisco@gmail.com\r\n', 'Avenida 19 No. 98-03, sexto piso, Edificio Torre 100\r\n', 'fran123'),
 (8784646411, 'mauricio gomez', 3002583165, 'mauricio@gmail.com', 'Calle 53 No 10-60/46, Piso 2.\r\n', '$2a$10$lmKijVVzssUjKnCCZhO3Ben6unWC5XC.MRis24a8Nfa/Vx04HyOE.'),
@@ -1109,13 +1123,13 @@ ALTER TABLE `detalle_de_compras`
 -- AUTO_INCREMENT de la tabla `detalle_de_pedido`
 --
 ALTER TABLE `detalle_de_pedido`
-  MODIFY `id_detalle_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8185;
+  MODIFY `id_detalle_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8186;
 
 --
 -- AUTO_INCREMENT de la tabla `envios`
 --
 ALTER TABLE `envios`
-  MODIFY `id_envio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6066;
+  MODIFY `id_envio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6067;
 
 --
 -- AUTO_INCREMENT de la tabla `inventario`
@@ -1139,7 +1153,7 @@ ALTER TABLE `pedido`
 -- AUTO_INCREMENT de la tabla `pqrs`
 --
 ALTER TABLE `pqrs`
-  MODIFY `id_pqrs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_pqrs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -1163,7 +1177,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `roles_usuarios`
 --
 ALTER TABLE `roles_usuarios`
-  MODIFY `id_rol_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2073;
+  MODIFY `id_rol_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2075;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
