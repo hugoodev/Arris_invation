@@ -16,6 +16,14 @@
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
           crossorigin="anonymous">
 </head>
+<style>
+    *{
+        font-size: 2rem;
+    }
+    button {
+        font-size: 1.5rem !important;
+    }
+</style>
 <body style="background-color: #FFC900;">
 
 <di class="navbar navbar-inverse navbar-fixed-top">
@@ -39,11 +47,11 @@
 
 <div class="container-fluid text-center ">
 
-    <div class="card text-white bg-dark mb-3 position-absolute top-50 start-50 translate-middle" style="max-width: 18rem;">
+    <div class="card text-white bg-dark mb-3 position-absolute top-50 start-50 translate-middle" style=" max-width:18rem; height:50%;">
         <div class="card-header bg-dark bg-gradient">Sesión <a href="../index.html" style="float: right;"><button type="button" class="btn btn-dark border border-danger">Volver</button></a></div>
         <div class="card-body">
             <form th:action="@{/login}" method="POST">
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 input-group-lg">
                     <div th:if=${param.error}>
                         <div class="alert alert-danger">Usuario o contraseña inválidos
                         </div>
@@ -56,7 +64,7 @@
                     <span class="input-group-text" id="basic-addon1">@</span>
                     <input type="text" class="form-control" placeholder="Usuario" aria-label="Usuario" id="usuario" name="username" aria-describedby="basic-addon1" required>
                 </div>
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 input-group-lg">
                     <span class="input-group-text" id="basic-addon1">*</span>
                     <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" id="contraseña" name="password" aria-describedby="basic-addon1" required>
                 </div>
