@@ -104,8 +104,7 @@ object-fit: cover;
           <img th:src="@{'/recursos/' + ${productos.imagen}}" width="100%"  alt="" class="bd-placeholder-img card-img-top">
           <div class="card-body">
             <h5 class="card-title" th:text="${productos.nombre}"></h5>
-            <p class="card-text">Leggis comodo para mujer</p>
-            <p class="card-text" th:if="${productos.categoria} != 'unisex'">Comodo para mujer</p>
+            <p class="card-text">Comodo para niño</p>
             <div th:if="${productos.categoria} == 'unisex'">
               <div class="alert alert-warning">Este producto es para cualquier genero
               </div>
