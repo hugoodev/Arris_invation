@@ -270,7 +270,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/edit")
-    public String editUsuario(@RequestParam("idUsuario") Long idUsuario,UsuarioRegistroDTO registroDTO,@RequestParam("nombre") String nombre,@RequestParam("telefono") String telefono,@RequestParam("email") String email, @RequestParam("direccion") String direccion, @RequestParam("role") String rol){
+    public String editUsuario(@RequestParam("idUsuario") Long idUsuario,UsuarioRegistroDTO registroDTO,@RequestParam("nombre") String nombre,@RequestParam("telefono") String telefono,@RequestParam("email") String email, @RequestParam("direccion") String direccion, @RequestParam("role") String rol, RedirectAttributes redirectAttrs){
 
         System.out.println("id" + idUsuario);
 
@@ -280,7 +280,9 @@ public class UsuarioController {
         u.setTelefono(registroDTO.getTelefono());
         u.setEmail(registroDTO.getEmail());
         u.setDireccion(registroDTO.getDireccion());
-
+        redirectAttrs
+                .addFlashAttribute("mensaje", "Se a actualizado los parametros del usuario " + u.getNombre() + " satisfactoriamente" + " ✔")
+                .addFlashAttribute("clase", "success");
 
         usuarioService.actualizarUsuario(u,rol);
 
