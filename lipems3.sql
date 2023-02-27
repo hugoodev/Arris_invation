@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-02-2023 a las 17:19:27
+-- Tiempo de generación: 27-02-2023 a las 22:46:52
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -415,7 +415,13 @@ INSERT INTO `detalle_de_pedido` (`id_detalle_pedido`, `cantidad`, `precio`, `tot
 (8182, 1, 25000, 29750, 9011, 4035, 'Activo', 'si', '2023-02-23 12:34:07', NULL, NULL),
 (8183, 1, 95000, 113050, 9057, 4035, 'Activo', 'si', '2023-02-23 12:45:37', NULL, NULL),
 (8184, 1, 77000, 91630, 9058, 4035, 'Activo', 'si', '2023-02-23 13:19:26', NULL, NULL),
-(8185, 1, 95000, 113050, 9057, 4031, 'Error en la venta', 'si', '2023-02-24 16:16:31', NULL, NULL);
+(8185, 1, 95000, 113050, 9057, 4031, 'Error en la venta', 'si', '2023-02-24 16:16:31', NULL, NULL),
+(8186, 2, 40000, 95200, 9018, 4015, 'Error en la venta', 'si', '2023-02-27 15:59:45', NULL, 'f@f.com'),
+(8187, 1, 25000, 29750, 9011, 4026, 'Error en la venta', 'si', '2023-02-27 16:20:44', NULL, 'f@f.com'),
+(8188, 1, 25000, 29750, 9011, 4024, 'Error en la venta', 'si', '2023-02-27 16:26:55', NULL, 'f@f.com'),
+(8189, 1, 25000, 29750, 9011, 4018, 'Error en la venta', 'si', '2023-02-27 16:29:57', NULL, 'f@f.com'),
+(8190, 1, 40000, 47600, 9010, 4023, 'Activo', 'si', '2023-02-27 16:39:39', NULL, NULL),
+(8191, 1, 40000, 47600, 9018, 4025, 'Activo', 'si', '2023-02-27 16:39:43', NULL, NULL);
 
 --
 -- Disparadores `detalle_de_pedido`
@@ -450,6 +456,12 @@ CREATE TRIGGER `error_disponibilidad_producto` BEFORE INSERT ON `detalle_de_pedi
 
  END IF;
  END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `inactivar_envio_error_entrega` AFTER UPDATE ON `detalle_de_pedido` FOR EACH ROW IF new.estado = "Error en la venta" THEN
+UPDATE envios SET envios.estado = "Error de entrega" WHERE envios.id_venta = old.id_detalle_pedido;
+END IF
 $$
 DELIMITER ;
 DELIMITER $$
@@ -544,7 +556,13 @@ INSERT INTO `envios` (`id_envio`, `fecha_de_ingreso`, `fecha_de_entrega`, `estad
 (6062, '2023-02-23 10:59:01', '0000-00-00 00:00:00', 'En proceso', 8010, ''),
 (6064, '2023-02-23 12:45:37', '2023-02-23 12:51:13', 'Entregado', 8183, 'cooperativa'),
 (6065, '2023-02-23 13:19:26', '2023-02-23 13:20:31', 'Entregado', 8184, 'servientrega'),
-(6066, '2023-02-24 16:16:31', NULL, 'En proceso', 8185, NULL);
+(6066, '2023-02-24 16:16:31', NULL, 'En proceso', 8185, NULL),
+(6067, '2023-02-27 15:59:45', '2023-02-27 16:01:08', 'Error de entrega', 8186, ''),
+(6068, '2023-02-27 16:20:44', '2023-02-27 16:24:12', 'Error de entrega', 8187, ''),
+(6069, '2023-02-27 16:26:55', '2023-02-27 16:28:42', 'Error de entrega', 8188, NULL),
+(6070, '2023-02-27 16:29:57', '2023-02-27 16:33:15', 'Error de entrega', 8189, NULL),
+(6071, '2023-02-27 16:39:39', NULL, 'En proceso', 8190, NULL),
+(6072, '2023-02-27 16:39:43', NULL, 'En proceso', 8191, NULL);
 
 --
 -- Disparadores `envios`
@@ -776,7 +794,7 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `nombre`, `categoria`, `precio`, `estado`, `disponibles`, `imagen`) VALUES
-(9010, 'camisa hombre', 'hombre', 40000, 'Activo', 1, ''),
+(9010, 'camisa hombre', 'hombre', 40000, 'Activo', 0, ''),
 (9011, 'pantalon niño', 'niño', 25000, 'Activo', 6, NULL),
 (9012, 'short mujer', 'mujer', 30000, 'Descontinuado', 4, NULL),
 (9013, 'chaqueta unisex', 'unisex', 85000, 'Agotado', 20, NULL),
@@ -784,7 +802,7 @@ INSERT INTO `producto` (`id_producto`, `nombre`, `categoria`, `precio`, `estado`
 (9015, 'camiseta de cuadros', 'hombre', 32000, 'Activo', 4, NULL),
 (9016, 'buso pequeño', 'niño', 18000, 'Activo', 3, NULL),
 (9017, 'jogger rojo', 'unisex', 28000, 'Activo', 0, NULL),
-(9018, 'falda', 'mujer', 40000, 'Activo', 2, NULL),
+(9018, 'falda', 'mujer', 40000, 'Activo', 1, NULL),
 (9019, 'blusa manga corta', 'mujer', 65000, 'Activo', 0, NULL),
 (9022, 'dril en tela', 'hombre', 66000, 'Activo', 0, NULL),
 (9023, 'levis', 'unisex', 33000, 'Activo', NULL, NULL),
@@ -934,9 +952,9 @@ INSERT INTO `roles_usuarios` (`id_rol_usuario`, `id_rol`, `id_usuario`) VALUES
 (2056, 1010, 8784646412),
 (2057, 1010, 8784646413),
 (2058, 1010, 8784646414),
-(2070, 1010, 777),
 (2072, 1010, 323232),
-(2074, 1012, 1006518913);
+(2074, 1012, 1006518913),
+(2077, 1011, 777);
 
 -- --------------------------------------------------------
 
@@ -1123,13 +1141,13 @@ ALTER TABLE `detalle_de_compras`
 -- AUTO_INCREMENT de la tabla `detalle_de_pedido`
 --
 ALTER TABLE `detalle_de_pedido`
-  MODIFY `id_detalle_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8186;
+  MODIFY `id_detalle_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8192;
 
 --
 -- AUTO_INCREMENT de la tabla `envios`
 --
 ALTER TABLE `envios`
-  MODIFY `id_envio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6067;
+  MODIFY `id_envio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6073;
 
 --
 -- AUTO_INCREMENT de la tabla `inventario`
@@ -1177,7 +1195,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `roles_usuarios`
 --
 ALTER TABLE `roles_usuarios`
-  MODIFY `id_rol_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2075;
+  MODIFY `id_rol_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2078;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
