@@ -170,6 +170,7 @@ public class DetallePedidoController {
         }
         for (int i = 0;i < detallePedidos.size();i++){
             item = 0;
+            totalsum = 0;
             detallePedidos.removeAll(detallePedidos);
         }
 
@@ -268,6 +269,7 @@ public class DetallePedidoController {
             }
             for (int i = 0;i < detallePedidos.size();i++){
                 item = 0;
+                totalsum = 0;
                 detallePedidos.removeAll(detallePedidos);
             }
 
