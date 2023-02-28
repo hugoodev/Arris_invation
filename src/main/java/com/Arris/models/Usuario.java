@@ -68,10 +68,6 @@ public class Usuario implements Serializable {
         this.direccion = direccion;
     }
 
-    public void agregarRol(Rol rol){
-        this.roles.add(rol);
-    }
-
     public void actualizarRol(Rol rol){
 
         if(rol != null){

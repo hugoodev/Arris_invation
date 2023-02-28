@@ -38,9 +38,7 @@ public class UsuarioServiceImp implements UsuarioService {
 
     @Override
     public Usuario guardarUsuario(UsuarioRegistroDTO registroDTO) {
-        Rol rol = rolRepository.findByName("ROLE_CLIENTE");
         Usuario usuario = new Usuario(registroDTO.getIdUsuario(),registroDTO.getNombre(),registroDTO.getTelefono(),registroDTO.getEmail(),registroDTO.getDireccion(),passwordEncoder.encode(registroDTO.getPassword()));
-        usuario.agregarRol(rol);
         return usuarioRepository.save(usuario);
     }
 
