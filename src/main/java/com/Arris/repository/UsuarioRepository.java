@@ -38,6 +38,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Query(value = "SELECT * FROM usuarios inner join roles_usuarios on usuarios.id_usuario=roles_usuarios.id_usuario", nativeQuery = true)
     List<Usuario> listarWithrol();
 
+    public Usuario findByResetPasswordToken(String token);
+
 
 
 

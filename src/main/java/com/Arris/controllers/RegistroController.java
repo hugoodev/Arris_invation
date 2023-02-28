@@ -48,8 +48,7 @@ public class RegistroController {
 
     @GetMapping("/cliente")
     public String interfazCliente(Model model){
-        List<Envio> envio = envioService.getAll();
-        model.addAttribute("envio",envio);
+
         return "interfaz_cliente/interfaz_cliente";
     }
 }

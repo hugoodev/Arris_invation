@@ -1,11 +1,10 @@
 package com.Arris.service;
 
 
-import com.Arris.controllers.UsuarioController;
 import com.Arris.controllers.dto.UsuarioRegistroDTO;
-import com.Arris.models.DetallePedido;
 import com.Arris.models.Rol;
 import com.Arris.models.Usuario;
+import com.Arris.models.UsuarioNotFoundException;
 import com.Arris.repository.RolRepository;
 import com.Arris.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,9 +38,7 @@ public class UsuarioServiceImp implements UsuarioService {
 
     @Override
     public Usuario guardarUsuario(UsuarioRegistroDTO registroDTO) {
-        Rol rol = rolRepository.findByName("ROLE_CLIENTE");
         Usuario usuario = new Usuario(registroDTO.getIdUsuario(),registroDTO.getNombre(),registroDTO.getTelefono(),registroDTO.getEmail(),registroDTO.getDireccion(),passwordEncoder.encode(registroDTO.getPassword()));
-        usuario.agregarRol(rol);
         return usuarioRepository.save(usuario);
     }
 
@@ -88,6 +86,31 @@ public class UsuarioServiceImp implements UsuarioService {
 
     private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Rol> roles){
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getNombreRol())).collect(Collectors.toList());
+    }
+
+    public void updateResetPasswordToken(String token, String email) throws UsuarioNotFoundException {
+        Usuario ususario = usuarioRepository.findByEmail(email);
+
+        if(ususario != null){
+            ususario.setResetPasswordToken(token);
+            usuarioRepository.save(ususario);
+        } else {
+            throw new UsuarioNotFoundException("No se pudo encontrar ningun usuario registrado con el email " + email);
+        }
+    }
+
+    public Usuario get(String resetPasswordToken) {
+        return usuarioRepository.findByResetPasswordToken(resetPasswordToken);
+    }
+
+    public void updatePassword(Usuario usuario, String newPassword){
+        BCryptPasswordEncoder passwordEncoder1 = new BCryptPasswordEncoder();
+        String encodePassword = passwordEncoder1.encode(newPassword);
+
+        usuario.setPassword(encodePassword);
+        usuario.setResetPasswordToken(null);
+
+        usuarioRepository.save(usuario);
     }
 
 
