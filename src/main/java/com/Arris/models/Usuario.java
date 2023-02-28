@@ -27,8 +27,6 @@ public class Usuario implements Serializable {
     private String direccion;
     @Setter @Getter @Column(name = "password")
     private String password;
-    @Getter @Setter @Column(name = "reset_password_token")
-    private String resetPasswordToken;
 
     @Getter @Setter @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(
@@ -70,14 +68,10 @@ public class Usuario implements Serializable {
         this.direccion = direccion;
     }
 
-
-
     public void actualizarRol(Rol rol){
 
         if(rol != null){
             this.roles.removeAll(roles);
-            this.roles.add(rol);
-        }else{
             this.roles.add(rol);
         }
     }
