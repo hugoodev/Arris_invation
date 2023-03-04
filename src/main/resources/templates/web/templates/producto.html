@@ -12,7 +12,33 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <!--Slide Productos Recientes Styles-->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha384-JUMjoW8OzDJw4oFpWIB2Bu/c6768ObEthBMVSiIx4ruBIEdyNSUQAjJNFqT5pnJ6" crossorigin="anonymous"></script>
 </head>
+<style>
+    .pagination {
+        justify-content: center;
+    }
+</style>
+<!-- modal informacion sobre agregar-->
+
+<div class="modal" tabindex="-1" data-bs-toggle="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Información</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modalBody"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- fin modal informacion sobre agregar-->
 <body>
 <!--Inicio de Menu-->
 <nav class="navbar navbar-expand-lg navbar-light sticky-top color-menu">
@@ -103,15 +129,14 @@
                     <i class="bi bi-patch-check" style="color: green;" th:each="productos : ${productos}" th:if="${productos.disponibles} != null and ${productos.disponibles} != 0 and ${productos.estado} == 'Activo'"></i>
                     <div class="card-text">
                     <h5>Cantidad</h5>
-                    <ul class="flex-column">
-                        <select class="form-select" aria-label="Default select example" id="cantidad" name="cantidad" required>
-                            <option value="" selected>Abre para seleccionar la cantidad</option>
-                            <option th:each="disponibles : ${disponibles}" th:text="${disponibles}" th:value="${disponibles}"></option>
-                        </select>
-                    </ul>
+                        <center>
+                        <div th:each="productos : ${productos}">
+                            <div th:replace="web/templates/control_cantidad :: control_cantidad(1, ${productos.idProducto}, ${productos.disponibles})">Cantidad</div>
+                        </div>
+                        </center>
                 </div>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button" style="background-color: #fde703; color: black;" th:each="productos : ${productos}" th:if="${productos.disponibles} != null and ${productos.disponibles} != 0 and ${productos.estado} == 'Activo'">Añadir al carrito <i class="bi bi-cart3"></i></button>
+                        <button class="btn btn-primary" type="button" style="background-color: #fde703; color: black;" th:each="productos : ${productos}" th:if="${productos.disponibles} != null and ${productos.disponibles} != 0 and ${productos.estado} == 'Activo'" id="addCarrito">Añadir al carrito <i class="bi bi-cart3"></i></button>
                         <button class="btn btn-primary" type="button" style="background-color: #fde703; color: black;" th:each="productos : ${productos}" th:if="${productos.estado} != 'Activo' or ${productos.disponibles} == 0 or ${productos.disponibles} == null" disabled>No disponible <i class="bi bi-cart3"></i></button>
                     </div>
                 </div>
@@ -173,7 +198,7 @@
 <!--Scripts-->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha384-JUMjoW8OzDJw4oFpWIB2Bu/c6768ObEthBMVSiIx4ruBIEdyNSUQAjJNFqT5pnJ6" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script th:src="@{js/zoomsl.js}"></script>
 <!--Initialize Zooms1-->
 <script>
@@ -233,6 +258,15 @@
       })
 
     </script>
+<script type="text/javascript" th:each="productos : ${productos}" th:with="productos = ${productos}">
+    contextPath = "[[@{/}]]";
+    var csrfHeaderName = "[[${_csrf.headerName}]]";
+    var csrfValue = "[[${_csrf.token}]]";
+    var productoId = "[[${productos.idProducto}]]";
+    var disponibles = [[${productos.disponibles}]];
+</script>
 <!--cambio de col-->
 <script src="../../js/img-change.js"></script>
+<script th:src="@{js/add_to_carrito.js}"></script>
+<script th:src="@{js/add_cantidad.js}"></script>
 </html>

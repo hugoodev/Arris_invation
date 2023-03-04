@@ -1,8 +1,14 @@
 package com.Arris.controllers;
 
+import com.Arris.models.ItemsCarrito;
 import com.Arris.models.Producto;
+import com.Arris.models.Usuario;
+import com.Arris.repository.UsuarioRepository;
+import com.Arris.service.CarritoDeComprasService;
 import com.Arris.service.ProductoService;
+import com.Arris.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +22,37 @@ public class HomeController {
 
     @Autowired
     ProductoService productoService;
+    @Autowired
+    private CarritoDeComprasService carritoDeComprasService;
+
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
 
     @GetMapping("/home")
-    public String Home() {
-        return "web/index";
+    public String Home(Model model, Authentication auth) {
+        try {
+            String email = auth.getName();
+            long id = 0;
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            for (Usuario user : usuarios){
+                if(user.getEmail().equals(email)){
+                    id = user.getIdUsuario();
+                    System.out.println("######" + user.getNombre() + user.getIdUsuario());
+                }
+            }
+            Usuario usuario = usuarioRepository.findById(id);
+            List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
+
+            model.addAttribute("itemsCarrito", itemsCarrito);
+            return "web/index";
+
+        } catch (Exception e){
+            return "web/index";
+        }
     }
     @GetMapping("/nosotros")
     public String nosotros() {

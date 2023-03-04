@@ -48,7 +48,7 @@
 <div class="container-fluid text-center ">
 
     <div class="card text-white bg-dark mb-3 position-absolute top-50 start-50 translate-middle" style=" max-width:18rem; height:50%;">
-        <div class="card-header bg-dark bg-gradient">Sesión <a href="../index.html" style="float: right;"><button type="button" class="btn btn-dark border border-danger">Volver</button></a></div>
+        <div class="card-header bg-dark bg-gradient">Sesión <a th:href="@{/home}" style="float: right;"><button type="button" class="btn btn-dark border border-danger">Volver</button></a></div>
         <div class="card-body">
             <form th:action="@{/login}" method="POST">
                 <div class="input-group mb-3 input-group-lg">

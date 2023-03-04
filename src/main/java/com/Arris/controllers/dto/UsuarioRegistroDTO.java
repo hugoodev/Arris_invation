@@ -8,7 +8,7 @@ public class UsuarioRegistroDTO {
 
 
 
-    private long idUsuario;
+    private Integer idUsuario;
 
     private String nombre;
 
@@ -34,7 +34,7 @@ public class UsuarioRegistroDTO {
     }
 
 
-    public UsuarioRegistroDTO(long idUsuario, String nombre, String telefono, String email, String direccion, String password) {
+    public UsuarioRegistroDTO(Integer idUsuario, String nombre, String telefono, String email, String direccion, String password) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -65,11 +65,11 @@ public class UsuarioRegistroDTO {
     public UsuarioRegistroDTO() {
     }
 
-    public long getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(long idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
