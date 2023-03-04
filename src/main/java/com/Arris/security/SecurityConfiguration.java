@@ -58,6 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/contacto").permitAll()
                 .antMatchers("/producto").permitAll()
                 .antMatchers("/recursos/**").permitAll()
+                .antMatchers("/carrito/agregar/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

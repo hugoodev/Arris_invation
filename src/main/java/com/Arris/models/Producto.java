@@ -37,4 +37,18 @@ public class Producto {
         this.disponibles = disponibles;
         this.imagen = imagen;
     }
+
+    public Producto(long idProducto, String nombre, String categoria, double precio, String estado, Integer disponibles, String imagen) {
+        this.idProducto = idProducto;
+        this.nombre = nombre;
+        this.categoria = categoria;
+        this.precio = precio;
+        this.estado = estado;
+        this.disponibles = disponibles;
+        this.imagen = imagen;
+    }
+
+    public Producto(long idProducto) {
+        this.idProducto = idProducto;
+    }
 }

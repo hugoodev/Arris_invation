@@ -18,6 +18,7 @@ import java.util.List;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     public Usuario findByEmail(String email);
+    public Usuario findById(long id);
     @Transactional
     @Modifying
     @Query("UPDATE Usuario SET id_usuario = :idUsuario, nombre = :nombre, telefono = :telefono, email = :email, direccion = :direccion, password = :password WHERE id_usuario = :idUsuario")
