@@ -8,7 +8,7 @@ public class UsuarioRegistroDTO {
 
 
 
-    private Integer idUsuario;
+    private long idUsuario;
 
     private String nombre;
 
@@ -34,7 +34,7 @@ public class UsuarioRegistroDTO {
     }
 
 
-    public UsuarioRegistroDTO(Integer idUsuario, String nombre, String telefono, String email, String direccion, String password) {
+    public UsuarioRegistroDTO(long idUsuario, String nombre, String telefono, String email, String direccion, String password) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -65,7 +65,7 @@ public class UsuarioRegistroDTO {
     public UsuarioRegistroDTO() {
     }
 
-    public Integer getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
