@@ -1,10 +1,10 @@
 $(document).ready(function() {
-    $(".minusButton").on("click", function(evt) {
+    $(".minusButton"+id).on("click", function(evt) {
             evt.preventDefault();
             decreaseCantidad($(this));
         });
 
-        $(".plusButton").on("click", function(evt) {
+        $(".plusButton"+id).on("click", function(evt) {
                 evt.preventDefault();
                 increaseCantidad($(this))
             });

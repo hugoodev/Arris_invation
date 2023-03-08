@@ -28,7 +28,7 @@
                 <div class="row">
                     <div class="col">
                         <h5><strong>Nombre Cliente:</strong><p th:text="${listarPqrs.venta.pedido.cliente.nombre}"></p></h5>
-                        <h5><strong>Nombre Vendedor:</strong><p th:text="${listarPqrs.venta.pedido.empleado.nombre}"></p></h5>
+                        <h5><strong>Nombre Vendedor:</strong><p th:text="${listarPqrs.venta.pedido.empleado == null} ? 'Compra realizada a traves de la web' : ${listarPqrs.venta.pedido.empleado.nombre}"></p></h5>
                         <h5><strong>Producto:</strong><p th:text="${listarPqrs.venta.producto.nombre}"></p></h5>
                         <h5><strong>Cantidad:</strong><p th:text="${listarPqrs.venta.cantidad}"></p></h5>
                         <h5><strong>Valor por unidad:</strong><p th:text="${listarPqrs.venta.producto.precio}"></p></h5>

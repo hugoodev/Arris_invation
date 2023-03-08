@@ -1,0 +1,193 @@
+<!-- modal informacion sobre agregar-->
+
+<div class="modal" tabindex="-1" data-bs-toggle="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Información</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="modalBody"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- fin modal informacion sobre agregar-->
+<!--Carrito de compras-->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Carrito de Compras</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <hr>
+  <div class="offcanvas-body">
+    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+      <div class="row" sec:authorize="isAnonymous()">
+        <div class="col">
+          <h3>Inicia sesión para ver tus productos en la canasta..<i class="bi bi-cart3"></i></h3>
+        </div>
+      </div>
+      <div class="row" sec:authorize="isAuthenticated()">
+        <div class="col">
+          <th:block th:each="itemsCarrito, status : ${itemsCarrito}">
+            <div class="row border rounded" th:with="productos = ${itemsCarrito.producto}" th:id="'row' + ${status.count}">
+              <div class="col-1">
+                <div>[[${status.count}]]</div>
+                <div><a class="bi bi-trash text-danger link-remove" th:rowNumber="${status.count}" th:href="@{'/carrito/eliminar/'+${productos.idProducto}}"></a></div>
+              </div>
+              <div class="col-3">
+                <img th:src="@{'/recursos/' + ${productos.imagen}}" th:alt="${productos.imagen}" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-6">
+                <div>
+                  <a th:href="@{'/producto?id='+${productos.idProducto}}" th:title="${productos.nombre}" target="_blank">
+                    <b>[[${productos.nombre}]]</b>
+                  </a>
+                </div>
+                <div th:replace="web/templates/control_cantidad :: control_cantidad(${itemsCarrito.cantidad}, ${itemsCarrito.producto.idProducto}, ${productos.disponibles})">Cantidad</div>
+                <div>
+                  <span>X</span>
+                  <span>$[[${productos.precio}]]</span>
+                  <span>=&nbsp;</span><span class="h4">$</span><span th:id="'subtotal' + ${productos.idProducto}" class="h4 productosSubtotal">[[${itemsCarrito.subtotal}]]</span>
+                </div>
+              </div>
+              <script th:inline="javascript">
+    $(document).ready(function() {
+    $(".minusButton[[${productos.idProducto}]]").on("click", function(evt) {
+            evt.preventDefault();
+            decreaseCantidad[[${productos.idProducto}]]($(this));
+        });
+
+        $(".plusButton[[${productos.idProducto}]]").on("click", function(evt) {
+                evt.preventDefault();
+                increaseCantidad[[${productos.idProducto}]]($(this));
+            });
+
+        $(".link-remove").on("click", function(evt){
+            evt.preventDefault();
+            removeDeCarrito[[${productos.idProducto}]]($(this));
+        });
+
+
+    updateTotal();
+});
+
+function removeDeCarrito[[${productos.idProducto}]](link) {
+    url = link.attr("href");
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrfHeaderName, csrfValue)
+        }
+    }).done(function(response) {
+        $("#modalTitle").text("Carrito de compras");
+        if(response.includes("removed")) {
+            $("#myModal").on("hide.bs.modal", function(e) {
+                rowNumber = link.attr("rowNumber");
+                removeProducto(rowNumber);
+                updateTotal();
+            });
+        }
+        $("#modalBody").text(response);
+        $("#myModal").modal("show");
+    }).fail(function() {
+              $("#modalTitle").text("Carrito de compras");
+              $("#modalBody").text("hubo un error inesperado al intentar agregar el producto al carrito de compras");
+              $("#myModal").modal("show");
+          })
+}
+
+function removeProducto(rowNumber) {
+    rowId = "row" + rowNumber;
+    $("#" + rowId).remove();
+}
+
+function decreaseCantidad[[${productos.idProducto}]](link) {
+    productoId = link.attr("pid");
+                ctlInput = $("#cantidad" + productoId);
+
+                newCtl = parseInt(ctlInput.val()) - 1;
+                if(newCtl > 0) {
+                 ctlInput.val(newCtl);
+                 updateCantidad(productoId, newCtl);
+                 }
+}
+
+function increaseCantidad[[${productos.idProducto}]](link) {
+
+    productoId = link.attr("pid");
+                    ctlInput = $("#cantidad" + productoId);
+
+                    newCtl = parseInt(ctlInput.val()) + 1;
+                    if(newCtl <= pro[[${productos.idProducto}]]) {
+                    ctlInput.val(newCtl);
+                    updateCantidad(productoId, newCtl);
+                    }
+
+}
+
+function updateCantidad(productoId, cantidad) {
+    url = contextPath + "carrito/actualizar/" + productoId + "/" + cantidad;
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrfHeaderName, csrfValue)
+        }
+    }).done(function(newSubtotal) {
+        updateSubtotal(newSubtotal, productoId);
+        updateTotal();
+    }).fail(function() {
+              $("#modalTitle").text("Carrito de compras");
+              $("#modalBody").text("hubo un error inesperado al intentar agregar el producto al carrito de compras");
+              $("#myModal").modal("show");
+          });
+}
+
+function updateSubtotal(newSubtotal, productoId) {
+    $("#subtotal" + productoId).text(newSubtotal);
+}
+function updateTotal() {
+    total = 0;
+
+    $(".productosSubtotal").each(function(index, element) {
+
+        total = total + parseFloat(element.innerHTML);
+    })
+
+    $("#totalAmount").text("$ " + total);
+}
+</script>
+            </div>
+            <div class="row m-1">&nbsp;</div>
+          </th:block>
+        </div>
+        <div th:unless="${#lists.isEmpty(itemsCarrito)}">
+          <div>
+            <span class="h3">Estimación Total:</span>
+          </div>
+          <div>
+            <span class="h2 mt-2" id="totalAmount"></span>
+          </div>
+          <div class="mt-2">
+            <a class="nav-link" th:href="@{/comprar_productos}">
+              <button class="btn btn-warning p-3 mt-2">Comprar ahora</button>
+            </a>
+          </div>
+        </div>
+        <div th:if="${#lists.isEmpty(itemsCarrito)}">
+          <h3>No tienes productos en el carrito aun..<i class="bi bi-cart3"></i></h3>
+        </div>
+      </div>
+    </ul>
+  </div>
+</div>
+<!--Fin de carrito de compras-->

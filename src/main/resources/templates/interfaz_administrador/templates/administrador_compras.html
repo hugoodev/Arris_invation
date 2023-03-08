@@ -30,7 +30,7 @@
         <div class="row">
           <div class="col">
             <h5><strong>Nombre Cliente:</strong><p th:text="${pedido.pedido.cliente.nombre}"></p></h5>
-            <h5><strong>Nombre Vendedor:</strong><p th:text="${pedido.pedido.empleado.nombre}"></p></h5>
+            <h5><strong>Nombre Vendedor:</strong><p th:text="${pedido.pedido.empleado == null} ? 'Compra realizada a traves de la web' : ${pedido.pedido.empleado.nombre}"></p></h5>
             <h5><strong>Producto:</strong><p th:text="${pedido.producto.nombre}"></p></h5>
             <h5><strong>Cantidad:</strong><p th:text="${pedido.cantidad}"></p></h5>
             <h5><strong>Precio por unidad:</strong><p th:text="'$'+${pedido.precio}"></p></h5>

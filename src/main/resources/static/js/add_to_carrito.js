@@ -5,7 +5,7 @@ $(document).ready(function() {
 });
 function addToCarrito() {
 
-    cantidad = $("#cantidad" + productoId).val();
+    cantidad = $("#cantidades" + productoId).val();
 
     url = contextPath + "carrito/agregar/" + productoId + "/" + cantidad;
 

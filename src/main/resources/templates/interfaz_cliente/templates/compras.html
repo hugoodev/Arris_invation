@@ -115,7 +115,8 @@
                   <tr th:each="pedido : ${pedido}" th:object="${pedido}" th:if="${pedido.pedido.cliente.email} == ${#authentication.name}">
                     <th th:text="${pedido.idDetallePedido}"></th>
                     <td th:text="${pedido.producto.nombre}"></td>
-                      <td th:text="${pedido.pedido.empleado.nombre}"></td>
+                      <td th:text="${pedido.pedido.empleado == null} ? 'Compra realizada a traves de la web' : ${pedido.pedido.empleado.nombre}"></td>
+
                     <td th:text="${pedido.cantidad}"></td>
                     <td th:text="'$ '+${pedido.total}"></td>
                     <td th:text="${pedido.fecha}"></td>

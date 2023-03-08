@@ -5,19 +5,20 @@
     <nav>
       <ul class="pagination">
         <li class="page-item">
-          <a class="page-link minusButton" href="" th:pid="${productoId}"><b>-</b></a>
+          <a th:class="'page-link minusButton'+${productoId}" href="" th:pid="${productoId}"><b>-</b></a>
           <input type="number" th:id="'cantidadProducto'+${productoId}" th:value="${disponibles}" hidden>
         </li>
         <li>
           <input type="text" th:value="${ctlValue}" class="form-control text-center" onkeydown="return false;" style="max-width: 55px;" min="1" th:max="${disponibles}" th:id="'cantidad' + ${productoId}"/>
         </li>
         <li class="page-item">
-          <a class="page-link plusButton" href="" th:pid="${productoId}"><b>+</b></a>
+          <a th:class="'page-link plusButton'+${productoId}" href="" th:pid="${productoId}"><b>+</b></a>
         </li>
 
       <script th:inline="javascript">
         var dis[[${productoId}]] = document.getElementById("cantidadProducto[[${productoId}]]");
-        var pro[[${productoId}]] = dis[[${productoId}]].value;
+        var pro[[${productoId}]] = parseInt(dis[[${productoId}]].value);
+        var id = [[${productoId}]];
       </script>
       </ul>
     </nav>

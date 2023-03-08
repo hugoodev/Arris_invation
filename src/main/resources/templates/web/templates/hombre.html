@@ -15,9 +15,10 @@
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
    <!--Slide Productos Recientes Styles-->
    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <!--Bootstrap Scripts-->
-   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+  <!--Bootstrap Scripts-->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha384-JUMjoW8OzDJw4oFpWIB2Bu/c6768ObEthBMVSiIx4ruBIEdyNSUQAjJNFqT5pnJ6" crossorigin="anonymous"></script>
 </head>
 <style>
 :root {
@@ -42,48 +43,7 @@ object-fit: cover;
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse  justify-content-end" id="navbarNav">
-        <ul class="navbar-nav nav-tabs">
-            <li class="nav-item">
-                  <a href="../index.html" class="nav-link" aria-current="page">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a href="./nosotros.html" class="nav-link" aria-current="page">Nosotros</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Productos</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item active" href="../templates/hombre.html">Hombre</a></li>
-                <li><a class="dropdown-item" href="../templates/mujer.html">Mujer</a></li>
-                <li><a class="dropdown-item" href="../templates/nino.html">Niño</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-                  <a href="./pqr.html" class="nav-link">PQR</a>
-            </li>
-            <li class="nav-item">
-                  <a href="./contacto.html" class="nav-link">Contacto</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="bi bi-person"></i></a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="../../interfaz_administrador/interfaz_administrador.html">Administrador</a></li>
-                <li><a class="dropdown-item" href="../../interfaz_empleado/interfaz_empleado.html">Empleados</a></li>
-                <li><a class="dropdown-item" href="../../interfaz_cliente/interfaz_cliente.html">Clientes</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <button type="button" class="btn  position-relative">
-                <i class="bi bi-cart"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  9+
-                  <span class="visually-hidden">unread messages</span>
-                </span>
-              </button>
-            </li>
-            <li class="nav-item">
-                <a href="./manual_coorporativo.html" class="nav-link"><i class="bi bi-patch-question"></i></a>
-            </li>
-        </ul>
+        <div th:replace="web/templates/menu"></div>
       </div>
     </div>
   </nav>
@@ -139,6 +99,7 @@ object-fit: cover;
       </div>
     </div>
   </div>
+  <div th:replace="web/templates/carrito"></div>
   <div class="b-example-divider mt-4"></div>
     <!--Footer inicio-->
     <div class="footer-color">
@@ -191,6 +152,11 @@ object-fit: cover;
     
     <!--Footer final--> 
 </body>
+<script type="text/javascript" >
+    contextPath = "[[@{/}]]";
+    var csrfHeaderName = "[[${_csrf.headerName}]]";
+    var csrfValue = "[[${_csrf.token}]]";
+</script>
 </html>
 
 

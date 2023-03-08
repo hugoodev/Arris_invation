@@ -8,9 +8,11 @@ import com.Arris.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class CarritoDeComprasService {
     @Autowired
     ItemsCarritoRepository itemsCarritoRepository;
@@ -40,5 +42,21 @@ public class CarritoDeComprasService {
         itemsCarritoRepository.save(itemsCarrito);
 
         return addedCantidad;
+    }
+
+    public double updateCantidad(long productoId,Integer cantidad, Usuario usuario) {
+        itemsCarritoRepository.updateCantidad(cantidad, productoId, usuario.getIdUsuario());
+        System.out.println("llego aca al updateCantidad - " + productoId +" - "+cantidad);
+        Producto producto = productoRepository.findById(productoId).get();
+        System.out.println("%%%% " + producto);
+        double total = producto.getPrecio() * cantidad;
+        double iva = total * 0.19;
+        double subtotal = total + iva;
+        return subtotal;
+
+    }
+
+    public void removeProducto(long productoId, Usuario usuario) {
+        itemsCarritoRepository.deleteByUsuarioYProducto(usuario.getIdUsuario(), productoId);
     }
 }
