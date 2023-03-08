@@ -385,9 +385,11 @@
 <!--Fin de modal ver calificacion venta-->
     <div class="container-fluid">
         <div class="row justify-content-center align-content-center">
-            <div class="col-8 barra">
-                <img id="logo" th:src="@{/img/Logo Mauricio png.png}">
-            </div>
+          <div class="col-8 barra">
+            <a th:href="@{/home}" >
+              <img id="logo" th:src="@{/img/Logo Mauricio png.png}">
+              <button type="button" class="btn btn-dark border border-warning">Volver a la tienda <i class="bi bi-bag-heart-fill"></i></button></a>
+          </div>
             <div class="col-4 barra1">
               <div class="dropdown">
                 <button class="btn  dropdown-toggle boton text-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
