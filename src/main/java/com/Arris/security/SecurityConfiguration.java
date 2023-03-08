@@ -62,6 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/carrito/agregar/**").permitAll()
                 .antMatchers("/carrito/eliminar/**").permitAll()
                 .antMatchers("/carrito/actualizar/**").permitAll()
+                .antMatchers("/pdf/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -75,6 +76,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
+        http.headers()
+                .frameOptions()
+                .sameOrigin();
 
     }
 }

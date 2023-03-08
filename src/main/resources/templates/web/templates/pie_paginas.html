@@ -1,0 +1,52 @@
+<div class="footer-color">
+    <div class="container">
+        <footer class="py-5">
+            <div class="row">
+                <div class="col-4">
+                    <h5>Ropa</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a th:href="@{/productos/mujer}" class="nav-link p-0 text-muted">Mujer</a></li>
+                        <li class="nav-item mb-2"><a th:href="@{/productos/hombre}" class="nav-link p-0 text-muted">Hombre</a></li>
+                        <li class="nav-item mb-2"><a th:href="@{/productos/nino}" class="nav-link p-0 text-muted">Niño</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-4">
+                    <h5>Nosotros</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a th:href="@{/manual_coorporativo}" class="nav-link p-0 text-muted">Manual Coorporativo</a></li>
+                        <li class="nav-item mb-2"><a th:href="@{/nosotros}" class="nav-link p-0 text-muted">¿Quienes Somos?</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-4">
+                    <h5>Login</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2" sec:authorize="isAnonymous()"><a class="nav-link p-0 text-muted" th:href="@{/login}"><i class="fas fa-sign-out-alt m-1"></i>Iniciar Sesión</a></li>
+                        <li class="nav-item mb-2" sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link p-0 text-muted" th:href="@{/admin}"><i class="fas fa-sign-out-alt m-1"></i>Administrar mi cuenta</a></li>
+                        <li class="nav-item mb-2" sec:authorize="hasRole('ROLE_EMPLEADO')"><a class="nav-link p-0 text-muted" th:href="@{/empleado}"><i class="fas fa-sign-out-alt m-1"></i>Administrar mi cuenta</a></li>
+                        <li class="nav-item mb-2" sec:authorize="hasRole('ROLE_CLIENTE')"><a class="nav-link p-0 text-muted" th:href="@{/cliente}"><i class="fas fa-sign-out-alt m-1"></i>Administrar mi cuenta</a></li>
+                        <li class="nav-item mb-2" sec:authorize="isAuthenticated()"><a class="nav-link p-0 text-muted" th:href="@{/logout}"><i class="fas fa-sign-out-alt m-1"></i>Cerrar Sesión</a></li>
+                        <li class="nav-item mb-2" sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link p-0 text-muted" th:href="@{/registro/actualizar-datos-admin}"><i class="fas fa-user-edit m-1"></i></i>Editar Mi Información</a></li>
+                        <li class="nav-item mb-2" sec:authorize="hasRole('ROLE_EMPLEADO')"><a class="nav-link p-0 text-muted" th:href="@{/registro/actualizar-datos-empleado}"><i class="fas fa-user-edit m-1"></i></i>Editar Mi Información</a></li>
+                        <li class="nav-item mb-2" sec:authorize="hasRole('ROLE_CLIENTE')"><a class="nav-link p-0 text-muted" th:href="@{/registro/actualizar-datos}"><i class="fas fa-user-edit m-1"></i></i>Editar Mi Información</a></li>
+                    </ul>
+                </div>
+
+
+            </div>
+
+            <div class="d-flex justify-content-between py-4 my-4 border-top border-dark">
+                <a th:href="@{/home}" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                    <img th:src="@{http://localhost:8080/img/Logo Mauricio png.png}" alt="" width="35">
+                    <span class="text-muted">© 2022 Lipem's.in</span>
+                </a>
+                <ul class="list-unstyled d-flex">
+                    <li class="ms-3"><a class="link-dark" href="#"><i class="bi bi-whatsapp"></i></a></li>
+                    <li class="ms-3"><a class="link-dark" href="#"><i class="bi bi-facebook"></i></a></li>
+                    <li class="ms-3"><a class="link-dark" href="#"><i class="bi bi-instagram"></i></a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</div>

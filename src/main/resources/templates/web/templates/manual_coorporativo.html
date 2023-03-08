@@ -42,59 +42,12 @@
   <div class="container-fluid text-center">
     <h1>Manual Coorporativo Lipem's.in</h1>
     <hr>
-    <iframe src="../manual_coorporativo/Manual corporativo lipems.pdf" frameborder="0" height="800px" width="100%"></iframe>
+    <iframe th:src="@{./pdf/Manual corporativo lipems.pdf}" frameborder="0" height="800px" width="100%"></iframe>
   </div>
   <div th:replace="web/templates/carrito"></div>
   <div class="b-example-divider mt-4"></div>
     <!--Footer inicio-->
-    <div class="footer-color">
-      <div class="container">
-        <footer class="py-5">
-          <div class="row">
-            <div class="col-4">
-              <h5>Ropa</h5>
-              <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="./mujer.html" class="nav-link p-0 text-muted">Mujer</a></li>
-                <li class="nav-item mb-2"><a href="./hombre.html" class="nav-link p-0 text-muted">Hombre</a></li>
-                <li class="nav-item mb-2"><a href="./nino.html" class="nav-link p-0 text-muted">Niño</a></li>
-              </ul>
-            </div>
-      
-            <div class="col-4">
-              <h5>Nosotros</h5>
-              <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="../templates/manual_coorporativo.html" class="nav-link p-0 text-muted">Manual Coorporativo</a></li>
-                <li class="nav-item mb-2"><a href="../templates/nosotros.html  " class="nav-link p-0 text-muted">¿Quienes Somos?</a></li>
-              </ul>
-            </div>
-      
-            <div class="col-4">
-              <h5>Login</h5>
-              <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="../../interfaz_administrador/interfaz_administrador.html" class="nav-link p-0 text-muted">Administrador</a></li>
-                <li class="nav-item mb-2"><a href="../../interfaz_empleado/interfaz_empleado.html" class="nav-link p-0 text-muted">Empleados</a></li>
-                <li class="nav-item mb-2"><a href="../../interfaz_cliente/interfaz_cliente.html" class="nav-link p-0 text-muted">Clientes</a></li>
-              </ul>
-            </div>
-      
-            
-          </div>
-      
-          <div class="d-flex justify-content-between py-4 my-4 border-top border-dark">
-            <a href="../index.html" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-              <img src="./logo/Logo Mauricio png.png" alt="" width="35">
-              <span class="text-muted">© 2022 Lipem's.in</span>
-            </a>
-            <ul class="list-unstyled d-flex">
-              <li class="ms-3"><a class="link-dark" href="#"><i class="bi bi-whatsapp"></i></a></li>
-              <li class="ms-3"><a class="link-dark" href="#"><i class="bi bi-facebook"></i></a></li>
-              <li class="ms-3"><a class="link-dark" href="#"><i class="bi bi-instagram"></i></a></li>
-            </ul>
-          </div>
-        </footer>
-      </div>
-    </div>
-    
+  <div th:replace="web/templates/pie_paginas"></div>
     <!--Footer final--> 
 </body>
 <script type="text/javascript" >
