@@ -37,6 +37,10 @@ public class ItemsCarrito {
     }
     @Transient
     public double getSubtotal() {
-        return this.producto.getPrecio() * cantidad;
+        double subtotal = this.producto.getPrecio() * cantidad;
+        double iva = subtotal * 0.19;
+        double total = subtotal + iva;
+
+        return total;
     }
 }

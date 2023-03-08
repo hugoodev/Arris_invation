@@ -48,6 +48,7 @@ public class HomeController {
             List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
 
             model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("numero", itemsCarrito.size());
             return "web/index";
 
         } catch (Exception e){
@@ -55,54 +56,268 @@ public class HomeController {
         }
     }
     @GetMapping("/nosotros")
-    public String nosotros() {
-        return "web/templates/nosotros";
+    public String nosotros(Model model, Authentication auth) {
+        try {
+            String email = auth.getName();
+            long id = 0;
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            for (Usuario user : usuarios){
+                if(user.getEmail().equals(email)){
+                    id = user.getIdUsuario();
+                    System.out.println("######" + user.getNombre() + user.getIdUsuario());
+                }
+            }
+            Usuario usuario = usuarioRepository.findById(id);
+            List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
+
+            model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("numero", itemsCarrito.size());
+            return "web/templates/nosotros";
+
+        } catch (Exception e){
+            return "web/templates/nosotros";
+        }
+
     }
     @GetMapping("/productos/hombre")
-    public String productosHombre(Model model) {
-        List <Producto> productos = productoService.getAll();
-        model.addAttribute("productos", productos);
-        return "web/templates/hombre";
+    public String productosHombre(Model model, Authentication auth) {
+        try {
+            String email = auth.getName();
+            long id = 0;
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            for (Usuario user : usuarios){
+                if(user.getEmail().equals(email)){
+                    id = user.getIdUsuario();
+                    System.out.println("######" + user.getNombre() + user.getIdUsuario());
+                }
+            }
+            Usuario usuario = usuarioRepository.findById(id);
+            List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
+            List <Producto> productos = productoService.getAll();
+
+            model.addAttribute("productos", productos);
+            model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("numero", itemsCarrito.size());
+            return "web/templates/hombre";
+
+        } catch (Exception e){
+            List <Producto> productos = productoService.getAll();
+            model.addAttribute("productos", productos);
+            return "web/templates/hombre";
+        }
     }
     @GetMapping("/productos/mujer")
-    public String productosMujer(Model model) {
-        List <Producto> productos = productoService.getAll();
-        model.addAttribute("productos", productos);
-        return "web/templates/mujer";
+    public String productosMujer(Model model, Authentication auth) {
+        try {
+            String email = auth.getName();
+            long id = 0;
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            for (Usuario user : usuarios){
+                if(user.getEmail().equals(email)){
+                    id = user.getIdUsuario();
+                    System.out.println("######" + user.getNombre() + user.getIdUsuario());
+                }
+            }
+            Usuario usuario = usuarioRepository.findById(id);
+            List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
+            List <Producto> productos = productoService.getAll();
+
+            model.addAttribute("productos", productos);
+            model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("numero", itemsCarrito.size());
+            return "web/templates/mujer";
+
+        } catch (Exception e){
+            List <Producto> productos = productoService.getAll();
+            model.addAttribute("productos", productos);
+            return "web/templates/mujer";
+        }
+
     }
     @GetMapping("/productos/nino")
-    public String productosNino(Model model) {
-        List <Producto> productos = productoService.getAll();
-        model.addAttribute("productos", productos);
-        return "web/templates/nino";
+    public String productosNino(Model model, Authentication auth) {
+        try {
+            String email = auth.getName();
+            long id = 0;
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            for (Usuario user : usuarios){
+                if(user.getEmail().equals(email)){
+                    id = user.getIdUsuario();
+                    System.out.println("######" + user.getNombre() + user.getIdUsuario());
+                }
+            }
+            Usuario usuario = usuarioRepository.findById(id);
+            List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
+            List <Producto> productos = productoService.getAll();
+            model.addAttribute("productos", productos);
+            model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("numero", itemsCarrito.size());
+            return "web/templates/nino";
+
+        } catch (Exception e){
+            List <Producto> productos = productoService.getAll();
+            model.addAttribute("productos", productos);
+            return "web/templates/nino";
+        }
+
     }
     @GetMapping("/pqrs")
-    public String productosPQR() {
-        return "web/templates/pqr";
+    public String productosPQR(Model model, Authentication auth) {
+        try {
+            String email = auth.getName();
+            long id = 0;
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            for (Usuario user : usuarios){
+                if(user.getEmail().equals(email)){
+                    id = user.getIdUsuario();
+                    System.out.println("######" + user.getNombre() + user.getIdUsuario());
+                }
+            }
+            Usuario usuario = usuarioRepository.findById(id);
+            List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
+
+            model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("numero", itemsCarrito.size());
+            return "web/templates/pqr";
+
+        } catch (Exception e){
+            return "web/templates/pqr";
+        }
+
     }
     @GetMapping("/contacto")
-    public String productosContacto() {
-        return "web/templates/contacto";
+    public String productosContacto(Model model, Authentication auth) {
+        try {
+            String email = auth.getName();
+            long id = 0;
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            for (Usuario user : usuarios){
+                if(user.getEmail().equals(email)){
+                    id = user.getIdUsuario();
+                    System.out.println("######" + user.getNombre() + user.getIdUsuario());
+                }
+            }
+            Usuario usuario = usuarioRepository.findById(id);
+            List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
+
+            model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("numero", itemsCarrito.size());
+            return "web/templates/contacto";
+
+        } catch (Exception e){
+            return "web/templates/contacto";
+        }
+
     }
+    @GetMapping("/manual_coorporativo")
+    public String manualCoorporativo(Model model, Authentication auth) {
+        try {
+            String email = auth.getName();
+            long id = 0;
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            for (Usuario user : usuarios){
+                if(user.getEmail().equals(email)){
+                    id = user.getIdUsuario();
+                    System.out.println("######" + user.getNombre() + user.getIdUsuario());
+                }
+            }
+            Usuario usuario = usuarioRepository.findById(id);
+            List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
+
+            model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("numero", itemsCarrito.size());
+            return "web/templates/manual_coorporativo";
+
+        } catch (Exception e){
+            return "web/templates/manual_coorporativo";
+        }
+
+    }
+
+    @GetMapping("/comprar_productos")
+    public String comprarProductos(Model model, Authentication auth) {
+        try {
+            String email = auth.getName();
+            long id = 0;
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            for (Usuario user : usuarios){
+                if(user.getEmail().equals(email)){
+                    id = user.getIdUsuario();
+                    System.out.println("######" + user.getNombre() + user.getIdUsuario());
+                }
+            }
+            Usuario usuario = usuarioRepository.findById(id);
+            List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
+
+            model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("numero", itemsCarrito.size());
+            return "web/templates/comprar_productos";
+
+        } catch (Exception e){
+            return "web/templates/comprar_productos";
+        }
+
+    }
+
     @GetMapping("/producto")
-    public String productoRopa(@RequestParam(name="id") int id, Model model) {
-        List <Producto> productos = productoService.getAll();
-        List <Producto> pr = new ArrayList<>();
-        List <Integer> disponibles = new ArrayList<>();
-        for (Producto producto : productos) {
-            if (producto.getIdProducto() == id) {
-                pr.add(producto);
+    public String productoRopa(@RequestParam(name="id") int id, Model model, Authentication auth) {
+        try {
+            String email = auth.getName();
+            long idi = 0;
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            for (Usuario user : usuarios){
+                if(user.getEmail().equals(email)){
+                    idi = user.getIdUsuario();
+                    System.out.println("######" + user.getNombre() + user.getIdUsuario());
+                }
             }
-        }
-        for (int i = 0; i < pr.size(); i++) {
-            for ( int j = 1; j <= pr.get(i).getDisponibles(); j++) {
-                disponibles.add(j);
-                System.out.println("######"+j);
+            Usuario usuario = usuarioRepository.findById(idi);
+            List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
+
+            List <Producto> productos = productoService.getAll();
+            List <Producto> pr = new ArrayList<>();
+            List <Integer> disponibles = new ArrayList<>();
+            for (Producto producto : productos) {
+                if (producto.getIdProducto() == id) {
+                    pr.add(producto);
+                }
             }
+            for (int i = 0; i < pr.size(); i++) {
+                for ( int j = 1; j <= pr.get(i).getDisponibles(); j++) {
+                    disponibles.add(j);
+                    System.out.println("######"+j);
+                }
+            }
+            model.addAttribute("disponibles", disponibles);
+            model.addAttribute("id", id);
+            model.addAttribute("productos", pr);
+
+
+            model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("numero", itemsCarrito.size());
+            return "web/templates/producto";
+
+        } catch (Exception e){
+
+            List <Producto> productos = productoService.getAll();
+            List <Producto> pr = new ArrayList<>();
+            List <Integer> disponibles = new ArrayList<>();
+            for (Producto producto : productos) {
+                if (producto.getIdProducto() == id) {
+                    pr.add(producto);
+                }
+            }
+            for (int i = 0; i < pr.size(); i++) {
+                for ( int j = 1; j <= pr.get(i).getDisponibles(); j++) {
+                    disponibles.add(j);
+                    System.out.println("######"+j);
+                }
+            }
+            model.addAttribute("disponibles", disponibles);
+            model.addAttribute("id", id);
+            model.addAttribute("productos", pr);
+            return "web/templates/producto";
         }
-        model.addAttribute("disponibles", disponibles);
-        model.addAttribute("id", id);
-        model.addAttribute("productos", pr);
-        return "web/templates/producto";
+
     }
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="control_cantidad(ctlValue,productoIds,disponible)">
+  <nav>
+    <ul class="pagination">
+      <li class="page-item">
+        <a th:class="'page-link minusButto'+${productoIds}" href="" th:pid="${productoIds}"><b>-</b></a>
+        <input type="number" th:id="'cantidadProducto'+${productoIds}" th:value="${disponible}" hidden>
+      </li>
+      <li>
+        <input type="text" th:value="${ctlValue}" class="form-control text-center" onkeydown="return false;" style="max-width: 55px;" min="1" th:max="${disponibles}" th:id="'cantidades' + ${productoIds}"/>
+      </li>
+      <li class="page-item">
+        <a th:class="'page-link plusButto'+${productoIds}" href="" th:pid="${productoIds}"><b>+</b></a>
+      </li>
+
+      <script th:inline="javascript">
+        var dis[[${productoIds}]] = document.getElementById("cantidadProducto[[${productoIds}]]");
+        var pro[[${productoIds}]] = parseInt(dis[[${productoIds}]].value);
+        var idis = [[${productoIds}]];
+      </script>
+    </ul>
+  </nav>
+</div>
+</body>
+</html>

@@ -20,11 +20,31 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha384-JUMjoW8OzDJw4oFpWIB2Bu/c6768ObEthBMVSiIx4ruBIEdyNSUQAjJNFqT5pnJ6" crossorigin="anonymous"></script>
 </head>
+<!-- modal informacion sobre eliminar-->
+
+<div class="modal" tabindex="-1" data-bs-toggle="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Información</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modalBody"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- fin modal informacion sobre eliminar-->
 <body>
   <!--Inicio de Menu-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top color-menu">
         <div class="container-fluid">
-          <a class="navbar-brand" href="./index.html">
+          <a class="navbar-brand" th:href="@{/home}">
             <img th:src="@{./img/Logo Mauricio png.png}" alt="" width="60" class="d-inline-block align-text-center ">
             <span class="badge">Lipem's.in</span>
           </a>
@@ -32,53 +52,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse  justify-content-end" id="navbarNav">
-            <ul class="navbar-nav nav-tabs">
-                <li class="nav-item">
-                      <a href="./index.html" class="nav-link active" aria-current="page">Inicio</a>
-                </li>
-                <li class="nav-item">
-                      <a href="./templates/nosotros.html" class="nav-link" aria-current="page">Nosotros</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Productos</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="./templates/hombre.html">Hombre</a></li>
-                    <li><a class="dropdown-item" href="./templates/mujer.html">Mujer</a></li>
-                    <li><a class="dropdown-item" href="./templates/nino.html">Niño</a></li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                      <a href="./templates/pqr.html" class="nav-link">PQR</a>
-                </li>
-                <li class="nav-item">
-                      <a href="./templates/contacto.html" class="nav-link">Contacto</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="bi bi-person"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-lg-end">
-                      <li sec:authorize="isAnonymous()"><a class="dropdown-item menuperfil cerrar" th:href="@{/login}"><i class="fas fa-sign-out-alt m-1"></i>Iniciar Sesión</a></li>
-                      <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item menuperfil cerrar" th:href="@{/admin}"><i class="fas fa-sign-out-alt m-1"></i>Administrar mi cuenta</a></li>
-                      <li sec:authorize="hasRole('ROLE_EMPLEADO')"><a class="dropdown-item menuperfil cerrar" th:href="@{/empleado}"><i class="fas fa-sign-out-alt m-1"></i>Administrar mi cuenta</a></li>
-                      <li sec:authorize="hasRole('ROLE_CLIENTE')"><a class="dropdown-item menuperfil cerrar" th:href="@{/cliente}"><i class="fas fa-sign-out-alt m-1"></i>Administrar mi cuenta</a></li>
-                      <li sec:authorize="isAuthenticated()"><a class="dropdown-item menuperfil cerrar" th:href="@{/logout}"><i class="fas fa-sign-out-alt m-1"></i>Cerrar Sesión</a></li>
-                      <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item menuperfil cerrar" th:href="@{/registro/actualizar-datos-admin}"><i class="fas fa-user-edit m-1"></i></i>Editar Mi Información</a></li>
-                      <li sec:authorize="hasRole('ROLE_EMPLEADO')"><a class="dropdown-item menuperfil cerrar" th:href="@{/registro/actualizar-datos-empleado}"><i class="fas fa-user-edit m-1"></i></i>Editar Mi Información</a></li>
-                      <li sec:authorize="hasRole('ROLE_CLIENTE')"><a class="dropdown-item menuperfil cerrar" th:href="@{/registro/actualizar-datos}"><i class="fas fa-user-edit m-1"></i></i>Editar Mi Información</a></li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                  <button type="button" class="btn position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                    <i class="bi bi-cart"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                      9+
-                      <span class="visually-hidden">unread messages</span>
-                    </span>
-                  </button>
-                </li>
-                <li class="nav-item">
-                    <a href="./templates/manual_coorporativo.html" class="nav-link"><i class="bi bi-patch-question"></i></a>
-                </li>
-            </ul>
+            <div th:replace="web/templates/menu"></div>
           </div>
         </div>
     </nav>
@@ -183,67 +157,7 @@
             </div>
           </div>
           <!--Fin seccion referencias-->
-          <!--Carrito de compras-->
-          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Carrito de Compras</h5>
-              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <hr>
-            <div class="offcanvas-body">
-              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                  <div class="row" sec:authorize="isAnonymous()">
-                      <div class="col">
-                          <h3>Inicia sesión para ver tus productos en la canasta..<i class="bi bi-cart3"></i></h3>
-                      </div>
-                  </div>
-                <div class="row" sec:authorize="isAuthenticated()">
-                    <div class="col">
-                        <th:block th:each="itemsCarrito, status : ${itemsCarrito}">
-                            <div class="row border rounded" th:with="productos = ${itemsCarrito.producto}">
-                                <div class="col-1">
-                                    <div>[[${status.count}]]</div>
-                                    <div><a class="bi bi-trash text-danger" th:href="@{/}"></a></div>
-                                </div>
-                                <div class="col-3">
-                                    <img th:src="@{'/recursos/' + ${productos.imagen}}" th:alt="${productos.imagen}" class="img-fluid rounded-start" alt="...">
-                                </div>
-                                <div class="col-6">
-                                    <div>
-                                        <a th:href="@{'/producto?id='+${productos.idProducto}}" th:title="${productos.nombre}" target="_blank">
-                                            <b>[[${productos.nombre}]]</b>
-                                        </a>
-                                    </div>
-                                    <div th:replace="web/templates/control_cantidad :: control_cantidad(${itemsCarrito.cantidad}, ${itemsCarrito.producto.idProducto}, ${productos.disponibles})">Cantidad</div>
-                                    <div>
-                                        <span>X</span>
-                                        <span>$[[${productos.precio}]]</span>
-                                        <span>=&nbsp;</span><span class="h4">$</span><span class="h4 productosSubtotal">[[${itemsCarrito.subtotal}]]</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row m-1">&nbsp;</div>
-                        </th:block>
-                    </div>
-                    <div th:unless="${#lists.isEmpty(itemsCarrito)}">
-                        <div>
-                            <span class="h3">Estimación Total:</span>
-                        </div>
-                        <div>
-                            <span class="h2 mt-2" id="totalAmount"></span>
-                        </div>
-                        <div class="mt-2">
-                            <button class="btn btn-warning p-3 mt-2">Comprar ahora</button>
-                        </div>
-                    </div>
-                    <div th:if="${#lists.isEmpty(itemsCarrito)}">
-                        <h3>No tienes productos en el carrito aun..<i class="bi bi-cart3"></i></h3>
-                    </div>
-                </div>
-              </ul>
-            </div>
-          </div>
-          <!--Fin de carrito de compras-->
+        <div th:replace="web/templates/carrito"></div>
     </div>
     <div class="b-example-divider mt-4"></div>
     <!--Footer inicio-->
@@ -319,8 +233,10 @@
       },
     });
   </script>
-<script th:src="@{js/carrito_compras.js}"></script>
-<script th:src="@{js/add_cantidad.js}"></script>
-<script th:src="@{js/carrito_compras.js}"></script>
+<script type="text/javascript" >
+    contextPath = "[[@{/}]]";
+    var csrfHeaderName = "[[${_csrf.headerName}]]";
+    var csrfValue = "[[${_csrf.token}]]";
+</script>
 <!--End Initialize Swiper -->
 </html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprar Productos Lipem's.in</title>
+  <!--Favicon-->
+  <link rel="shortcut icon" th:src="@{../img/Logo Mauricio png.png}" type="image/x-icon">
+  <!--Bootstrap Styles-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!--Page Styles-->
+  <link rel="stylesheet" href="../css/styleIndex.css">
+  <!--Bootstrap Icons-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <!--Slide Productos Recientes Styles-->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <!--Bootstrap Scripts-->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha384-JUMjoW8OzDJw4oFpWIB2Bu/c6768ObEthBMVSiIx4ruBIEdyNSUQAjJNFqT5pnJ6" crossorigin="anonymous"></script>
+</head>
+<body>
+<!--Inicio de Menu-->
+<nav class="navbar navbar-expand-lg navbar-light sticky-top color-menu">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/home}">
+      <img th:src="@{../img/Logo Mauricio png.png}" alt="" width="60" class="d-inline-block align-text-center ">
+      <span class="badge">Lipem's.in</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse  justify-content-end" id="navbarNav">
+      <div th:replace="web/templates/menu"></div>
+    </div>
+  </div>
+</nav>
+<!--Fin de Menu-->
+<div class="container-fluid text-center">
+  <div class="row">
+    <div class="col m-4 p-4 border rounded">
+      <form th:action="@{/transaccion/crear/pedido}" method="POST">
+        <p class="fs-1 fst-italic">Pasarela de pago</p>
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+             th:text="${mensaje}"
+             class="alert">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"><i class="bi bi-file-binary-fill"></i></span>
+          <input type="number" class="form-control" placeholder="Num. de tarjeta" aria-label="numeroTarjeta" name="numeroTarjeta" onKeyPress="if(this.value.length==16) return false;"   aria-describedby="basic-addon1" required>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"><i class="bi bi-file-binary-fill"></i></span>
+          <input type="month" class="form-control date-picker" placeholder="Fecha de caducidad (MM/DD)" aria-label="fechaCaducidad" name="fechaCaducidad" aria-describedby="basic-addon1" required>
+          <span class="input-group-text" id="basic-addon1"><i class="bi bi-file-binary-fill"></i></span>
+          <input type="number" class="form-control" placeholder="Codigo de seguridad" aria-label="codigoSeguridad" name="codSeguridad" onKeyPress="if(this.value.length==3) return false;" aria-describedby="basic-addon1" required>
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">Mensaje</span>
+          <textarea class="form-control" aria-label="Mensaje"></textarea>
+        </div>
+        <div class="d-grid gap-2 col-6 mx-auto mt-4">
+          <button class="btn btn-outline-success" type="submit">Comprar</button>
+        </div>
+      </form>
+      <div th:unless="${#lists.isEmpty(itemsCarrito)}">
+        <div class="row">
+          <div class="col form-control m-4">
+            <div>
+              <span class="h3">Total:</span>
+            </div>
+            <div>
+              <span class="h2 mt-2 border rounded m-4" id="totalAmount"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col m-4 p-4 border rounded">
+      <p class="fs-1 fst-italic">Mis Productos a Comprar</p>
+      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        <div class="row" sec:authorize="isAnonymous()">
+          <div class="col">
+            <h3>Inicia sesión para ver tus productos en la canasta..<i class="bi bi-cart3"></i></h3>
+          </div>
+        </div>
+        <div class="row" sec:authorize="isAuthenticated()">
+          <div class="col">
+            <th:block th:each="itemsCarrito, status : ${itemsCarrito}">
+              <div class="row border rounded" th:with="productos = ${itemsCarrito.producto}" th:id="'row' + ${status.count}">
+                <div class="col-1">
+                  <div>[[${status.count}]]</div>
+                  <div><a class="bi bi-trash text-danger link-remove" th:rowNumber="${status.count}" th:href="@{'/carrito/eliminar/'+${productos.idProducto}}"></a></div>
+                </div>
+                <div class="col-3">
+                  <img th:src="@{'/recursos/' + ${productos.imagen}}" th:alt="${productos.imagen}" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-6">
+                  <div>
+                    <a th:href="@{'/producto?id='+${productos.idProducto}}" th:title="${productos.nombre}" target="_blank">
+                      <b>[[${productos.nombre}]]</b>
+                    </a>
+                  </div>
+                  <div th:replace="web/templates/control_cantidad :: control_cantidad(${itemsCarrito.cantidad}, ${itemsCarrito.producto.idProducto}, ${productos.disponibles})">Cantidad</div>
+                  <div>
+                    <span>X</span>
+                    <span>$[[${productos.precio}]]</span>
+                    <span>=&nbsp;</span><span class="h4">$</span><span th:id="'subtotal' + ${productos.idProducto}" class="h4 productosSubtotal">[[${itemsCarrito.subtotal}]]</span>
+                  </div>
+                </div>
+                <script th:inline="javascript">
+    $(document).ready(function() {
+    $(".minusButton[[${productos.idProducto}]]").on("click", function(evt) {
+            evt.preventDefault();
+            decreaseCantidad[[${productos.idProducto}]]($(this));
+        });
+
+        $(".plusButton[[${productos.idProducto}]]").on("click", function(evt) {
+                evt.preventDefault();
+                increaseCantidad[[${productos.idProducto}]]($(this));
+            });
+
+        $(".link-remove").on("click", function(evt){
+            evt.preventDefault();
+            removeDeCarrito[[${productos.idProducto}]]($(this));
+        });
+
+
+    updateTotal();
+});
+
+function removeDeCarrito[[${productos.idProducto}]](link) {
+    url = link.attr("href");
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrfHeaderName, csrfValue)
+        }
+    }).done(function(response) {
+        $("#modalTitle").text("Carrito de compras");
+        if(response.includes("removed")) {
+            $("#myModal").on("hide.bs.modal", function(e) {
+                rowNumber = link.attr("rowNumber");
+                removeProducto(rowNumber);
+                updateTotal();
+            });
+        }
+        $("#modalBody").text(response);
+        $("#myModal").modal("show");
+    }).fail(function() {
+              $("#modalTitle").text("Carrito de compras");
+              $("#modalBody").text("hubo un error inesperado al intentar agregar el producto al carrito de compras");
+              $("#myModal").modal("show");
+          })
+}
+
+function removeProducto(rowNumber) {
+    rowId = "row" + rowNumber;
+    $("#" + rowId).remove();
+}
+
+function decreaseCantidad[[${productos.idProducto}]](link) {
+    productoId = link.attr("pid");
+                ctlInput = $("#cantidad" + productoId);
+
+                newCtl = parseInt(ctlInput.val()) - 1;
+                if(newCtl > 0) {
+                 ctlInput.val(newCtl);
+                 updateCantidad(productoId, newCtl);
+                 }
+}
+
+function increaseCantidad[[${productos.idProducto}]](link) {
+
+    productoId = link.attr("pid");
+                    ctlInput = $("#cantidad" + productoId);
+
+                    newCtl = parseInt(ctlInput.val()) + 1;
+                    if(newCtl <= pro[[${productos.idProducto}]]) {
+                    ctlInput.val(newCtl);
+                    updateCantidad(productoId, newCtl);
+                    }
+
+}
+
+function updateCantidad(productoId, cantidad) {
+    url = contextPath + "carrito/actualizar/" + productoId + "/" + cantidad;
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrfHeaderName, csrfValue)
+        }
+    }).done(function(newSubtotal) {
+        updateSubtotal(newSubtotal, productoId);
+        updateTotal();
+    }).fail(function() {
+              $("#modalTitle").text("Carrito de compras");
+              $("#modalBody").text("hubo un error inesperado al intentar agregar el producto al carrito de compras");
+              $("#myModal").modal("show");
+          });
+}
+
+function updateSubtotal(newSubtotal, productoId) {
+    $("#subtotal" + productoId).text(newSubtotal);
+}
+function updateTotal() {
+    total = 0;
+
+    $(".productosSubtotal").each(function(index, element) {
+
+        total = total + parseFloat(element.innerHTML);
+    })
+
+    $("#totalAmount").text("$ " + total);
+}
+</script>
+              </div>
+              <div class="row m-1">&nbsp;</div>
+            </th:block>
+          </div>
+          <div th:if="${#lists.isEmpty(itemsCarrito)}">
+            <h3>No tienes productos en el carrito aun..<i class="bi bi-cart3"></i></h3>
+          </div>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- modal informacion sobre agregar-->
+
+<div class="modal" tabindex="-1" data-bs-toggle="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Información</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="modalBody"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- fin modal informacion sobre agregar-->
+<div class="b-example-divider mt-4"></div>
+<!--Footer inicio-->
+<div class="footer-color">
+  <div class="container">
+    <footer class="py-5">
+      <div class="row">
+        <div class="col-4">
+          <h5>Ropa</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="./mujer.html" class="nav-link p-0 text-muted">Mujer</a></li>
+            <li class="nav-item mb-2"><a href="./hombre.html" class="nav-link p-0 text-muted">Hombre</a></li>
+            <li class="nav-item mb-2"><a href="./nino.html" class="nav-link p-0 text-muted">Niño</a></li>
+          </ul>
+        </div>
+
+        <div class="col-4">
+          <h5>Nosotros</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="../templates/manual_coorporativo.html" class="nav-link p-0 text-muted">Manual Coorporativo</a></li>
+            <li class="nav-item mb-2"><a href="../templates/nosotros.html  " class="nav-link p-0 text-muted">¿Quienes Somos?</a></li>
+          </ul>
+        </div>
+
+        <div class="col-4">
+          <h5>Login</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="../../interfaz_administrador/interfaz_administrador.html" class="nav-link p-0 text-muted">Administrador</a></li>
+            <li class="nav-item mb-2"><a href="../../interfaz_empleado/interfaz_empleado.html" class="nav-link p-0 text-muted">Empleados</a></li>
+            <li class="nav-item mb-2"><a href="../../interfaz_cliente/interfaz_cliente.html" class="nav-link p-0 text-muted">Clientes</a></li>
+          </ul>
+        </div>
+
+
+      </div>
+
+      <div class="d-flex justify-content-between py-4 my-4 border-top border-dark">
+        <a href="../index.html" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+          <img src="./logo/Logo Mauricio png.png" alt="" width="35">
+          <span class="text-muted">© 2022 Lipem's.in</span>
+        </a>
+        <ul class="list-unstyled d-flex">
+          <li class="ms-3"><a class="link-dark" href="#"><i class="bi bi-whatsapp"></i></a></li>
+          <li class="ms-3"><a class="link-dark" href="#"><i class="bi bi-facebook"></i></a></li>
+          <li class="ms-3"><a class="link-dark" href="#"><i class="bi bi-instagram"></i></a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!--Footer final-->
+</body>
+
+<script type="text/javascript" >
+    contextPath = "[[@{/}]]";
+    var csrfHeaderName = "[[${_csrf.headerName}]]";
+    var csrfValue = "[[${_csrf.token}]]";
+</script>
+</html>
+
+
+
+

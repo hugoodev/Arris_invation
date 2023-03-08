@@ -34,11 +34,15 @@ public class DetallePedido {
     private Calificacion calificacion;
     @Getter @Setter @Column(name = "encargado")
     private String encargado;
+    @Getter @Setter @ManyToOne@JoinColumn(name = "tipo_de_pago")
+    private TipoDePago tipoDePago;
+    @Getter @Setter @OneToOne@JoinColumn(name = "id_detalle_transaccion")
+    private DetalleTransaccion detalleTransaccion;
 
     public DetallePedido() {
     }
 
-    public DetallePedido(long idDetallePedido, int cantidad, double precio, double total, Producto producto, Pedido pedido, String estado, String envio, String fecha, Calificacion calificacion, String encargado) {
+    public DetallePedido(long idDetallePedido, int cantidad, double precio, double total, Producto producto, Pedido pedido, String estado, String envio, String fecha, Calificacion calificacion, String encargado, TipoDePago tipoDePago, DetalleTransaccion detalleTransaccion) {
         this.idDetallePedido = idDetallePedido;
         this.cantidad = cantidad;
         this.precio = precio;
@@ -50,5 +54,7 @@ public class DetallePedido {
         this.fecha = fecha;
         this.calificacion = calificacion;
         this.encargado = encargado;
+        this.tipoDePago = tipoDePago;
+        this.detalleTransaccion = detalleTransaccion;
     }
 }

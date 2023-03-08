@@ -1,0 +1,51 @@
+<ul class="navbar-nav nav-tabs">
+  <li class="nav-item">
+    <a th:href="@{/home}" class="nav-link active" aria-current="page">Inicio</a>
+  </li>
+  <li class="nav-item">
+    <a th:href="@{/nosotros}" class="nav-link" aria-current="page">Nosotros</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Productos</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" th:href="@{/productos/hombre}">Hombre</a></li>
+      <li><a class="dropdown-item" th:href="@{/productos/mujer}">Mujer</a></li>
+      <li><a class="dropdown-item" th:href="@{/productos/nino}">Niño</a></li>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a th:href="@{/pqrs}" class="nav-link">PQR</a>
+  </li>
+  <li class="nav-item">
+    <a th:href="@{/contacto}" class="nav-link">Contacto</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="bi bi-person"></i></a>
+    <ul class="dropdown-menu dropdown-menu-lg-end">
+      <li sec:authorize="isAnonymous()"><a class="dropdown-item menuperfil cerrar" th:href="@{/login}"><i class="fas fa-sign-out-alt m-1"></i>Iniciar Sesión</a></li>
+      <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item menuperfil cerrar" th:href="@{/admin}"><i class="fas fa-sign-out-alt m-1"></i>Administrar mi cuenta</a></li>
+      <li sec:authorize="hasRole('ROLE_EMPLEADO')"><a class="dropdown-item menuperfil cerrar" th:href="@{/empleado}"><i class="fas fa-sign-out-alt m-1"></i>Administrar mi cuenta</a></li>
+      <li sec:authorize="hasRole('ROLE_CLIENTE')"><a class="dropdown-item menuperfil cerrar" th:href="@{/cliente}"><i class="fas fa-sign-out-alt m-1"></i>Administrar mi cuenta</a></li>
+      <li sec:authorize="isAuthenticated()"><a class="dropdown-item menuperfil cerrar" th:href="@{/logout}"><i class="fas fa-sign-out-alt m-1"></i>Cerrar Sesión</a></li>
+      <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item menuperfil cerrar" th:href="@{/registro/actualizar-datos-admin}"><i class="fas fa-user-edit m-1"></i></i>Editar Mi Información</a></li>
+      <li sec:authorize="hasRole('ROLE_EMPLEADO')"><a class="dropdown-item menuperfil cerrar" th:href="@{/registro/actualizar-datos-empleado}"><i class="fas fa-user-edit m-1"></i></i>Editar Mi Información</a></li>
+      <li sec:authorize="hasRole('ROLE_CLIENTE')"><a class="dropdown-item menuperfil cerrar" th:href="@{/registro/actualizar-datos}"><i class="fas fa-user-edit m-1"></i></i>Editar Mi Información</a></li>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <button type="button" class="btn position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+      <i class="bi bi-cart"></i>
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:each="numero : ${numero}" th:text="${numero}" sec:authorize="isAuthenticated()" th:if="${numero} < 10">
+
+                      <span class="visually-hidden">unread messages</span>
+                    </span>
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:each="numero : ${numero}" sec:authorize="isAuthenticated()" th:if="${numero} >= 10">
+                      9+
+                      <span class="visually-hidden">unread messages</span>
+                    </span>
+    </button>
+  </li>
+  <li class="nav-item">
+    <a th:href="@{/manual_coorporativo}" class="nav-link"><i class="bi bi-patch-question"></i></a>
+  </li>
+</ul>
