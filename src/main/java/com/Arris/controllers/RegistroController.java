@@ -37,18 +37,25 @@ public class RegistroController {
 
 
     @GetMapping("/admin")
-    public String interfazAdmin(){
+    public String interfazAdmin(Model model){
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
+        model.addAttribute("usuario",usuarios);
         return "interfaz_administrador/interfaz_administrador";
     }
 
     @GetMapping("/empleado")
-    public String interfazEmpleado(){
+    public String interfazEmpleado(Model model){
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
+        model.addAttribute("usuario",usuarios);
         return "interfaz_empleado/interfaz_empleado";
     }
 
     @GetMapping("/cliente")
     public String interfazCliente(Model model){
-
+        List<Envio> envio = envioService.getAll();
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
+        model.addAttribute("usuario",usuarios);
+        model.addAttribute("envio", envio);
         return "interfaz_cliente/interfaz_cliente";
     }
 }

@@ -68,6 +68,7 @@ public class DetallePedidoController {
     String usuario = "";
     @GetMapping("/gestion_ventas_admin")
     public String listarAdmin(Model model, Principal principal, Authentication auth){
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
         List<DetallePedido> detallePedido = detallePedidoService.getAll();
         List<Usuario> cliente = usuarioService.listarC();
         List<Usuario> empleado = usuarioService.listarE();
@@ -82,6 +83,7 @@ public class DetallePedidoController {
             }
         }
         System.out.println("%%%%%%%%%"+usuario);
+        model.addAttribute("usuario",usuarios);
         model.addAttribute("pedido", detallePedido);
         model.addAttribute("cliente", cliente);
         model.addAttribute("empleado", empleado);
@@ -94,6 +96,7 @@ public class DetallePedidoController {
 
     @GetMapping("/gestion_ventas_empleado")
     public String listarEmpleado(Model model, Authentication auth){
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
         List<DetallePedido> detallePedido = detallePedidoService.getAll();
         List<Usuario> cliente = usuarioService.listarC();
         List<Usuario> empleado = usuarioService.listarE();
@@ -107,6 +110,7 @@ public class DetallePedidoController {
                 detallePedidos.removeAll(detallePedidos);
             }
         }
+        model.addAttribute("usuario",usuarios);
         model.addAttribute("pedido", detallePedido);
         model.addAttribute("cliente", cliente);
         model.addAttribute("empleado", empleado);
@@ -119,11 +123,13 @@ public class DetallePedidoController {
 
     @GetMapping("/compras_cliente")
     public String listarComprasCliente(Model model, Usuario usuario){
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
         List<DetallePedido> detallePedido = detallePedidoService.getAll();
         List<Usuario> rolUsuario = usuarioService.listarUsuarios();
         List<Pedido> pedido = pedidoService.getAll();
         List<Producto> producto = productoService.getAll();
         List<Envio> envio = envioService.getAll();
+        model.addAttribute("usuario",usuarios);
         model.addAttribute("pedido", detallePedido);
         model.addAttribute("rolUsuario", rolUsuario);
         model.addAttribute("mostrarPedidos", pedido);

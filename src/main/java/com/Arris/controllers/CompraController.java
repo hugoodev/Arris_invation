@@ -29,6 +29,8 @@ public class CompraController {
 
     @Autowired
     ProveedorService proveedorService;
+    @Autowired
+    UsuarioService usuarioService;
 
     @GetMapping("/allzz")
     public ArrayList<Compra> getAllCompras(){
@@ -39,9 +41,11 @@ public class CompraController {
     public String listarCompras(Model model){
         List<DetalleCompra> detalleCompras = detalleCompraService.getAll();
         List<Producto> productos = productoService.getAll();
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
         List<DetallePedido> detallePedidos = detallePedidoService.getAll();
         List<Proveedor> proveedores = proveedorService.getAll();
         List<Compra> compras = compraService.getAll();
+        model.addAttribute("usuario",usuarios);
         model.addAttribute("compras", compras);
         model.addAttribute("proveedores",proveedores);
         model.addAttribute("detallePedidos",detallePedidos);
@@ -52,11 +56,13 @@ public class CompraController {
 
     @GetMapping("/inventario_compras_empleado")
     public String listarComprasEmpleado(Model model){
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
         List<DetalleCompra> detalleCompras = detalleCompraService.getAll();
         List<Producto> productos = productoService.getAll();
         List<DetallePedido> detallePedidos = detallePedidoService.getAll();
         List<Proveedor> proveedores = proveedorService.getAll();
         List<Compra> compras = compraService.getAll();
+        model.addAttribute("usuario",usuarios);
         model.addAttribute("compras", compras);
         model.addAttribute("proveedores",proveedores);
         model.addAttribute("detallePedidos",detallePedidos);

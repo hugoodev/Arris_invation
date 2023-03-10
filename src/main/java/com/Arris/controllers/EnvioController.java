@@ -2,8 +2,10 @@ package com.Arris.controllers;
 
 import com.Arris.models.Envio;
 import com.Arris.models.MailRequest;
+import com.Arris.models.Usuario;
 import com.Arris.service.EnvioService;
 import com.Arris.service.MailServiceImp;
+import com.Arris.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ public class EnvioController {
 
     @Autowired
     private MailServiceImp emailPort;
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping("/allqq")
     public ArrayList<Envio> getAllEnvios(){
@@ -32,21 +36,27 @@ public class EnvioController {
 
     @GetMapping("/verificacion_envios_admin")
     public String listarEnvio(Model model){
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
         List<Envio> envio = envioService.getAll();
+        model.addAttribute("usuario",usuarios);
         model.addAttribute("envio", envio);
         return "interfaz_administrador/templates/verificacion_envios";
     }
 
     @GetMapping("/verificacion_envios_empleado")
     public String listarEnvioEmpleado(Model model){
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
         List<Envio> envio = envioService.getAll();
+        model.addAttribute("usuario",usuarios);
         model.addAttribute("envio", envio);
         return "interfaz_empleado/templates/envios";
     }
 
     @GetMapping("/envios_cliente")
     public String listarEnviosCliente(Model model){
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
         List<Envio> envio = envioService.getAll();
+        model.addAttribute("usuario",usuarios);
         model.addAttribute("envio", envio);
         return "interfaz_cliente/templates/envios";
     }

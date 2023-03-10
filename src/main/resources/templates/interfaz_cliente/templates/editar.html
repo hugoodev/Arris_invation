@@ -52,7 +52,8 @@
         <div class="col-4 barra1">
             <div class="dropdown">
                 <button class="btn  dropdown-toggle boton text-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-user-circle user"></i>
+                    <img th:each="usuario : ${usuario}" th:if="${usuario.email} == ${#authentication.name} and ${usuario.imagen != ''}" th:src="@{'/recursos/' + ${usuario.imagen}}" th:alt="${usuario.imagen}" class="bd-placeholder-img rounded-circle" width="40">
+                    <i th:each="usuario : ${usuario}" th:if="${usuario.email} == ${#authentication.name} and ${usuario.imagen == ''}" class="fas fa-user-circle user"></i>
                 </button>
                 <ul class="dropdown-menu boton" aria-labelledby="dropdownMenuButton1">
                     <li sec:authorize="isAuthenticated()"><a class="dropdown-item menuperfil cerrar" th:href="@{/logout}"><i class="fas fa-sign-out-alt m-1"></i>Cerrar Sesión</a></li>
@@ -78,7 +79,21 @@
                  th:text="${mensaje}"
                  class="alert">
             </div>
-            <form th:action="@{/registro/actualizado}" method="post">
+            <form th:action="@{/registro/actualizado}" enctype="multipart/form-data" method="post">
+                <div class="card mx-auto" style="width: 12rem;" th:each="usuario : ${usuario}" th:if="${usuario.email} == ${#authentication.name}">
+                    <img th:src="@{'/recursos/' + ${usuario.imagen}}" th:alt="${usuario.imagen}" th:if="${usuario.email} == ${#authentication.name} and ${usuario.imagen != ''}" class="card-img-top d-block bd-placeholder-img rounded-circle">
+                    <i th:if="${usuario.email} == ${#authentication.name} and ${usuario.imagen == ''}" class="fas fa-user-circle user" style="font-size: 12rem;"></i>
+                    <div class="card-body">
+                        <h5 class="card-title">Foto de perfil.</h5>
+                        <ul class="nav flex-column">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-image"></i></span>
+                                <input type="file" class="form-control" placeholder="Selecciona un Archivo" aria-label="file" name="file" aria-describedby="basic-addon1">
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
             <div class="row" th:each="usuario : ${usuario}" th:if="${usuario.email} == ${#authentication.name}">
                 <div class="col-6">
                     <h5>N° Documento</h5>

@@ -33,6 +33,8 @@ public class PqrsController {
 
     @Autowired
     private MailServiceImp emailPort;
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping("/allx")
     public ArrayList<Pqrs> getAllPqrs(){
@@ -41,24 +43,30 @@ public class PqrsController {
 
     @GetMapping("/solicitudes_pqrs_admin")
     public String listarPQRS(Model model){
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
         List<Pqrs> pqrs =pqrsService.getAll();
+        model.addAttribute("usuario",usuarios);
         model.addAttribute("listarPqrs",pqrs);
         return "interfaz_administrador/templates/solicitudes_pqrs";
     }
 
     @GetMapping("/solicitudes_pqrs_empleado")
     public String listarPQRSEmpleado(Model model){
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
         List<Pqrs> pqrs =pqrsService.getAll();
+        model.addAttribute("usuario",usuarios);
         model.addAttribute("listarPqrs",pqrs);
         return "interfaz_empleado/templates/pqrs";
     }
 
     @GetMapping("/solicitudes_pqrs_cliente")
     public String listarPQRSCliente(Model model){
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
         List<DetallePedido> detallePedido = detallePedidoService.getAll();
         List<Pqrs> pqrs =pqrsService.getAll();
         List<Envio> envio = envioService.getAll();
         List<Calificacion> calificacion = calificacionService.getAllCalificaciones();
+        model.addAttribute("usuario",usuarios);
         model.addAttribute("envio",envio);
         model.addAttribute("pedido", detallePedido);
         model.addAttribute("listarPqrs",pqrs);

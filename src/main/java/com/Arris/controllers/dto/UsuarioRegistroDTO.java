@@ -22,15 +22,18 @@ public class UsuarioRegistroDTO {
 
     private Collection<Rol> roles;
 
+    private String imagen;
 
 
-    public UsuarioRegistroDTO(String nombre, String telefono, String email, String direccion, String password, Collection<Rol> roles) {
+
+    public UsuarioRegistroDTO(String nombre, String telefono, String email, String direccion, String password, Collection<Rol> roles, String imagen) {
         this.nombre = nombre;
         this.telefono = telefono;
         this.email = email;
         this.direccion = direccion;
         this.password = password;
         this.roles = roles;
+        this.imagen = imagen;
     }
 
 
@@ -69,7 +72,7 @@ public class UsuarioRegistroDTO {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -111,6 +114,14 @@ public class UsuarioRegistroDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     public Collection<Rol> getRoles() {

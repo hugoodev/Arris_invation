@@ -392,7 +392,8 @@
     <div class="col-4 barra1">
       <div class="dropdown">
         <button class="btn  dropdown-toggle boton text-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="fas fa-user-circle user"></i>
+          <img th:each="usuario : ${usuario}" th:if="${usuario.email} == ${#authentication.name} and ${usuario.imagen != ''}" th:src="@{'/recursos/' + ${usuario.imagen}}" th:alt="${usuario.imagen}" class="bd-placeholder-img rounded-circle" width="40">
+          <i th:each="usuario : ${usuario}" th:if="${usuario.email} == ${#authentication.name} and ${usuario.imagen == ''}" class="fas fa-user-circle user"></i>
         </button>
         <ul class="dropdown-menu boton" aria-labelledby="dropdownMenuButton1">
           <li sec:authorize="isAuthenticated()"><a class="dropdown-item menuperfil cerrar" th:href="@{/logout}"><i class="fas fa-sign-out-alt m-1"></i>Cerrar Sesión</a></li>
@@ -442,7 +443,7 @@
           <td th:text="${pedidos.pedido.idPedido}"></td>
           <td th:text="${pedidos.fecha}"></td>
           <td ><span class='badge estado' th:text="${pedidos.estado}"></span></td>
-          <td><button class="btn m-2" type="submit" data-bs-toggle="modal" th:if="${pedidos.estado} == 'Activo' and ${pedidos.pedido.empleado.email} == ${#authentication.name}" th:attr="data-bs-target='#a'+${pedidos.idDetallePedido}" title="editar"><i class="bi bi-pen-fill"></i></button>
+          <td><button class="btn m-2" type="submit" data-bs-toggle="modal" th:if="${pedidos.estado} == 'Activo' and ${pedidos.pedido.empleado} != null and ${pedidos.pedido.empleado.email} == ${#authentication.name}" th:attr="data-bs-target='#a'+${pedidos.idDetallePedido}" title="editar"><i class="bi bi-pen-fill"></i></button>
             <button th:if="${pedidos.calificacion} != null" th:onclick="estrellas[[${pedidos.idDetallePedido}]]()"  class="btn m-2" type="submit" data-bs-toggle="modal" th:attr="data-bs-target='#ab'+${pedidos.idDetallePedido}" title="Ver Calificación"><i class="bi bi-star-fill"></i></button>
             <span title="No han enviado alguna calificación sobre la venta">
                         <button th:if="${pedidos.calificacion} == null"  title="No han enviado alguna calificación sobre la venta" class="btn m-2" type="submit" disabled><i class="bi bi-star-fill"></i></button>

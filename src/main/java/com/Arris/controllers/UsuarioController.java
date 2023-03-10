@@ -18,9 +18,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 
@@ -76,6 +81,7 @@ public class UsuarioController {
     public String editarDatosCliente(Model model){
         List<Usuario> usuario = usuarioService.listarUsuarios();
         List<Envio> envio = envioService.getAll();
+        model.addAttribute("usuario",usuario);
         model.addAttribute("envio",envio);
         model.addAttribute("usuario",usuario);
         return "interfaz_cliente/templates/editar";
@@ -85,7 +91,7 @@ public class UsuarioController {
 
 
     @PostMapping("/actualizado")
-    public String editarDatosClienteEnv(@ModelAttribute("usuario") UsuarioRegistroDTO registroDTO, Model model, RedirectAttributes redirectAttrs){
+    public String editarDatosClienteEnv(@ModelAttribute("usuario") UsuarioRegistroDTO registroDTO, Model model, RedirectAttributes redirectAttrs, @RequestParam("file") MultipartFile imagen){
 
         Usuario usuario1 = usuarioRepository.findByEmail(registroDTO.getEmail());
 
@@ -93,6 +99,25 @@ public class UsuarioController {
         usuario1.setTelefono(registroDTO.getTelefono());
         usuario1.setEmail(registroDTO.getEmail());
         usuario1.setDireccion(registroDTO.getDireccion());
+
+        if (!imagen.isEmpty()) {
+            //Path directorioImagenes = Paths.get("src//main//resources//static//img/productos");
+            //String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+            String rutaAbsoluta = "C://Producto//recursos";
+            //String rutaAbsoluta = "//home//devh//Documentos//recursos//";
+
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+                Files.write(rutaCompleta, bytesImg);
+                usuario1.setImagen(imagen.getOriginalFilename());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            usuario1.setImagen(usuario1.getImagen());
+        }
 
         usuarioRepository.save(usuario1);
 
@@ -144,14 +169,34 @@ public class UsuarioController {
 
 
     @PostMapping("/actualizado-admin")
-    public String editarDatosAdminEnv(@ModelAttribute("usuario") UsuarioRegistroDTO registroDTO, Model model, RedirectAttributes redirectAttrs){
+    public String editarDatosAdminEnv(@ModelAttribute("usuario") UsuarioRegistroDTO registroDTO, Model model, RedirectAttributes redirectAttrs, @RequestParam("file") MultipartFile imagen){
 
         Usuario usuario1 = usuarioRepository.findByEmail(registroDTO.getEmail());
 
+        usuario1.setIdUsuario(registroDTO.getIdUsuario());
         usuario1.setNombre(registroDTO.getNombre());
         usuario1.setTelefono(registroDTO.getTelefono());
         usuario1.setEmail(registroDTO.getEmail());
         usuario1.setDireccion(registroDTO.getDireccion());
+
+        if (!imagen.isEmpty()) {
+            //Path directorioImagenes = Paths.get("src//main//resources//static//img/productos");
+            //String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+            String rutaAbsoluta = "C://Producto//recursos";
+            //String rutaAbsoluta = "//home//devh//Documentos//recursos//";
+
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+                Files.write(rutaCompleta, bytesImg);
+                usuario1.setImagen(imagen.getOriginalFilename());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            usuario1.setImagen(usuario1.getImagen());
+        }
 
         usuarioRepository.save(usuario1);
 
@@ -203,7 +248,7 @@ public class UsuarioController {
 
 
     @PostMapping("/actualizado-empleado")
-    public String editarDatosEmpleadoEnv(@ModelAttribute("usuario") UsuarioRegistroDTO registroDTO, Model model, RedirectAttributes redirectAttrs){
+    public String editarDatosEmpleadoEnv(@ModelAttribute("usuario") UsuarioRegistroDTO registroDTO, Model model, RedirectAttributes redirectAttrs, @RequestParam("file") MultipartFile imagen){
 
         Usuario usuario1 = usuarioRepository.findByEmail(registroDTO.getEmail());
 
@@ -211,6 +256,25 @@ public class UsuarioController {
         usuario1.setTelefono(registroDTO.getTelefono());
         usuario1.setEmail(registroDTO.getEmail());
         usuario1.setDireccion(registroDTO.getDireccion());
+
+        if (!imagen.isEmpty()) {
+            //Path directorioImagenes = Paths.get("src//main//resources//static//img/productos");
+            //String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+            String rutaAbsoluta = "C://Producto//recursos";
+            //String rutaAbsoluta = "//home//devh//Documentos//recursos//";
+
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+                Files.write(rutaCompleta, bytesImg);
+                usuario1.setImagen(imagen.getOriginalFilename());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            usuario1.setImagen(usuario1.getImagen());
+        }
 
         usuarioRepository.save(usuario1);
 
@@ -260,9 +324,11 @@ public class UsuarioController {
 
     @GetMapping("/editar_usuarios_admin")
     public String EditarUsuariosAdmin(Model model){
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
         List<Usuario> usuario = usuarioService.listarUsuarios();
         List<Usuario> roles = usuarioRepository.listarWithrol();
         List<Rol> allRoles = rolRepository.findAll();
+        model.addAttribute("usuario",usuarios);
         model.addAttribute("allRoles",allRoles);
         model.addAttribute("roles",roles);
         model.addAttribute("usuario",usuario);

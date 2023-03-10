@@ -38,7 +38,7 @@ public class UsuarioServiceImp implements UsuarioService {
 
     @Override
     public Usuario guardarUsuario(UsuarioRegistroDTO registroDTO) {
-        Usuario usuario = new Usuario(registroDTO.getIdUsuario(),registroDTO.getNombre(),registroDTO.getTelefono(),registroDTO.getEmail(),registroDTO.getDireccion(),passwordEncoder.encode(registroDTO.getPassword()));
+        Usuario usuario = new Usuario(registroDTO.getIdUsuario(),registroDTO.getNombre(),registroDTO.getTelefono(),registroDTO.getEmail(),registroDTO.getDireccion(),registroDTO.getImagen(),passwordEncoder.encode(registroDTO.getPassword()));
         return usuarioRepository.save(usuario);
     }
 
@@ -70,7 +70,7 @@ public class UsuarioServiceImp implements UsuarioService {
 
     @Override
     public Usuario save(Usuario usuario) {
-        Usuario usuarios = new Usuario(usuario.getIdUsuario(),usuario.getNombre(),usuario.getTelefono(),usuario.getEmail(),usuario.getDireccion(),passwordEncoder.encode(usuario.getPassword()));
+        Usuario usuarios = new Usuario(usuario.getIdUsuario(),usuario.getNombre(),usuario.getTelefono(),usuario.getEmail(),usuario.getDireccion(),usuario.getImagen(),passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuarios);
     }
 

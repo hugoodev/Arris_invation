@@ -48,10 +48,13 @@ public class HomeController {
             List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
 
             model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("usuario",usuario);
             model.addAttribute("numero", itemsCarrito.size());
             return "web/index";
 
         } catch (Exception e){
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            model.addAttribute("usuario",usuarios);
             return "web/index";
         }
     }
@@ -71,6 +74,7 @@ public class HomeController {
             List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
 
             model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("usuario",usuario);
             model.addAttribute("numero", itemsCarrito.size());
             return "web/templates/nosotros";
 
@@ -97,11 +101,14 @@ public class HomeController {
 
             model.addAttribute("productos", productos);
             model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("usuario",usuario);
             model.addAttribute("numero", itemsCarrito.size());
             return "web/templates/hombre";
 
         } catch (Exception e){
             List <Producto> productos = productoService.getAll();
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            model.addAttribute("usuario",usuarios);
             model.addAttribute("productos", productos);
             return "web/templates/hombre";
         }
@@ -124,11 +131,14 @@ public class HomeController {
 
             model.addAttribute("productos", productos);
             model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("usuario",usuario);
             model.addAttribute("numero", itemsCarrito.size());
             return "web/templates/mujer";
 
         } catch (Exception e){
             List <Producto> productos = productoService.getAll();
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            model.addAttribute("usuario",usuarios);
             model.addAttribute("productos", productos);
             return "web/templates/mujer";
         }
@@ -151,11 +161,14 @@ public class HomeController {
             List <Producto> productos = productoService.getAll();
             model.addAttribute("productos", productos);
             model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("usuario",usuario);
             model.addAttribute("numero", itemsCarrito.size());
             return "web/templates/nino";
 
         } catch (Exception e){
             List <Producto> productos = productoService.getAll();
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            model.addAttribute("usuario",usuarios);
             model.addAttribute("productos", productos);
             return "web/templates/nino";
         }
@@ -177,10 +190,13 @@ public class HomeController {
             List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
 
             model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("usuario",usuario);
             model.addAttribute("numero", itemsCarrito.size());
             return "web/templates/pqr";
 
         } catch (Exception e){
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            model.addAttribute("usuario",usuarios);
             return "web/templates/pqr";
         }
 
@@ -201,10 +217,13 @@ public class HomeController {
             List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
 
             model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("usuario",usuario);
             model.addAttribute("numero", itemsCarrito.size());
             return "web/templates/contacto";
 
         } catch (Exception e){
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            model.addAttribute("usuario",usuarios);
             return "web/templates/contacto";
         }
 
@@ -225,10 +244,13 @@ public class HomeController {
             List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
 
             model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("usuario",usuario);
             model.addAttribute("numero", itemsCarrito.size());
             return "web/templates/manual_coorporativo";
 
         } catch (Exception e){
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            model.addAttribute("usuario",usuarios);
             return "web/templates/manual_coorporativo";
         }
 
@@ -250,10 +272,13 @@ public class HomeController {
             List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
 
             model.addAttribute("itemsCarrito", itemsCarrito);
+            model.addAttribute("usuario",usuario);
             model.addAttribute("numero", itemsCarrito.size());
             return "web/templates/comprar_productos";
 
         } catch (Exception e){
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            model.addAttribute("usuario",usuarios);
             return "web/templates/comprar_productos";
         }
 
@@ -291,14 +316,14 @@ public class HomeController {
             model.addAttribute("disponibles", disponibles);
             model.addAttribute("id", id);
             model.addAttribute("productos", pr);
-
-
+            model.addAttribute("usuario",usuario);
             model.addAttribute("itemsCarrito", itemsCarrito);
             model.addAttribute("numero", itemsCarrito.size());
             return "web/templates/producto";
 
         } catch (Exception e){
-
+            List<Usuario> usuarios = usuarioService.listarUsuarios();
+            model.addAttribute("usuario",usuarios);
             List <Producto> productos = productoService.getAll();
             List <Producto> pr = new ArrayList<>();
             List <Integer> disponibles = new ArrayList<>();

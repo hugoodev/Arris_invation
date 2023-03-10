@@ -8,6 +8,7 @@ import com.Arris.repository.UsuarioRepository;
 import com.Arris.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -105,6 +106,15 @@ public class PasarelaPagoController {
         redirectAttrs
                 .addFlashAttribute("mensaje", "Hiciste '" + cantidad + "' compras a traves de la web. ¡Gracias! Cuando recibas el producto no olvides calificar, esto nos ayuda a mejorar.")
                 .addFlashAttribute("clase", "success");
+        if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+            return "redirect:/gestion_ventas_admin";
+        }
+        if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_EMPLEADO"))){
+            return "redirect:/gestion_ventas_empleado";
+        }
+        if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CLIENTE"))){
+            return "redirect:/compras_cliente";
+        }
         return "redirect:/compras_cliente";
     }
 
