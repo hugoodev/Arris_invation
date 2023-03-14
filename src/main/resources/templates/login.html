@@ -61,7 +61,7 @@
                         <div>
 
                         </div>
-                        <div class="alert alert-danger" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'] != null} ? ${session['SPRING_SECURITY_LAST_EXCEPTION'].message == 'Bad credentials'} : 'Ingresa las credenciales correctas'">
+                        <div class="alert alert-danger" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'] != null} ? ${session['SPRING_SECURITY_LAST_EXCEPTION'].message} : 'Ingresa las credenciales correctas'">
                         </div>
                     </div>
 
