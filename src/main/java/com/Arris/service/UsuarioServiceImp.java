@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -80,12 +81,11 @@ public class UsuarioServiceImp implements UsuarioService {
     @Override
     public UserDetails loadUserByUsername(String username) throws AuthenticationException {
         Usuario usuario = usuarioRepository.findByEmail(username);
-        System.out.println("Entro acaaaa"+usuario.getEstado().getNombre());
 
         if (usuario == null){
-            throw new BadCredentialsException("Usuario o password invalidos");
+            throw new BadCredentialsException("Usuario o contraseña invalidos");
         }
-        if (!usuario.getEstado().getNombre().equals("Activo")) {
+        else if (!usuario.getEstado().getNombre().equals("Activo")) {
             throw new BadCredentialsException("El usuarios se encuentra bloqueado o incativo");
         }
         return new User(usuario.getEmail(), usuario.getPassword(), mapearAutoridadesRoles(usuario.getRoles()));
