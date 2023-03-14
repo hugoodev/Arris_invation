@@ -31,6 +31,8 @@ public class Usuario implements Serializable {
     private String resetPasswordToken;
     @Setter @Getter @Column(name = "imagen")
     private String imagen;
+    @Setter @Getter @ManyToOne @JoinColumn(name = "estado")
+    private EstadoUsuarios estado;
 
     @Getter @Setter @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(
@@ -42,7 +44,7 @@ public class Usuario implements Serializable {
 
 
 
-    public Usuario(long idUsuario, String nombre, String telefono, String email, String direccion, String password, String imagen) {
+    public Usuario(long idUsuario, String nombre, String telefono, String email, String direccion, String password, String imagen, EstadoUsuarios estado) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -51,6 +53,7 @@ public class Usuario implements Serializable {
         this.password = password;
         this.roles = roles;
         this.imagen = imagen;
+        this.estado = estado;
     }
 
 

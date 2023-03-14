@@ -78,6 +78,15 @@
                     </select>
                   </ul>
                 </div>
+                <div class="col-6">
+                  <h5>Estado</h5>
+                  <ul class="nav flex-column">
+                    <select class="form-select" aria-label="Default select example" id="estado" name="estado" >
+                      <option value="" selected>Abre para seleccionar un estado</option>
+                      <option th:value="${estadoUsuarios.idEstado}" th:each="estadoUsuarios : ${estadoUsuarios}" th:text="${estadoUsuarios.nombre}"></option>
+                    </select>
+                  </ul>
+                </div>
               </div>
         </div>
 
@@ -139,6 +148,7 @@
                     <th scope="col">Email</th>
                     <th scope="col">Dirección</th>
                     <th scope="col">Rol</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Acción</th>
                   </tr>
                 </thead>
@@ -150,6 +160,7 @@
                     <td  th:text="${usuario.email}"></td>
                     <td th:text="${usuario.direccion}"></td>
                     <td th:each="roles : ${usuario.roles}" th:text="${roles.nombreRol}"></td>
+                    <td ><span class='badge estado' th:text="${usuario.estado.nombre}"></span></td>
                     <td><button class="btn m-2" type="button" data-bs-toggle="modal" th:attr="data-bs-target='#modalEditarUsuario'+${usuario.idUsuario}" title="editar"><i class="bi bi-pen-fill"></i></button></td>
                   </tr>
                 </tbody>
@@ -210,7 +221,7 @@ $(document).ready(function () {
 var estado = document.getElementsByClassName('estado');
   function estados(){
   for(i=0;i<estado.length;i++){
-  if(estado[i].textContent == "Entregado"){
+  if(estado[i].textContent == "Activo"){
      estado[i].classList.add('bg-success');
   }
   else{

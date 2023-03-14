@@ -1,5 +1,6 @@
 package com.Arris.controllers.dto;
 
+import com.Arris.models.EstadoUsuarios;
 import com.Arris.models.Rol;
 
 import java.util.Collection;
@@ -23,10 +24,11 @@ public class UsuarioRegistroDTO {
     private Collection<Rol> roles;
 
     private String imagen;
+    private EstadoUsuarios estado;
 
 
 
-    public UsuarioRegistroDTO(String nombre, String telefono, String email, String direccion, String password, Collection<Rol> roles, String imagen) {
+    public UsuarioRegistroDTO(String nombre, String telefono, String email, String direccion, String password, Collection<Rol> roles, String imagen, EstadoUsuarios estado) {
         this.nombre = nombre;
         this.telefono = telefono;
         this.email = email;
@@ -34,6 +36,7 @@ public class UsuarioRegistroDTO {
         this.password = password;
         this.roles = roles;
         this.imagen = imagen;
+        this.estado = estado;
     }
 
 
@@ -122,6 +125,13 @@ public class UsuarioRegistroDTO {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+    public EstadoUsuarios getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoUsuarios estado) {
+        this.estado = estado;
     }
 
     public Collection<Rol> getRoles() {

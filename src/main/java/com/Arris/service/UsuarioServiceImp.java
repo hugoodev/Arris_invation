@@ -8,6 +8,8 @@ import com.Arris.models.UsuarioNotFoundException;
 import com.Arris.repository.RolRepository;
 import com.Arris.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -38,7 +40,7 @@ public class UsuarioServiceImp implements UsuarioService {
 
     @Override
     public Usuario guardarUsuario(UsuarioRegistroDTO registroDTO) {
-        Usuario usuario = new Usuario(registroDTO.getIdUsuario(),registroDTO.getNombre(),registroDTO.getTelefono(),registroDTO.getEmail(),registroDTO.getDireccion(),registroDTO.getImagen(),passwordEncoder.encode(registroDTO.getPassword()));
+        Usuario usuario = new Usuario(registroDTO.getIdUsuario(),registroDTO.getNombre(),registroDTO.getTelefono(),registroDTO.getEmail(),registroDTO.getDireccion(),passwordEncoder.encode(registroDTO.getPassword()),registroDTO.getImagen(),registroDTO.getEstado());
         return usuarioRepository.save(usuario);
     }
 
@@ -70,16 +72,21 @@ public class UsuarioServiceImp implements UsuarioService {
 
     @Override
     public Usuario save(Usuario usuario) {
-        Usuario usuarios = new Usuario(usuario.getIdUsuario(),usuario.getNombre(),usuario.getTelefono(),usuario.getEmail(),usuario.getDireccion(),usuario.getImagen(),passwordEncoder.encode(usuario.getPassword()));
+        Usuario usuarios = new Usuario(usuario.getIdUsuario(),usuario.getNombre(),usuario.getTelefono(),usuario.getEmail(),usuario.getDireccion(),passwordEncoder.encode(usuario.getPassword()),usuario.getImagen(),usuario.getEstado());
         return usuarioRepository.save(usuarios);
     }
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws AuthenticationException {
         Usuario usuario = usuarioRepository.findByEmail(username);
+        System.out.println("Entro acaaaa"+usuario.getEstado().getNombre());
+
         if (usuario == null){
-            throw new UsernameNotFoundException("Usuario o password invalidos");
+            throw new BadCredentialsException("Usuario o password invalidos");
+        }
+        if (!usuario.getEstado().getNombre().equals("Activo")) {
+            throw new BadCredentialsException("El usuarios se encuentra bloqueado o incativo");
         }
         return new User(usuario.getEmail(), usuario.getPassword(), mapearAutoridadesRoles(usuario.getRoles()));
     }

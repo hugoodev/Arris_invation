@@ -3,11 +3,14 @@ package com.Arris.controllers;
 
 import com.Arris.controllers.dto.UsuarioRegistroDTO;
 import com.Arris.models.Envio;
+import com.Arris.models.EstadoUsuarios;
 import com.Arris.models.Rol;
 import com.Arris.models.Usuario;
+import com.Arris.repository.EstadoUsuariosRepository;
 import com.Arris.repository.RolRepository;
 import com.Arris.repository.UsuarioRepository;
 import com.Arris.service.EnvioService;
+import com.Arris.service.EstadoUsuariosService;
 import com.Arris.service.UsuarioService;
 import org.hibernate.annotations.ManyToAny;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +50,9 @@ public class UsuarioController {
 
     @Autowired
     EnvioService envioService;
+
+    @Autowired
+    EstadoUsuariosService estadoUsuariosService;
 
 
 
@@ -328,10 +334,12 @@ public class UsuarioController {
         List<Usuario> usuario = usuarioService.listarUsuarios();
         List<Usuario> roles = usuarioRepository.listarWithrol();
         List<Rol> allRoles = rolRepository.findAll();
+        List<EstadoUsuarios> estadoUsuarios = estadoUsuariosService.getAll();
         model.addAttribute("usuario",usuarios);
         model.addAttribute("allRoles",allRoles);
         model.addAttribute("roles",roles);
         model.addAttribute("usuario",usuario);
+        model.addAttribute("estadoUsuarios",estadoUsuarios);
         return "interfaz_administrador/templates/editar_usuarios";
     }
 
@@ -346,6 +354,8 @@ public class UsuarioController {
         u.setTelefono(registroDTO.getTelefono());
         u.setEmail(registroDTO.getEmail());
         u.setDireccion(registroDTO.getDireccion());
+        u.setEstado(registroDTO.getEstado());
+        System.out.println("$$$$$"+registroDTO.getEstado());
         redirectAttrs
                 .addFlashAttribute("mensaje", "Se a actualizado los parametros del usuario " + u.getNombre() + " satisfactoriamente" + " ✔")
                 .addFlashAttribute("clase", "success");
