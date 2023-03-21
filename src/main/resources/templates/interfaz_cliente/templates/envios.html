@@ -75,7 +75,7 @@
       <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
         <a class="nav-link" th:href="@{/compras_cliente}"><i class="fas fa-dollar-sign"></i></i><span>Mis Compras</span></a>
         <a class="nav-link" th:href="@{/solicitudes_pqrs_cliente}"><i class="far fa-smile"></i><span>Mis Solicitudes PQRS</span></a>
-        <a class="nav-link enviosBoton d-none" th:href="@{/envios_cliente}" th:each="envio : ${envio}" th:object="${envio}" th:if="${envio.venta.pedido.cliente.email} == ${#authentication.name}"><i class="fas fa-shipping-fast"></i><span>Mis Envios</span></a>
+        <a class="nav-link enviosBoton d-none" th:href="@{/envios_cliente}" th:each="envio : ${envio}" th:object="${envio}" th:if="${envio.venta.pedido.cliente.email} == ${#authentication.name}"><i class="fas fa-shipping-fast"></i><span>Mis Pedidos a Domicilio</span></a>
       </nav>
     </div>
     <main class="main col">

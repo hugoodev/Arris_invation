@@ -113,7 +113,7 @@ public class ForgotPasswordController {
         } else {
             usuarioServiceImp.updatePassword(usuario, password);
 
-            model.addAttribute("message", "se ha cambia tu contraseña satisfactoriamente.");
+            model.addAttribute("message", "se ha cambiado tu contraseña satisfactoriamente.");
         }
 
         return "login";

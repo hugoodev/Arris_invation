@@ -36,7 +36,7 @@ public class CarritoDeComprasRestController {
     public String addProductosCarrito(@PathVariable("pid") Integer productoId, @PathVariable("ctl") Integer cantidad, Authentication auth) {
         System.out.println("addproductcarrito" + productoId + "-" + cantidad);
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
-            return "Necesitas registrarte o logearte para poder agregar productos al carrito";
+            return "Necesitas registrarte o iniciar sesión para poder agregar productos al carrito";
         }
         String email = auth.getName();
         long id = 0;
@@ -82,7 +82,7 @@ public class CarritoDeComprasRestController {
     public String updateCantidad(@PathVariable("pid") Integer productoId, @PathVariable("ctl") Integer cantidad, Authentication auth) {
         System.out.println("addproductcarrito" + productoId + "-" + cantidad);
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
-            return "Necesitas registrarte o logearte para poder actualizar el producto al carrito";
+            return "Necesitas registrarte o iniciar sesión para poder actualizar el producto al carrito";
         }
         String email = auth.getName();
         long id = 0;
@@ -96,7 +96,7 @@ public class CarritoDeComprasRestController {
         Usuario usuario = usuarioRepository.findById(id);
 
         if (usuario == null) {
-            return "Necesitas registrarte o logearte para poder actualizar productos al carrito";
+            return "Necesitas registrarte o iniciar sesión para poder actualizar productos al carrito";
         }
 
         double subtotal = carritoDeComprasService.updateCantidad(productoId,cantidad,usuario);

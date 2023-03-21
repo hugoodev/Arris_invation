@@ -28,8 +28,19 @@
     button {
         font-size: 1.5rem !important;
     }
+    body {
+        background: rgba(255,200,0,1);
+background: -moz-linear-gradient(-45deg, rgba(255,200,0,1) 0%, rgba(255,200,0,1) 51%, rgba(242,242,242,1) 51%, rgba(242,242,242,1) 100%);
+background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(255,200,0,1)), color-stop(51%, rgba(255,200,0,1)), color-stop(51%, rgba(242,242,242,1)), color-stop(100%, rgba(242,242,242,1)));
+background: -webkit-linear-gradient(-45deg, rgba(255,200,0,1) 0%, rgba(255,200,0,1) 51%, rgba(242,242,242,1) 51%, rgba(242,242,242,1) 100%);
+background: -o-linear-gradient(-45deg, rgba(255,200,0,1) 0%, rgba(255,200,0,1) 51%, rgba(242,242,242,1) 51%, rgba(242,242,242,1) 100%);
+background: -ms-linear-gradient(-45deg, rgba(255,200,0,1) 0%, rgba(255,200,0,1) 51%, rgba(242,242,242,1) 51%, rgba(242,242,242,1) 100%);
+background: linear-gradient(135deg, rgba(255,200,0,1) 0%, rgba(255,200,0,1) 51%, rgba(242,242,242,1) 51%, rgba(242,242,242,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffc800', endColorstr='#f2f2f2', GradientType=1 );
+background-attachment: fixed;
+    }
 </style>
-<body style="background-color: #FFC900;">
+<body>
 
 <di class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -76,7 +87,7 @@
                 <div>
                     <a th:href="@{/forgot_password}">¿Olvidaste tu contraseña?</a>
                 </div>
-                <button type="submit" class="btn btn-dark border border-warning">Enviar</button> <a th:href="@{/registro}"><button type="button" class="btn btn-dark border border-warning">Registrarse</button></a>
+                <button type="submit" class="btn btn-dark border border-warning m-1">Ingresar</button> <a th:href="@{/registro}"><button type="button" class="btn btn-dark border border-warning">Registrarse</button></a>
             </form>
         </div>
         <div class="card-footer bg-dark bg-gradient">Powered by:<h6>Gaes 4©</h6><img th:src="@{img/Logo Mauricio png.png}" alt="" width="50%"></div>

@@ -35,7 +35,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-secondary" >Enviar</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-secondary" >Editar</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
             </form>
         </div>
@@ -70,7 +70,7 @@
             <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
                 <a class="nav-link" th:href="@{/compras_cliente}"><i class="fas fa-dollar-sign"></i></i><span>Mis Compras</span></a>
                 <a class="nav-link" th:href="@{/solicitudes_pqrs_cliente}"><i class="far fa-smile"></i><span>Mis Solicitudes PQRS</span></a>
-                <a class="nav-link enviosBoton d-none" th:href="@{/envios_cliente}" th:each="envio : ${envio}" th:object="${envio}" th:if="${envio.venta.pedido.cliente.email} == ${#authentication.name}"><i class="fas fa-shipping-fast"></i><span>Mis Envios</span></a>
+                <a class="nav-link enviosBoton d-none" th:href="@{/envios_cliente}" th:each="envio : ${envio}" th:object="${envio}" th:if="${envio.venta.pedido.cliente.email} == ${#authentication.name}"><i class="fas fa-shipping-fast"></i><span>Mis Pedidos a Domicilio</span></a>
             </nav>
         </div>
         <main class="main col">
@@ -145,7 +145,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cambiarContrasena">Cambiar Contraseña</button>
                 </div>
                     <div class="container">
-                        <button type="submit" class="btn btn-secondary">Enviar</button>
+                        <button type="submit" class="btn btn-secondary">Editar</button>
                     </div>
             </div>
             </form>

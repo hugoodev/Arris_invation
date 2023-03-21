@@ -70,15 +70,6 @@
                     <form th:action="@{/registro/guardar_usuario_admin}" th:object="${usuario}" method="post">
                     <div class="row">
                       <div class="col-6">
-                        <h5>Cedula De Ciudadania</h5>
-                        <ul class="nav flex-column">
-                          <div class="input-group mb-3">
-                            <span class="input-group-text" id="addon-wrapping"><i class="bi bi-receipt"></i></span>
-                            <input type="number" class="form-control" placeholder="N° Cedula" aria-label="idUsuario" name="idUsuario" id="idUsuario" aria-describedby="basic-addon1" min="0" onkeypress="return check(event)"  required>
-                          </div>
-                        </ul>
-                      </div>
-                      <div class="col-6">
                         <h5>Nombre</h5>
                         <ul class="nav flex-column">
                           <div class="input-group mb-3">
@@ -125,7 +116,7 @@
                       </div>
                     </div>
                       <div class="modal-footer">
-                        <button type="submit" class="btn btn-secondary">Enviar</button>
+                        <button type="submit" class="btn btn-secondary">Crear</button>
                     </form>
                   </div>
                   </div>
@@ -164,7 +155,7 @@
 
                       </div>
                       <div class="modal-footer">
-                        <button type="submit" class="btn btn-secondary">Enviar</button>
+                        <button type="submit" class="btn btn-secondary">Crear</button>
                     </form>
                   </div>
                   </div>
@@ -317,7 +308,7 @@
                 </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" onclick="return confirm_change()" class="btn btn-secondary" >Enviar</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" onclick="return confirm_change()" class="btn btn-secondary" >Editar</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
           </form>
         </div>

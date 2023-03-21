@@ -67,17 +67,8 @@
             </h2>
             <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
               <div class="accordion-body">
-                <form th:action="@{/guardar_nuevo_usuario}" th:object="${usuario}" method="post">
+                <form th:action="@{/registro/guardar_nuevo_usuario_empleado}" th:object="${usuario}" method="post">
                   <div class="row">
-                    <div class="col-6">
-                      <h5>Cedula De Ciudadania</h5>
-                      <ul class="nav flex-column">
-                        <div class="input-group mb-3">
-                          <span class="input-group-text" id="addon-wrapping"><i class="bi bi-receipt"></i></span>
-                          <input type="number" class="form-control" placeholder="N° Cedula" aria-label="idUsuario" name="idUsuario" id="idUsuario" aria-describedby="basic-addon1" min="0" onkeypress="return check(event)"  required>
-                        </div>
-                      </ul>
-                    </div>
                     <div class="col-6">
                       <h5>Nombre</h5>
                       <ul class="nav flex-column">
@@ -125,7 +116,7 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-secondary">Enviar</button>
+                    <button type="submit" class="btn btn-secondary">Crear</button>
                 </form>
               </div>
             </div>
@@ -164,7 +155,7 @@
 
                 </div>
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-secondary">Enviar</button>
+                  <button type="submit" class="btn btn-secondary">Crear</button>
               </form>
             </div>
           </div>
@@ -318,7 +309,7 @@
           </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" onclick="return confirm_change()" class="btn btn-secondary" >Enviar</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" onclick="return confirm_change()" class="btn btn-secondary" >Editar</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
       </form>
     </div>
@@ -387,7 +378,9 @@
 <div class="container-fluid">
   <div class="row justify-content-center align-content-center">
     <div class="col-8 barra">
-      <img id="logo" th:src="@{/img/Logo Mauricio png.png}">
+      <a th:href="@{/home}" >
+        <img id="logo" th:src="@{/img/Logo Mauricio png.png}">
+        <button type="button" class="btn btn-dark border border-warning">Volver a la tienda <i class="bi bi-bag-heart-fill"></i></button></a>
     </div>
     <div class="col-4 barra1">
       <div class="dropdown">
