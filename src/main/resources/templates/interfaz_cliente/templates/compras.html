@@ -64,12 +64,12 @@
             <div class="col-8 barra">
                 <a th:href="@{/home}" >
                     <img id="logo" th:src="@{/img/Logo Mauricio png.png}">
-                    <button type="button" class="btn btn-dark border border-warning">Volver a la tienda <i class="bi bi-bag-heart-fill"></i></button></a>
+                    <button type="button" class="btn btn-dark border border-warning">Ir a la tienda <i class="bi bi-bag-heart-fill"></i></button></a>
             </div>
             <div class="col-4 barra1">
                 <div class="dropdown">
                   <button class="btn  dropdown-toggle boton text-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      <img th:each="usuario : ${usuario}" th:if="${usuario.email} == ${#authentication.name} and ${usuario.imagen != ''}" th:src="@{'/recursos/' + ${usuario.imagen}}" th:alt="${usuario.imagen}" class="bd-placeholder-img rounded-circle" width="40">
+                      <img th:each="usuario : ${usuario}" th:if="${usuario.email} == ${#authentication.name} and ${usuario.imagen != ''}" th:src="@{'https://arrisinvation.s3.us-east-2.amazonaws.com/img/recursos/' + ${usuario.imagen}}" th:alt="${usuario.imagen}" class="bd-placeholder-img rounded-circle" width="40">
                       <i th:each="usuario : ${usuario}" th:if="${usuario.email} == ${#authentication.name} and ${usuario.imagen == ''}" class="fas fa-user-circle user"></i>
                   </button>
                   <ul class="dropdown-menu boton" aria-labelledby="dropdownMenuButton1">

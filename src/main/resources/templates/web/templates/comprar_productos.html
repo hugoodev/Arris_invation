@@ -94,7 +94,7 @@
                   <div><a class="bi bi-trash text-danger link-remove" th:rowNumber="${status.count}" th:href="@{'/carrito/eliminar/'+${productos.idProducto}}"></a></div>
                 </div>
                 <div class="col-3">
-                  <img th:src="@{'/recursos/' + ${productos.imagen}}" th:alt="${productos.imagen}" class="img-fluid rounded-start" alt="...">
+                  <img th:src="@{'https://arrisinvation.s3.us-east-2.amazonaws.com/img/recursos/' + ${productos.imagen}}" th:alt="${productos.imagen}" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-6">
                   <div>

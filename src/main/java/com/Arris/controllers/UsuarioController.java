@@ -10,6 +10,11 @@ import com.Arris.service.EnvioService;
 import com.Arris.service.EstadoUsuariosService;
 import com.Arris.service.MailServiceImp;
 import com.Arris.service.UsuarioService;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import net.bytebuddy.utility.RandomString;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.annotations.ManyToAny;
@@ -28,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -208,16 +214,30 @@ public class UsuarioController {
         usuario1.setDireccion(registroDTO.getDireccion());
 
         if (!imagen.isEmpty()) {
-            //Path directorioImagenes = Paths.get("src//main//resources//static//img/productos");
-            //String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
-            String rutaAbsoluta = "C://Producto//recursos";
-            //String rutaAbsoluta = "//home//devh//Documentos//recursos//";
+            String bucketName = "arrisinvation"; // Reemplaza esto con el nombre de tu bucket
+            String objectName = "img/recursos/" + imagen.getOriginalFilename(); // Ruta dentro del bucket donde se guardará la imagen
 
             try {
+                System.out.println("entra al try");
                 byte[] bytesImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-                Files.write(rutaCompleta, bytesImg);
-                usuario1.setImagen(imagen.getOriginalFilename());
+
+                // Configuración del cliente de S3
+                BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA32F6UYABIAAPQ4OV", "d1EGobNyD8KmVwSbo+tk5JT2pbrSupkkQ+NXKyEW"); // Reemplaza esto con tus credenciales de AWS
+                AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                        .withRegion("us-east-2") // Reemplaza esto con la región de tu bucket
+                        .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+                        .build();
+                System.out.println("pasa las credenciales");
+
+                // Carga de la imagen en el bucket de S3
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(bytesImg);
+                ObjectMetadata metadata = new ObjectMetadata();
+                metadata.setContentLength(bytesImg.length);
+                s3Client.putObject(bucketName, objectName, inputStream, metadata);
+                System.out.println("Cargasads la imagen en el bucket de S3");
+
+                usuario1.setImagen(imagen.getOriginalFilename()); // Guarda la ruta de la imagen en el objeto producto
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -287,16 +307,30 @@ public class UsuarioController {
         usuario1.setDireccion(registroDTO.getDireccion());
 
         if (!imagen.isEmpty()) {
-            //Path directorioImagenes = Paths.get("src//main//resources//static//img/productos");
-            //String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
-            String rutaAbsoluta = "C://Producto//recursos";
-            //String rutaAbsoluta = "//home//devh//Documentos//recursos//";
+            String bucketName = "arrisinvation"; // Reemplaza esto con el nombre de tu bucket
+            String objectName = "img/recursos/" + imagen.getOriginalFilename(); // Ruta dentro del bucket donde se guardará la imagen
 
             try {
+                System.out.println("entra al try");
                 byte[] bytesImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-                Files.write(rutaCompleta, bytesImg);
-                usuario1.setImagen(imagen.getOriginalFilename());
+
+                // Configuración del cliente de S3
+                BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA32F6UYABIAAPQ4OV", "d1EGobNyD8KmVwSbo+tk5JT2pbrSupkkQ+NXKyEW"); // Reemplaza esto con tus credenciales de AWS
+                AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                        .withRegion("us-east-2") // Reemplaza esto con la región de tu bucket
+                        .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+                        .build();
+                System.out.println("pasa las credenciales");
+
+                // Carga de la imagen en el bucket de S3
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(bytesImg);
+                ObjectMetadata metadata = new ObjectMetadata();
+                metadata.setContentLength(bytesImg.length);
+                s3Client.putObject(bucketName, objectName, inputStream, metadata);
+                System.out.println("Cargasads la imagen en el bucket de S3");
+
+                usuario1.setImagen(imagen.getOriginalFilename()); // Guarda la ruta de la imagen en el objeto producto
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -365,16 +399,30 @@ public class UsuarioController {
         usuario1.setDireccion(registroDTO.getDireccion());
 
         if (!imagen.isEmpty()) {
-            //Path directorioImagenes = Paths.get("src//main//resources//static//img/productos");
-            //String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
-            String rutaAbsoluta = "C://Producto//recursos";
-            //String rutaAbsoluta = "//home//devh//Documentos//recursos//";
+            String bucketName = "arrisinvation"; // Reemplaza esto con el nombre de tu bucket
+            String objectName = "img/recursos/" + imagen.getOriginalFilename(); // Ruta dentro del bucket donde se guardará la imagen
 
             try {
+                System.out.println("entra al try");
                 byte[] bytesImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-                Files.write(rutaCompleta, bytesImg);
-                usuario1.setImagen(imagen.getOriginalFilename());
+
+                // Configuración del cliente de S3
+                BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA32F6UYABIAAPQ4OV", "d1EGobNyD8KmVwSbo+tk5JT2pbrSupkkQ+NXKyEW"); // Reemplaza esto con tus credenciales de AWS
+                AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                        .withRegion("us-east-2") // Reemplaza esto con la región de tu bucket
+                        .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+                        .build();
+                System.out.println("pasa las credenciales");
+
+                // Carga de la imagen en el bucket de S3
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(bytesImg);
+                ObjectMetadata metadata = new ObjectMetadata();
+                metadata.setContentLength(bytesImg.length);
+                s3Client.putObject(bucketName, objectName, inputStream, metadata);
+                System.out.println("Cargasads la imagen en el bucket de S3");
+
+                usuario1.setImagen(imagen.getOriginalFilename()); // Guarda la ruta de la imagen en el objeto producto
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

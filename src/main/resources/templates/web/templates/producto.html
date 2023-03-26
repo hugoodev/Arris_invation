@@ -78,7 +78,7 @@
     </div>
     <div class="row justify-content-center ">
         <div class="col-md-6 align-self-start " >
-            <img width="100%" id="it" class="demo" th:each="productos : ${productos}" onclick="transicion();"  th:src="@{'/recursos/' + ${productos.imagen}}" alt="">
+            <img width="100%" id="it" class="demo" th:each="productos : ${productos}" onclick="transicion();"  th:src="@{'https://arrisinvation.s3.us-east-2.amazonaws.com/img/recursos/' + ${productos.imagen}}" alt="">
         </div>
         <div class="col-md-6 align-self-center text-center ">
             <div  class="card" style="width: 100%;">
