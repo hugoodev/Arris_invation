@@ -21,11 +21,36 @@
 $(document).ready(function () {
     // Create DataTable
     var table = $('#myTable').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    });
+  dom: 'Bfrtip',
+  buttons: [{
+    extend: 'pdfHtml5',
+    title: 'Reportes Ventas Lipem`s.in',
+    orientation: 'portrait',
+    pageSize: 'A4',
+    text: 'Export PDF',
+    customize: function(doc) {
+      // Add custom content after the page content
+      doc['footer'] = (function(page, pages) {
+        return {
+          columns: [{
+            text: 'Lipem`s.in, cualquier duda llamar al 7555-5454-555',
+            fontSize: 8,
+            alignment: 'center',
+            margin: [0, 0, 0, 8]
+          }],
+          margin: [20, 0]
+        };
+      });
+      doc.content.push({
+        text: 'Lipem`s.in',
+        alignment: 'center',
+        fontSize: 8,
+        color: '#444444',
+        margin: [0, 0, 0, 20]
+      });
+    }
+  }, 'copy', 'csv', 'excel', 'print']
+});
 
     // Create the chart with initial data
     var container = $('<div/>').insertBefore(table.table().container());

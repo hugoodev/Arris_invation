@@ -36,7 +36,7 @@ public class CarritoDeComprasRestController {
     public String addProductosCarrito(@PathVariable("pid") Integer productoId, @PathVariable("ctl") Integer cantidad, Authentication auth) {
         System.out.println("addproductcarrito" + productoId + "-" + cantidad);
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
-            return "Necesitas registrarte o iniciar sesión para poder agregar productos al carrito";
+            return "Necesitas registrarte o iniciar sesión para poder agregar productos al carrito. <br> <a href='/registro'><button type='button' class='btn btn-success border border-warning'>Registrarse</button></a> o <a href='/login'><button type='button' class='btn btn-success border border-warning'>Iniciar Sesión</button></a>";
         }
         String email = auth.getName();
         long id = 0;
@@ -50,7 +50,7 @@ public class CarritoDeComprasRestController {
         Usuario usuario = usuarioRepository.findById(id);
 
         if (usuario == null) {
-            return "Necesitas registrarte o logearte para poder agregar productos al carrito";
+            return "Necesitas registrarte o iniciar sesión para poder agregar productos al carrito. <br> <a href='/registro'><button type='button' class='btn btn-success border border-warning'>Registrarse</button></a> o <a href='/login'><button type='button' class='btn btn-success border border-warning'>Iniciar Sesión</button></a>";
         }
         Long idproducto = Long.valueOf(productoId);
 

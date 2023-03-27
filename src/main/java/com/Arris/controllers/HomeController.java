@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -316,7 +317,7 @@ public class HomeController {
             model.addAttribute("disponibles", disponibles);
             model.addAttribute("id", id);
             model.addAttribute("productos", pr);
-            model.addAttribute("usuario",usuario);
+            model.addAttribute("usuario",idi);
             model.addAttribute("itemsCarrito", itemsCarrito);
             model.addAttribute("numero", itemsCarrito.size());
             return "web/templates/producto";
@@ -345,4 +346,83 @@ public class HomeController {
         }
 
     }
+    @GetMapping("/actualizar_producto")
+    public ModelAndView miPagina(@RequestParam(name="id") int id, Authentication auth, Model model) {
+        String email = auth.getName();
+        long idi = 0;
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
+        for (Usuario user : usuarios){
+            if(user.getEmail().equals(email)){
+                idi = user.getIdUsuario();
+                System.out.println("######" + user.getNombre() + user.getIdUsuario());
+            }
+        }
+        Usuario usuario = usuarioRepository.findById(idi);
+        List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
+
+        List <Producto> productos = productoService.getAll();
+        List <Producto> pr = new ArrayList<>();
+        List <Integer> disponibles = new ArrayList<>();
+        for (Producto producto : productos) {
+            if (producto.getIdProducto() == id) {
+                pr.add(producto);
+            }
+        }
+        for (int i = 0; i < pr.size(); i++) {
+            for ( int j = 1; j <= pr.get(i).getDisponibles(); j++) {
+                disponibles.add(j);
+                System.out.println("######"+j);
+            }
+        }
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("web/templates/menu"); // el nombre de la vista que se encuentra en la carpeta resources/templates
+        modelAndView.addObject("mensaje", "¡Hola desde mi controlador!"); // datos que se enviarán a la vista
+        model.addAttribute("disponibles", disponibles);
+        model.addAttribute("id", id);
+        model.addAttribute("productos", pr);
+        model.addAttribute("usuario",idi);
+        model.addAttribute("itemsCarrito", itemsCarrito);
+        model.addAttribute("numero", itemsCarrito.size());
+        return modelAndView;
+    }
+    @GetMapping("/actualizar_carrito")
+    public ModelAndView miPaginaCarrito(@RequestParam(name="id") int id, Authentication auth, Model model) {
+        String email = auth.getName();
+        long idi = 0;
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
+        for (Usuario user : usuarios){
+            if(user.getEmail().equals(email)){
+                idi = user.getIdUsuario();
+                System.out.println("######" + user.getNombre() + user.getIdUsuario());
+            }
+        }
+        Usuario usuario = usuarioRepository.findById(idi);
+        List<ItemsCarrito> itemsCarrito = carritoDeComprasService.listCartItems(usuario);
+
+        List <Producto> productos = productoService.getAll();
+        List <Producto> pr = new ArrayList<>();
+        List <Integer> disponibles = new ArrayList<>();
+        for (Producto producto : productos) {
+            if (producto.getIdProducto() == id) {
+                pr.add(producto);
+            }
+        }
+        for (int i = 0; i < pr.size(); i++) {
+            for ( int j = 1; j <= pr.get(i).getDisponibles(); j++) {
+                disponibles.add(j);
+                System.out.println("######"+j);
+            }
+        }
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("web/templates/carrito"); // el nombre de la vista que se encuentra en la carpeta resources/templates
+        modelAndView.addObject("mensaje", "¡Hola desde mi controlador!"); // datos que se enviarán a la vista
+        model.addAttribute("disponibles", disponibles);
+        model.addAttribute("id", id);
+        model.addAttribute("productos", pr);
+        model.addAttribute("usuario",idi);
+        model.addAttribute("itemsCarrito", itemsCarrito);
+        model.addAttribute("numero", itemsCarrito.size());
+        return modelAndView;
+    }
 }
+

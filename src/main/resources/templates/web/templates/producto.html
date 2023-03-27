@@ -54,8 +54,8 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse  justify-content-end" id="navbarNav">
-            <div th:replace="web/templates/menu"></div>
+        <div class="collapse navbar-collapse seccion_menu justify-content-end" id="navbarNav">
+            <div th:replace="web/templates/menu" ></div>
         </div>
     </div>
 </nav>
@@ -96,6 +96,16 @@
                         <div th:each="productos : ${productos}">
                             <div th:replace="web/templates/control_cantidad_producto :: control_cantidad(1, ${productos.idProducto}, ${productos.disponibles})">Cantidad</div>
                         </div>
+                            <h5>Talla</h5>
+                            <div class="form-floating m-2">
+                                <select class="form-select" id="exampleSelect1" aria-label="Elije la talla de tu producto" required>
+                                    <option value="1">S</option>
+                                    <option value="2">M</option>
+                                    <option value="3">L</option>
+                                    <option value="3">XL</option>
+                                </select>
+                                <label for="exampleSelect1">Elije la talla de tu producto</label>
+                            </div>
                         </center>
                 </div>
                     <div class="d-grid gap-2">
@@ -107,7 +117,10 @@
         </div>
     </div>
 </div>
-<div th:replace="web/templates/carrito"></div>
+<div id="seccion_carrito">
+    <div  th:replace="web/templates/carrito"></div>
+</div>
+
 <!--Footer inicio-->
 <div th:replace="web/templates/pie_paginas"></div>
 <!--Footer final-->
@@ -180,6 +193,9 @@
     var csrfValue = "[[${_csrf.token}]]";
     var productoId = "[[${productos.idProducto}]]";
     var disponibles = [[${productos.disponibles}]];
+</script>
+<script type="text/javascript"  th:each="usuario : ${usuario}">
+    var idCliente = [[${usuario}]];
 </script>
 <!--cambio de col-->
 <script src="../../js/img-change.js"></script>

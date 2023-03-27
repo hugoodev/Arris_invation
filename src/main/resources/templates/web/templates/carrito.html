@@ -1,23 +1,4 @@
-<!-- modal informacion sobre agregar-->
 
-<div class="modal" tabindex="-1" data-bs-toggle="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalTitle">Información</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p id="modalBody"></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- fin modal informacion sobre agregar-->
 <!--Carrito de compras-->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
   <div class="offcanvas-header">
@@ -33,12 +14,13 @@
         </div>
       </div>
       <div class="row" sec:authorize="isAuthenticated()">
-        <div class="col">
-          <th:block th:each="itemsCarrito, status : ${itemsCarrito}">
-            <div class="row border rounded" th:with="productos = ${itemsCarrito.producto}" th:id="'row' + ${status.count}">
+
+            <div class="col" >
+              <th:block th:each="itemsCarrito, status : ${itemsCarrito}">
+            <div class="row border rounded" th:id="'row' + ${status.count}" th:with="productos = ${itemsCarrito.producto}" >
               <div class="col-1">
                 <div>[[${status.count}]]</div>
-                <div><a class="bi bi-trash text-danger link-remove" th:rowNumber="${status.count}" th:href="@{'/carrito/eliminar/'+${productos.idProducto}}"></a></div>
+                <div><a th:class="'bi bi-trash text-danger link-remove' + ${productos.idProducto}" th:rowNumber="${status.count}" th:href="@{'/carrito/eliminar/'+${productos.idProducto}}"></a></div>
               </div>
               <div class="col-3">
                 <img th:src="@{'https://arrisinvation.s3.us-east-2.amazonaws.com/img/recursos/' + ${productos.imagen}}" th:alt="${productos.imagen}" class="img-fluid rounded-start" alt="...">
@@ -68,7 +50,7 @@
                 increaseCantidad[[${productos.idProducto}]]($(this));
             });
 
-        $(".link-remove").on("click", function(evt){
+        $(".link-remove[[${productos.idProducto}]]").on("click", function(evt){
             evt.preventDefault();
             removeDeCarrito[[${productos.idProducto}]]($(this));
         });
@@ -79,6 +61,7 @@
 
 function removeDeCarrito[[${productos.idProducto}]](link) {
     url = link.attr("href");
+    var timestamp = new Date().getTime();
 
     $.ajax({
         type: "POST",
@@ -87,6 +70,8 @@ function removeDeCarrito[[${productos.idProducto}]](link) {
             xhr.setRequestHeader(csrfHeaderName, csrfValue)
         }
     }).done(function(response) {
+    $('body').css({'overflow':'unset'});
+        $('body').css({'padding-right':'0'});
         $("#modalTitle").text("Carrito de compras");
         if(response.includes("removed")) {
             $("#myModal").on("hide.bs.modal", function(e) {
@@ -95,8 +80,25 @@ function removeDeCarrito[[${productos.idProducto}]](link) {
                 updateTotal();
             });
         }
-        $("#modalBody").text(response);
+        $("#modalBody").html(response);
         $("#myModal").modal("show");
+        $.get("/actualizar_producto?id="+[[${productos.idProducto}]]+"&t="+timestamp, function(data) {$(".seccion_menu").html(data);});
+        $.get({
+    url: "/actualizar_carrito?id=" + [[${productos.idProducto}]],
+    cache: false,
+    success: function(data) {
+        $("#seccion_carrito").html(data);
+        setTimeout(function() {
+    location.reload();
+}, 4000);
+    },
+    error: function(xhr, status, error) {
+        console.error("Error cargando datos:", error);
+    }
+});
+
+
+
     }).fail(function() {
               $("#modalTitle").text("Carrito de compras");
               $("#modalBody").text("hubo un error inesperado al intentar agregar el producto al carrito de compras");
@@ -170,6 +172,7 @@ function updateTotal() {
             <div class="row m-1">&nbsp;</div>
           </th:block>
         </div>
+
         <div th:unless="${#lists.isEmpty(itemsCarrito)}">
           <div>
             <span class="h3">Estimación Total:</span>
